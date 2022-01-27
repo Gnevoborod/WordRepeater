@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WordRepeater.Model;
 
 namespace WordRepeater
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             notifyIcon1.Visible = false;
@@ -22,7 +23,8 @@ namespace WordRepeater
 
             // добавляем событие на изменение окна
             this.Resize += new System.EventHandler(this.Form1_Resize);
-            
+
+            LanguagesTab.TabPages.Clear();//удаляем служебную вкладку после старта приложения
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -51,6 +53,23 @@ namespace WordRepeater
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public void ShowTabWithLanguages()
+        {
+            LanguagesTab.TabPages.Add(Settings.Languages.Last<string>());
+            if (false == LanguagesTab.Visible)
+                LanguagesTab.Visible = true;
+        }
+
+        private void AddNewLanguageButton_Click(object sender, EventArgs e)
+        {
+            if (Program.MaxLanguagesCount== LanguagesTab.TabCount) {
+                MessageBox.Show("Unfortunately maximum tab count was reached. If you want to add another one language please contact us or delete one of you current language.");
+                return;//если достигли максимального количества изучаемых языков - выдаём сообщение. Нужно оно или нет - пока непонятно
+            }
+            CreateNewLanguageForm cnlf = new CreateNewLanguageForm(this);
+            cnlf.Show();
         }
     }
 }
