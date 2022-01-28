@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,6 +13,7 @@ namespace WordRepeater
         public const int MaxLanguagesCount = 3;
         public const int ModelVersion = 0;//¬ерси€ моделей данных. ѕри несовпадении требуетс€ конвертаци€ модели локальных данных
         public static MainForm mfMainForm;
+        public static string PATH = Environment.CurrentDirectory;
         //конец настроечных переменных
         /// <summary>
         ///  The main entry point for the application.
@@ -19,6 +21,10 @@ namespace WordRepeater
         [STAThread]
         static void Main()
         {
+            if (!Directory.Exists(Program.PATH + "\\UserData\\"))
+                Directory.CreateDirectory(Program.PATH + "\\UserData\\");
+            Controller.Init();
+            Controller.LoadDictionary();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

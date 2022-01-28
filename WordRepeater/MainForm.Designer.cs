@@ -33,7 +33,9 @@ namespace WordRepeater
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.SettingsButton = new System.Windows.Forms.ToolStripButton();
             this.AddNewLanguageButton = new System.Windows.Forms.ToolStripButton();
+            this.NewWordButton = new System.Windows.Forms.ToolStripButton();
             this.LanguagesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.toolStrip1.SuspendLayout();
@@ -50,12 +52,24 @@ namespace WordRepeater
             // 
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AddNewLanguageButton});
+            this.SettingsButton,
+            this.AddNewLanguageButton,
+            this.NewWordButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1566, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // SettingsButton
+            // 
+            this.SettingsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SettingsButton.Image = ((System.Drawing.Image)(resources.GetObject("SettingsButton.Image")));
+            this.SettingsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SettingsButton.Name = "SettingsButton";
+            this.SettingsButton.Size = new System.Drawing.Size(29, 24);
+            this.SettingsButton.Text = "Settings";
+            this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
             // AddNewLanguageButton
             // 
@@ -66,6 +80,16 @@ namespace WordRepeater
             this.AddNewLanguageButton.Size = new System.Drawing.Size(29, 24);
             this.AddNewLanguageButton.Text = "New Languge";
             this.AddNewLanguageButton.Click += new System.EventHandler(this.AddNewLanguageButton_Click);
+            // 
+            // NewWordButton
+            // 
+            this.NewWordButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.NewWordButton.Image = ((System.Drawing.Image)(resources.GetObject("NewWordButton.Image")));
+            this.NewWordButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.NewWordButton.Name = "NewWordButton";
+            this.NewWordButton.Size = new System.Drawing.Size(29, 24);
+            this.NewWordButton.Text = "New word";
+            this.NewWordButton.Click += new System.EventHandler(this.NewWordButton_Click);
             // 
             // LanguagesTab
             // 
@@ -111,6 +135,8 @@ namespace WordRepeater
         private System.Windows.Forms.ToolStripButton AddNewLanguageButton;
         private System.Windows.Forms.TabControl LanguagesTab;
         private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ToolStripButton NewWordButton;
+        private System.Windows.Forms.ToolStripButton SettingsButton;
     }
 }
 

@@ -25,6 +25,7 @@ namespace WordRepeater
             this.Resize += new System.EventHandler(this.Form1_Resize);
 
             LanguagesTab.TabPages.Clear();//удаляем служебную вкладку после старта приложения
+            NewWordButton.Enabled = false;
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -55,11 +56,15 @@ namespace WordRepeater
 
         }
 
-        public void ShowTabWithLanguages()
+        public void ShowTabWithLanguages(Language lLanguage)
         {
-            LanguagesTab.TabPages.Add(Settings.Languages.Last<string>());
+            LanguagesTab.TabPages.Add(lLanguage.sName);
+            int iCurrentIndex = LanguagesTab.TabPages.Count-1;
+            LanguagesTab.TabPages[iCurrentIndex].Name = "TabPage" + lLanguage.iCode.ToString();
             if (false == LanguagesTab.Visible)
                 LanguagesTab.Visible = true;
+            if (false == NewWordButton.Enabled)
+                NewWordButton.Enabled = true;
         }
 
         private void AddNewLanguageButton_Click(object sender, EventArgs e)
@@ -70,6 +75,18 @@ namespace WordRepeater
             }
             CreateNewLanguageForm cnlf = new CreateNewLanguageForm(this);
             cnlf.Show();
+        }
+
+        private void SettingsButton_Click(object sender, EventArgs e)
+        {
+            SettingsForm sfSettingsForm = new SettingsForm();
+            sfSettingsForm.Show(); 
+        }
+
+        private void NewWordButton_Click(object sender, EventArgs e)
+        {
+            AddNewWordForm anwfAddNewWordForm = new AddNewWordForm(LanguagesTab.SelectedIndex);
+            anwfAddNewWordForm.Show();
         }
     }
 }

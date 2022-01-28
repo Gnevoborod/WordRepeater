@@ -5,32 +5,44 @@ using System.Text;
 namespace WordRepeater.Model
 {
     [Serializable]
-    class WordToLearn
+    public class WordToLearn
     {
         public int iLanguageCode { get; private set; }//код языка к которому относится слово
         public string sForeignWord { get; private set; }//иностранное слово
         public string sTranslatedWord { get; private set; }//перевод
-        public string sForeignExample { get; private set; }//пример использования слова
-        public string sTranslatedExample { get; private set; }//перевод примера
+        public string sForeignExample0 { get; private set; }//пример использования слова
+        public string sTranslatedExample0 { get; private set; }//перевод примера
+        public string sForeignExample1 { get; private set; }
+        public string sTranslatedExample1 { get; private set; }
+        public string sForeignExample2 { get; private set; }
+        public string sTranslatedExample2 { get; private set; }
         public bool bIsActive=true;//флаг активности записи. если запись неактивна - слово не отображается для заучивания 
 
-        //создаём запись
-        public WordToLearn(int iLCode, string sFWord, string sTWord, string sFExample, string sTExample)
+
+        public WordToLearn(int iLCode, string sFWord, string sTWord, string sFExample0, string sTExample0, string sFExample1, string sTExample1, string sFExample2, string sTExample2)
         {
             iLanguageCode = iLCode;
             sForeignWord = sFWord;
             sTranslatedWord = sTWord;
-            sForeignExample = sFExample;
-            sTranslatedExample = sTExample;
+            sForeignExample0 = sFExample0;
+            sTranslatedExample0 = sTExample0;
+            sForeignExample1 = sFExample1;
+            sTranslatedExample1 = sTExample1;
+            sForeignExample2 = sFExample2;
+            sTranslatedExample2 = sTExample2;
         }
         //редактируем запись
-        public void EditFields(int iLCode, string sFWord, string sTWord, string sFExample, string sTExample, bool bIActive)
+        public void EditFields(int iLCode, string sFWord, string sTWord, string sFExample0, string sTExample0, string sFExample1, string sTExample1, string sFExample2, string sTExample2, bool bIActive)
         {
             iLanguageCode = iLCode;
             sForeignWord = sFWord;
             sTranslatedWord = sTWord;
-            sForeignExample = sFExample;
-            sTranslatedExample = sTExample;
+            sForeignExample0 = sFExample0;
+            sTranslatedExample0 = sTExample0;
+            sForeignExample1 = sFExample1;
+            sTranslatedExample1 = sTExample1;
+            sForeignExample2 = sFExample2;
+            sTranslatedExample2 = sTExample2;
             bIsActive = bIActive;
         }
     }

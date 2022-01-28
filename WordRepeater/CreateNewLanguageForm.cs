@@ -20,20 +20,20 @@ namespace WordRepeater
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string sNewLanguage = NewLanguageTextBox.Text;
+            string sNewLanguage = NewLanguageTextBox.Text.Trim();
             if(sNewLanguage.Length<1 || sNewLanguage.Length>100)
             {
                 MessageBox.Show("Language's name length must have more than 0 and less then 100 symbols.");
                 return;
             }
-            if(Settings.HasLanguage(sNewLanguage))
+            if(Controller.HasLanguage(sNewLanguage))
             {
                 MessageBox.Show("Language with this name is already exists.");
                 return;
             }
-            Settings.AddNewLanguage(sNewLanguage);
+            Language lLanguage = Controller.AddNewLanguage(sNewLanguage);
             this.Hide();
-            oMother.ShowTabWithLanguages();
+            oMother.ShowTabWithLanguages(lLanguage);
         }
     }
 }
