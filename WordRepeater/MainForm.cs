@@ -23,21 +23,20 @@ namespace WordRepeater
 
             // добавляем событие на изменение окна
             this.Resize += new System.EventHandler(this.Form1_Resize);
-
             LanguagesTab.TabPages.Clear();//удаляем служебную вкладку после старта приложения
             NewWordButton.Enabled = false;
+            if (null != Controller.Languages)
+            {
+                foreach (Language l in Controller.Languages)
+                {
+                    this.AddTabWithLanguages(l);
+                }
+            }
         }
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            // проверяем наше окно, и если оно было свернуто, делаем событие        
-            if (WindowState == FormWindowState.Minimized)
-            {
-                // прячем наше окно из панели
-                this.ShowInTaskbar = false;
-                // делаем нашу иконку в трее активной
-                notifyIcon1.Visible = true;
-            }
+
         }
 
 
@@ -53,10 +52,10 @@ namespace WordRepeater
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            this.LanguagesTab.Selected += new TabControlEventHandler(this.LanguagesTab_Selected);
         }
 
-        public void ShowTabWithLanguages(Language lLanguage)
+        public void AddTabWithLanguages(Language lLanguage)
         {
             LanguagesTab.TabPages.Add(lLanguage.sName);
             int iCurrentIndex = LanguagesTab.TabPages.Count-1;
@@ -65,6 +64,29 @@ namespace WordRepeater
                 LanguagesTab.Visible = true;
             if (false == NewWordButton.Enabled)
                 NewWordButton.Enabled = true;
+            FillTabs();
+        }
+
+        private void LanguagesTab_Selected(object sender, EventArgs e)
+        {
+            FillTabs();
+        }
+
+        private int SelectCode()
+        {
+            return System.Int32.Parse(LanguagesTab.TabPages[LanguagesTab.SelectedIndex].Name.Substring(7));
+        }
+        public void FillTabs()
+        {
+           LanguagesTab.SelectedTab.Controls.Add(demoLabel);
+            demoLabel.Text = "";
+            var wtlToShow = from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() select wtl;
+            foreach(WordToLearn wtl in wtlToShow)
+            {
+                string finality = wtl.sForeignWord + " - " + wtl.sTranslatedWord + "\n" + wtl.sForeignExample0 + " - " + wtl.sTranslatedExample0 + "\n\n\n";
+                demoLabel.Text += finality;
+            }
+
         }
 
         private void AddNewLanguageButton_Click(object sender, EventArgs e)
@@ -85,7 +107,7 @@ namespace WordRepeater
 
         private void NewWordButton_Click(object sender, EventArgs e)
         {
-            AddNewWordForm anwfAddNewWordForm = new AddNewWordForm(LanguagesTab.SelectedIndex);
+            AddNewWordForm anwfAddNewWordForm = new AddNewWordForm(LanguagesTab.SelectedIndex, this);
             anwfAddNewWordForm.Show();
         }
     }

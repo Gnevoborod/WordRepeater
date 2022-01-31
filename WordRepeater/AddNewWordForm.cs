@@ -12,9 +12,11 @@ namespace WordRepeater
     public partial class AddNewWordForm : Form
     {
         int iLanguageCode;
-        public AddNewWordForm(int iLCode)
+        MainForm mfMainForm;
+        public AddNewWordForm(int iLCode, MainForm mf)
         {
             iLanguageCode = iLCode;
+            mfMainForm = mf;
             InitializeComponent();
         }
 
@@ -31,6 +33,8 @@ namespace WordRepeater
             WordToLearn wtlWordToLearn = new WordToLearn(iLanguageCode, sForeignWord,sTranslatedWord,sForeignExample0,sTranslatedExample0, sForeignExample1, sTranslatedExample1, sForeignExample2, sTranslatedExample2);
             Controller.AddNewWordToDictionary(wtlWordToLearn);
             this.Hide();
+            mfMainForm.FillTabs();
+           
         }
     }
 }

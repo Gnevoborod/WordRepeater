@@ -38,8 +38,10 @@ namespace WordRepeater
             this.NewWordButton = new System.Windows.Forms.ToolStripButton();
             this.LanguagesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.demoLabel = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.LanguagesTab.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon1
@@ -103,12 +105,21 @@ namespace WordRepeater
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.demoLabel);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(1557, 903);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Projectivity";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // demoLabel
+            // 
+            this.demoLabel.AutoSize = true;
+            this.demoLabel.Location = new System.Drawing.Point(20, 20);
+            this.demoLabel.Name = "demoLabel";
+            this.demoLabel.Size = new System.Drawing.Size(0, 20);
+            this.demoLabel.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -123,6 +134,8 @@ namespace WordRepeater
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.LanguagesTab.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,6 +150,7 @@ namespace WordRepeater
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ToolStripButton NewWordButton;
         private System.Windows.Forms.ToolStripButton SettingsButton;
+        private System.Windows.Forms.Label demoLabel;
     }
 }
 

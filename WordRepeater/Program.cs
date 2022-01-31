@@ -25,6 +25,7 @@ namespace WordRepeater
                 Directory.CreateDirectory(Program.PATH + "\\UserData\\");
             Controller.Init();
             Controller.LoadDictionary();
+            Controller.LoadLanguages();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

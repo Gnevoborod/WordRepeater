@@ -61,33 +61,47 @@ namespace WordRepeater
             wtlWordsToLearn.Add(wtlWordToLearn);
             SaveDictionary();
         }
-        public static void SaveLanguages()
+        public static void SaveLanguages()//сохраняем список языков
         {
-            try
-            {
-                string jsonString = JsonSerializer.Serialize(Languages);
-                File.WriteAllText(Program.PATH + "\\UserData\\languages.json", jsonString);
-            }
-            catch(Exception e)
-            {
-
-            }
-        }
-        public static void SaveDictionary()
-        {
+            Stream fs=null;
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                Stream fs = File.Create(Program.PATH + "\\UserData\\dictionary");
+                fs = File.Create(Program.PATH + "\\UserData\\languages");
+                fs.Position = 0;
+                formatter.Serialize(fs, Languages);
+                fs.Flush();
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                if(null!=fs)
+                fs.Close();
+            }
+        }
+        public static void SaveDictionary()//сохраняем все слова
+        {
+            Stream fs = null;
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                fs = File.Create(Program.PATH + "\\UserData\\dictionary");
                 fs.Position = 0;
                 formatter.Serialize(fs, wtlWordsToLearn);
                 fs.Flush();
-                fs.Close();
 
             }
             catch(Exception e)
             {
 
+            }
+            finally
+            {
+                if (null != fs)
+                    fs.Close();
             }
         }
         public static void SaveSettings()
@@ -105,19 +119,48 @@ namespace WordRepeater
 
         public static void LoadDictionary()
         {
+            Stream fs = null;
             try
             {
                 if (!File.Exists(Program.PATH + "\\UserData\\dictionary"))
                     return;
                 BinaryFormatter formatter = new BinaryFormatter();
-                Stream fs = File.Open(Program.PATH + "\\UserData\\dictionary", FileMode.Open);
+                fs = File.Open(Program.PATH + "\\UserData\\dictionary", FileMode.Open);
                 fs.Position = 0;
-                wtlWordsToLearn=(List<WordToLearn>)formatter.Deserialize(fs);
+                wtlWordsToLearn = (List<WordToLearn>)formatter.Deserialize(fs);
                 fs.Close();
-                            }
+            }
             catch(Exception e)
             {
 
+            }
+            finally
+            {
+                if (null != fs)
+                    fs.Close();
+            }
+        }
+        public static void LoadLanguages()
+        {
+            Stream fs = null;
+            try
+            {
+                if (!File.Exists(Program.PATH + "\\UserData\\languages"))
+                    return;
+                BinaryFormatter formatter = new BinaryFormatter();
+                fs = File.Open(Program.PATH + "\\UserData\\languages", FileMode.Open);
+                fs.Position = 0;
+                Languages = (List<Language>)formatter.Deserialize(fs);
+                fs.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                if (null != fs)
+                    fs.Close();
             }
         }
     }

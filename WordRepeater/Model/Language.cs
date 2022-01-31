@@ -4,6 +4,7 @@ using System.Text;
 
 namespace WordRepeater.Model
 {
+    [Serializable]
     public class Language
     {
         public string sName { get; private set; }

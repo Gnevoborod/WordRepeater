@@ -33,7 +33,7 @@ namespace WordRepeater
             }
             Language lLanguage = Controller.AddNewLanguage(sNewLanguage);
             this.Hide();
-            oMother.ShowTabWithLanguages(lLanguage);
+            oMother.AddTabWithLanguages(lLanguage);
         }
     }
 }
