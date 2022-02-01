@@ -18,6 +18,8 @@ namespace WordRepeater
                 Thread.Sleep(Controller.sSettings.iRepeatSeconds * 1000);
                 if (4 > Controller.wtlWordsToLearn.Count)
                     continue;
+                if (!Controller.sSettings.bTrainingIsActive)
+                    continue;
                 if (Program.ToClose)
                     return;
                 rwfRepeatWordForm = new RepeatWordForm(this);
