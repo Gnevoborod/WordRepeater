@@ -30,6 +30,8 @@ namespace WordRepeater
             Controller.LoadSettings();
             Controller.LoadDictionary();
             Controller.LoadLanguages();
+            if (null == Controller.sSettings.bStartOnLoad)
+                Controller.AutorunRegistry(true);
             Thread tRepeat = new Thread(rRepeater.Repeat);
             tRepeat.Start();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);

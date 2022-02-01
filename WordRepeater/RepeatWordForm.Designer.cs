@@ -29,6 +29,8 @@ namespace WordRepeater
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RepeatWordForm));
             this.variant1 = new System.Windows.Forms.RadioButton();
             this.wordToRepeat = new System.Windows.Forms.Label();
             this.exampleForWordToRepeat = new System.Windows.Forms.Label();
@@ -36,6 +38,10 @@ namespace WordRepeater
             this.variant3 = new System.Windows.Forms.RadioButton();
             this.variant4 = new System.Windows.Forms.RadioButton();
             this.ContinueTraineeBtn = new System.Windows.Forms.Button();
+            this.RepeatingMenuButton = new System.Windows.Forms.Button();
+            this.RepeatingContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.stopRepeatingThisWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RepeatingContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // variant1
@@ -105,11 +111,38 @@ namespace WordRepeater
             this.ContinueTraineeBtn.UseVisualStyleBackColor = true;
             this.ContinueTraineeBtn.Click += new System.EventHandler(this.ContinueTraineeBtn_Click);
             // 
+            // RepeatingMenuButton
+            // 
+            this.RepeatingMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("RepeatingMenuButton.Image")));
+            this.RepeatingMenuButton.Location = new System.Drawing.Point(394, 22);
+            this.RepeatingMenuButton.Name = "RepeatingMenuButton";
+            this.RepeatingMenuButton.Size = new System.Drawing.Size(49, 43);
+            this.RepeatingMenuButton.TabIndex = 8;
+            this.RepeatingMenuButton.UseVisualStyleBackColor = true;
+            this.RepeatingMenuButton.Click += new System.EventHandler(this.RepeatingMenuButton_Click);
+            // 
+            // RepeatingContextMenu
+            // 
+            this.RepeatingContextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.RepeatingContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stopRepeatingThisWordToolStripMenuItem});
+            this.RepeatingContextMenu.Name = "RepeatingContextMenu";
+            this.RepeatingContextMenu.Size = new System.Drawing.Size(243, 28);
+            // 
+            // stopRepeatingThisWordToolStripMenuItem
+            // 
+            this.stopRepeatingThisWordToolStripMenuItem.Name = "stopRepeatingThisWordToolStripMenuItem";
+            this.stopRepeatingThisWordToolStripMenuItem.Size = new System.Drawing.Size(242, 24);
+            this.stopRepeatingThisWordToolStripMenuItem.Text = "Stop repeating this word";
+            this.stopRepeatingThisWordToolStripMenuItem.Click += new System.EventHandler(this.stopRepeatingThisWordToolStripMenuItem_Click);
+            // 
             // RepeatWordForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(455, 301);
+            this.ContextMenuStrip = this.RepeatingContextMenu;
+            this.Controls.Add(this.RepeatingMenuButton);
             this.Controls.Add(this.ContinueTraineeBtn);
             this.Controls.Add(this.variant4);
             this.Controls.Add(this.variant3);
@@ -117,9 +150,11 @@ namespace WordRepeater
             this.Controls.Add(this.exampleForWordToRepeat);
             this.Controls.Add(this.wordToRepeat);
             this.Controls.Add(this.variant1);
+            this.Location = new System.Drawing.Point(50, 200);
             this.Name = "RepeatWordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Repeat the word";
+            this.RepeatingContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,5 +168,8 @@ namespace WordRepeater
         private System.Windows.Forms.RadioButton variant3;
         private System.Windows.Forms.RadioButton variant4;
         private System.Windows.Forms.Button ContinueTraineeBtn;
+        private System.Windows.Forms.Button RepeatingMenuButton;
+        private System.Windows.Forms.ContextMenuStrip RepeatingContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem stopRepeatingThisWordToolStripMenuItem;
     }
 }

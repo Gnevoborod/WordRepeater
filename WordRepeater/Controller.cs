@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using Microsoft.Win32;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -197,6 +198,28 @@ namespace WordRepeater
             {
                 if (null != fs)
                     fs.Close();
+            }
+        }
+
+        public static void AutorunRegistry(bool arg)
+        {
+            try
+            {
+                RegistryKey saveKey = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run\");
+                if (arg)
+                {
+                    saveKey.SetValue("WordRepeater", Program.PATH);
+                }
+                else
+                {
+                    saveKey.DeleteValue("WordRepeater");
+                }
+                saveKey.Close();
+                Controller.SaveSettings();
+            }
+            catch(Exception e)
+            {
+
             }
         }
     }

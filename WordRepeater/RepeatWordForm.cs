@@ -5,8 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using System.Threading;
-
+using System.Linq;
+using WordRepeater.Model;
 namespace WordRepeater
 {
     public partial class RepeatWordForm : Form
@@ -21,6 +21,7 @@ namespace WordRepeater
             InitializeComponent();
             PrepareNewWord();
             wordToRepeat.Focus();
+            
         }
 
         private void PrepareNewWord()
@@ -29,9 +30,11 @@ namespace WordRepeater
             int index=0;
             int i;
             bool canWrite = true;
+            var wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive select wtl).ToList<WordToLearn>();
+
             for (i = 0; i < 4; i++)
             {
-                index = rnd.Next(0, Controller.wtlWordsToLearn.Count - 1);
+                index = rnd.Next(0, wtlToRepeat.Count - 1);
                 for(int j=0;j<i;j++)
                     if(ArrayOfValues[j]==index)
                     {
@@ -49,14 +52,14 @@ namespace WordRepeater
                     continue;
                 }
             }
-            this.variant1.Text = Controller.wtlWordsToLearn[ArrayOfValues[0]].sTranslatedWord;
-            this.variant2.Text = Controller.wtlWordsToLearn[ArrayOfValues[1]].sTranslatedWord;
-            this.variant3.Text = Controller.wtlWordsToLearn[ArrayOfValues[2]].sTranslatedWord;
-            this.variant4.Text = Controller.wtlWordsToLearn[ArrayOfValues[3]].sTranslatedWord;
+            this.variant1.Text = wtlToRepeat[ArrayOfValues[0]].sTranslatedWord;
+            this.variant2.Text = wtlToRepeat[ArrayOfValues[1]].sTranslatedWord;
+            this.variant3.Text = wtlToRepeat[ArrayOfValues[2]].sTranslatedWord;
+            this.variant4.Text = wtlToRepeat[ArrayOfValues[3]].sTranslatedWord;
             iRightVariant = rnd.Next(1, 4);
             //просто заполняем каждый радиобатон данными, а затем вычисляем какой из них будет корректным
-            this.wordToRepeat.Text = Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].sForeignWord;
-            this.exampleForWordToRepeat.Text= Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].sForeignExample0;
+            this.wordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignWord;
+            this.exampleForWordToRepeat.Text= wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignExample0;
             
 
         }
@@ -115,6 +118,27 @@ namespace WordRepeater
         private void ContinueTraineeBtn_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void RepeatingMenuButton_Click(object sender, EventArgs e)
+        {
+            RepeatingContextMenu.Show(RepeatingMenuButton, 0, 43);
+        }
+
+
+        private void stopRepeatingThisWordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].bIsActive)
+            {
+                Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].bIsActive = false;
+
+                RepeatingContextMenu.Items[0].Text = "Start repeating this word again";
+            }
+            else
+            {
+                RepeatingContextMenu.Items[0].Text = "Stop repeating this word";
+                Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].bIsActive = true;
+            }
         }
     }
 }

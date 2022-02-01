@@ -71,6 +71,7 @@ namespace WordRepeater
                 LanguagesTab.Visible = true;
             if (false == NewWordButton.Enabled)
                 NewWordButton.Enabled = true;
+            LanguagesTab.TabPages[iCurrentIndex].AutoScroll=true;
             FillTabs();
         }
 
