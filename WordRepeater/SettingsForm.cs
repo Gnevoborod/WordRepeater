@@ -22,6 +22,9 @@ namespace WordRepeater
                         ComboBoxLanguages.Items.Add(elem.sName);
                 }
             }
+            SecondsInput.Value = Controller.sSettings.iRepeatSeconds;
+            checkBox1.Checked = Controller.sSettings.bTrainingIsActive;
+            checkBox2.Checked = Controller.sSettings.bStartOnLoad;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -31,7 +34,9 @@ namespace WordRepeater
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-
+            Controller.sSettings.bStartOnLoad = checkBox2.Checked;
+            Controller.SaveSettings();
+            //here we ought to change registry in windows
         }
 
         private void SecondsInput_ValueChanged(object sender, EventArgs e)

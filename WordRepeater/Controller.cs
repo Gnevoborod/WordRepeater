@@ -17,6 +17,7 @@ namespace WordRepeater
         public static Settings sSettings;
         public static UserData udUserData;
         public static List<WordToLearn> wtlWordsToLearn;
+        public static bool RepeatWordFormClosed = true;
         public static void Init()
         {
             sSettings = new Settings();
@@ -106,15 +107,26 @@ namespace WordRepeater
         }
         public static void SaveSettings()
         {
+            Stream fs = null;
             try
             {
-                string jsonString = JsonSerializer.Serialize<Settings>(sSettings);
-                File.WriteAllText(Program.PATH + "\\UserData\\settings.json", jsonString);
+                BinaryFormatter formatter = new BinaryFormatter();
+                fs = File.Create(Program.PATH + "\\UserData\\settings");
+                fs.Position = 0;
+                formatter.Serialize(fs, sSettings);
+                fs.Flush();
+
             }
             catch (Exception e)
             {
 
             }
+            finally
+            {
+                if (null != fs)
+                    fs.Close();
+            }
+
         }
 
         public static void LoadDictionary()
@@ -151,6 +163,30 @@ namespace WordRepeater
                 fs = File.Open(Program.PATH + "\\UserData\\languages", FileMode.Open);
                 fs.Position = 0;
                 Languages = (List<Language>)formatter.Deserialize(fs);
+                fs.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                if (null != fs)
+                    fs.Close();
+            }
+        }
+
+        public static void LoadSettings()
+        {
+            Stream fs = null;
+            try
+            {
+                if (!File.Exists(Program.PATH + "\\UserData\\settings"))
+                    return;
+                BinaryFormatter formatter = new BinaryFormatter();
+                fs = File.Open(Program.PATH + "\\UserData\\settings", FileMode.Open);
+                fs.Position = 0;
+                sSettings = (Settings)formatter.Deserialize(fs);
                 fs.Close();
             }
             catch (Exception e)

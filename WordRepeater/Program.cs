@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace WordRepeater
 {
@@ -11,9 +12,11 @@ namespace WordRepeater
     {
         //Настроечные переменные программы
         public const int MaxLanguagesCount = 3;
+        public static bool ToClose = false;
         public const int ModelVersion = 0;//Версия моделей данных. При несовпадении требуется конвертация модели локальных данных
         public static MainForm mfMainForm;
         public static string PATH = Environment.CurrentDirectory;
+        public static Repeater rRepeater = new Repeater();
         //конец настроечных переменных
         /// <summary>
         ///  The main entry point for the application.
@@ -24,8 +27,11 @@ namespace WordRepeater
             if (!Directory.Exists(Program.PATH + "\\UserData\\"))
                 Directory.CreateDirectory(Program.PATH + "\\UserData\\");
             Controller.Init();
+            Controller.LoadSettings();
             Controller.LoadDictionary();
             Controller.LoadLanguages();
+            Thread tRepeat = new Thread(rRepeater.Repeat);
+            tRepeat.Start();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

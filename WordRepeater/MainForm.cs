@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using WordRepeater.Model;
 
@@ -23,6 +23,7 @@ namespace WordRepeater
 
             // добавляем событие на изменение окна
             this.Resize += new System.EventHandler(this.Form1_Resize);
+           // HideWindowForm();
             LanguagesTab.TabPages.Clear();//удаляем служебную вкладку после старта приложения
             NewWordButton.Enabled = false;
             if (null != Controller.Languages)
@@ -36,7 +37,7 @@ namespace WordRepeater
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-
+            HideWindowForm();
         }
 
 
@@ -48,8 +49,14 @@ namespace WordRepeater
             this.ShowInTaskbar = true;
             //разворачиваем окно
             WindowState = FormWindowState.Normal;
+            Show();
         }
+        public void HideWindowForm()
+        {
+                Hide();
+                notifyIcon1.Visible = true;
 
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             this.LanguagesTab.Selected += new TabControlEventHandler(this.LanguagesTab_Selected);
@@ -109,6 +116,25 @@ namespace WordRepeater
         {
             AddNewWordForm anwfAddNewWordForm = new AddNewWordForm(LanguagesTab.SelectedIndex, this);
             anwfAddNewWordForm.Show();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            HideWindowForm();
+            e.Cancel = true;
+            
+        }
+
+
+        private void CloseApplication(object sender, EventArgs e)
+        {
+            Program.ToClose = true;
+            this.Dispose(true);
+        }
+
+        private void QuitButton_Click(object sender, EventArgs e)
+        {
+            CloseApplication(this, null);
         }
     }
 }

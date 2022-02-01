@@ -32,7 +32,7 @@ namespace WordRepeater
             string sTranslatedExample2=TranslationTextBox2.Text.Trim();
             WordToLearn wtlWordToLearn = new WordToLearn(iLanguageCode, sForeignWord,sTranslatedWord,sForeignExample0,sTranslatedExample0, sForeignExample1, sTranslatedExample1, sForeignExample2, sTranslatedExample2);
             Controller.AddNewWordToDictionary(wtlWordToLearn);
-            this.Hide();
+            this.Close();
             mfMainForm.FillTabs();
            
         }
