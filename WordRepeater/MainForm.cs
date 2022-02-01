@@ -139,7 +139,7 @@ namespace WordRepeater
 
         private void AutoLoadBtn_Click(object sender, EventArgs e)
         {
-            AutoLoadListForm allfAutoLoadListForm = new AutoLoadListForm();
+            AutoLoadListForm allfAutoLoadListForm = new AutoLoadListForm(this);
             allfAutoLoadListForm.Show();
         }
     }

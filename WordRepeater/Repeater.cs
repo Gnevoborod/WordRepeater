@@ -12,9 +12,12 @@ namespace WordRepeater
        
         public void Repeat()
         {
+
             while (null!=Controller.wtlWordsToLearn)
             {
                 Thread.Sleep(Controller.sSettings.iRepeatSeconds * 1000);
+                if (4 > Controller.wtlWordsToLearn.Count)
+                    continue;
                 if (Program.ToClose)
                     return;
                 rwfRepeatWordForm = new RepeatWordForm(this);
