@@ -29,24 +29,14 @@ namespace WordRepeater
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
             this.variant1 = new System.Windows.Forms.RadioButton();
             this.wordToRepeat = new System.Windows.Forms.Label();
             this.exampleForWordToRepeat = new System.Windows.Forms.Label();
             this.variant2 = new System.Windows.Forms.RadioButton();
             this.variant3 = new System.Windows.Forms.RadioButton();
             this.variant4 = new System.Windows.Forms.RadioButton();
+            this.ContinueTraineeBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(178, 247);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 29);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Check";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // variant1
             // 
@@ -55,8 +45,8 @@ namespace WordRepeater
             this.variant1.Name = "variant1";
             this.variant1.Size = new System.Drawing.Size(17, 16);
             this.variant1.TabIndex = 1;
-            this.variant1.TabStop = true;
             this.variant1.UseVisualStyleBackColor = true;
+            this.variant1.CheckedChanged += new System.EventHandler(this.variant1_CheckedChanged);
             // 
             // wordToRepeat
             // 
@@ -81,8 +71,8 @@ namespace WordRepeater
             this.variant2.Name = "variant2";
             this.variant2.Size = new System.Drawing.Size(17, 16);
             this.variant2.TabIndex = 4;
-            this.variant2.TabStop = true;
             this.variant2.UseVisualStyleBackColor = true;
+            this.variant2.CheckedChanged += new System.EventHandler(this.variant2_CheckedChanged);
             // 
             // variant3
             // 
@@ -91,8 +81,8 @@ namespace WordRepeater
             this.variant3.Name = "variant3";
             this.variant3.Size = new System.Drawing.Size(17, 16);
             this.variant3.TabIndex = 5;
-            this.variant3.TabStop = true;
             this.variant3.UseVisualStyleBackColor = true;
+            this.variant3.CheckedChanged += new System.EventHandler(this.variant3_CheckedChanged);
             // 
             // variant4
             // 
@@ -101,21 +91,32 @@ namespace WordRepeater
             this.variant4.Name = "variant4";
             this.variant4.Size = new System.Drawing.Size(17, 16);
             this.variant4.TabIndex = 6;
-            this.variant4.TabStop = true;
             this.variant4.UseVisualStyleBackColor = true;
+            this.variant4.CheckedChanged += new System.EventHandler(this.variant4_CheckedChanged);
+            // 
+            // ContinueTraineeBtn
+            // 
+            this.ContinueTraineeBtn.Enabled = false;
+            this.ContinueTraineeBtn.Location = new System.Drawing.Point(179, 247);
+            this.ContinueTraineeBtn.Name = "ContinueTraineeBtn";
+            this.ContinueTraineeBtn.Size = new System.Drawing.Size(94, 29);
+            this.ContinueTraineeBtn.TabIndex = 7;
+            this.ContinueTraineeBtn.Text = "Continue";
+            this.ContinueTraineeBtn.UseVisualStyleBackColor = true;
+            this.ContinueTraineeBtn.Click += new System.EventHandler(this.ContinueTraineeBtn_Click);
             // 
             // RepeatWordForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(455, 301);
+            this.Controls.Add(this.ContinueTraineeBtn);
             this.Controls.Add(this.variant4);
             this.Controls.Add(this.variant3);
             this.Controls.Add(this.variant2);
             this.Controls.Add(this.exampleForWordToRepeat);
             this.Controls.Add(this.wordToRepeat);
             this.Controls.Add(this.variant1);
-            this.Controls.Add(this.button1);
             this.Name = "RepeatWordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Repeat the word";
@@ -125,13 +126,12 @@ namespace WordRepeater
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RadioButton variant1;
         private System.Windows.Forms.Label wordToRepeat;
         private System.Windows.Forms.Label exampleForWordToRepeat;
         private System.Windows.Forms.RadioButton variant2;
         private System.Windows.Forms.RadioButton variant3;
         private System.Windows.Forms.RadioButton variant4;
+        private System.Windows.Forms.Button ContinueTraineeBtn;
     }
 }

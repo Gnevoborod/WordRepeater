@@ -40,10 +40,11 @@ namespace WordRepeater
             this.SettingsButton = new System.Windows.Forms.ToolStripButton();
             this.AddNewLanguageButton = new System.Windows.Forms.ToolStripButton();
             this.NewWordButton = new System.Windows.Forms.ToolStripButton();
+            this.QuitButton = new System.Windows.Forms.ToolStripButton();
             this.LanguagesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.demoLabel = new System.Windows.Forms.Label();
-            this.QuitButton = new System.Windows.Forms.ToolStripButton();
+            this.AutoLoadBtn = new System.Windows.Forms.ToolStripButton();
             this.taskBarMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.LanguagesTab.SuspendLayout();
@@ -92,6 +93,7 @@ namespace WordRepeater
             this.SettingsButton,
             this.AddNewLanguageButton,
             this.NewWordButton,
+            this.AutoLoadBtn,
             this.QuitButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -129,6 +131,16 @@ namespace WordRepeater
             this.NewWordButton.Text = "New word";
             this.NewWordButton.Click += new System.EventHandler(this.NewWordButton_Click);
             // 
+            // QuitButton
+            // 
+            this.QuitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.QuitButton.Image = ((System.Drawing.Image)(resources.GetObject("QuitButton.Image")));
+            this.QuitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.QuitButton.Name = "QuitButton";
+            this.QuitButton.Size = new System.Drawing.Size(29, 24);
+            this.QuitButton.Text = "Quit";
+            this.QuitButton.Click += new System.EventHandler(this.QuitButton_Click);
+            // 
             // LanguagesTab
             // 
             this.LanguagesTab.Controls.Add(this.tabPage1);
@@ -157,15 +169,15 @@ namespace WordRepeater
             this.demoLabel.Size = new System.Drawing.Size(0, 20);
             this.demoLabel.TabIndex = 0;
             // 
-            // QuitButton
+            // AutoLoadBtn
             // 
-            this.QuitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.QuitButton.Image = ((System.Drawing.Image)(resources.GetObject("QuitButton.Image")));
-            this.QuitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.QuitButton.Name = "QuitButton";
-            this.QuitButton.Size = new System.Drawing.Size(29, 24);
-            this.QuitButton.Text = "Quit";
-            this.QuitButton.Click += new System.EventHandler(this.QuitButton_Click);
+            this.AutoLoadBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.AutoLoadBtn.Image = ((System.Drawing.Image)(resources.GetObject("AutoLoadBtn.Image")));
+            this.AutoLoadBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AutoLoadBtn.Name = "AutoLoadBtn";
+            this.AutoLoadBtn.Size = new System.Drawing.Size(29, 24);
+            this.AutoLoadBtn.Text = "Load list of words";
+            this.AutoLoadBtn.Click += new System.EventHandler(this.AutoLoadBtn_Click);
             // 
             // MainForm
             // 
@@ -204,6 +216,7 @@ namespace WordRepeater
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton QuitButton;
+        private System.Windows.Forms.ToolStripButton AutoLoadBtn;
     }
 }
 

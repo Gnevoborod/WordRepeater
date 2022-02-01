@@ -17,15 +17,10 @@ namespace WordRepeater
         public RepeatWordForm(Repeater r)
         {
             rRepeater = r;
+            
             InitializeComponent();
             PrepareNewWord();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-            this.Dispose();
-            //rRepeater.Repeat();
+            wordToRepeat.Focus();
         }
 
         private void PrepareNewWord()
@@ -64,6 +59,62 @@ namespace WordRepeater
             this.exampleForWordToRepeat.Text= Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].sForeignExample0;
             
 
+        }
+
+        private void RightVary()
+        {
+            switch(iRightVariant)
+            {
+                case 0:
+                    variant1.BackColor = Color.LightGreen;
+                    break;
+                case 1:
+                    variant2.BackColor = Color.LightGreen;
+                    break;
+                case 2:
+                    variant3.BackColor = Color.LightGreen;
+                    break;
+                case 3:
+                    variant4.BackColor = Color.LightGreen;
+                    break;
+            }
+            variant1.Enabled = false;
+            variant2.Enabled = false;
+            variant3.Enabled = false;
+            variant4.Enabled = false;
+            ContinueTraineeBtn.Enabled = true;
+        }
+        private void variant1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (0 != iRightVariant)
+                variant1.BackColor = Color.LightPink;
+            RightVary();
+        }
+
+        private void variant2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (1 != iRightVariant)
+                variant2.BackColor = Color.LightPink;
+            RightVary();
+        }
+
+        private void variant3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (2 != iRightVariant)
+                variant3.BackColor = Color.LightPink;
+            RightVary();
+        }
+
+        private void variant4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (3 != iRightVariant)
+                variant4.BackColor = Color.LightPink;
+            RightVary();
+        }
+
+        private void ContinueTraineeBtn_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

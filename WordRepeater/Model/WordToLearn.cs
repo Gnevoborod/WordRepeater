@@ -16,6 +16,7 @@ namespace WordRepeater.Model
         public string sTranslatedExample1 { get; private set; }
         public string sForeignExample2 { get; private set; }
         public string sTranslatedExample2 { get; private set; }
+        public List<int>? lSameWords { get; set; }//массив таких же слов, но с другими значениями
         public bool bIsActive=true;//флаг активности записи. если запись неактивна - слово не отображается для заучивания 
 
 

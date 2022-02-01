@@ -136,5 +136,11 @@ namespace WordRepeater
         {
             CloseApplication(this, null);
         }
+
+        private void AutoLoadBtn_Click(object sender, EventArgs e)
+        {
+            AutoLoadListForm allfAutoLoadListForm = new AutoLoadListForm();
+            allfAutoLoadListForm.Show();
+        }
     }
 }
