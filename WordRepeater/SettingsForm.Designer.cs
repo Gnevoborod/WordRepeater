@@ -29,6 +29,7 @@ namespace WordRepeater
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -87,21 +88,21 @@ namespace WordRepeater
             // 
             // EditLanguageButton
             // 
-            this.EditLanguageButton.Location = new System.Drawing.Point(282, 68);
+            this.EditLanguageButton.Image = ((System.Drawing.Image)(resources.GetObject("EditLanguageButton.Image")));
+            this.EditLanguageButton.Location = new System.Drawing.Point(282, 62);
             this.EditLanguageButton.Name = "EditLanguageButton";
-            this.EditLanguageButton.Size = new System.Drawing.Size(30, 29);
+            this.EditLanguageButton.Size = new System.Drawing.Size(45, 45);
             this.EditLanguageButton.TabIndex = 4;
-            this.EditLanguageButton.Text = "E";
             this.EditLanguageButton.UseVisualStyleBackColor = true;
             this.EditLanguageButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // DeleteLanguageButton
             // 
-            this.DeleteLanguageButton.Location = new System.Drawing.Point(318, 68);
+            this.DeleteLanguageButton.Image = ((System.Drawing.Image)(resources.GetObject("DeleteLanguageButton.Image")));
+            this.DeleteLanguageButton.Location = new System.Drawing.Point(333, 62);
             this.DeleteLanguageButton.Name = "DeleteLanguageButton";
-            this.DeleteLanguageButton.Size = new System.Drawing.Size(30, 29);
+            this.DeleteLanguageButton.Size = new System.Drawing.Size(45, 45);
             this.DeleteLanguageButton.TabIndex = 5;
-            this.DeleteLanguageButton.Text = "D";
             this.DeleteLanguageButton.UseVisualStyleBackColor = true;
             // 
             // label2
@@ -121,7 +122,7 @@ namespace WordRepeater
             this.groupBox1.Controls.Add(this.EditLanguageButton);
             this.groupBox1.Location = new System.Drawing.Point(24, 22);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(363, 125);
+            this.groupBox1.Size = new System.Drawing.Size(392, 125);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Language";
@@ -133,7 +134,7 @@ namespace WordRepeater
             this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Location = new System.Drawing.Point(24, 165);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(363, 182);
+            this.groupBox2.Size = new System.Drawing.Size(392, 182);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Repeating";
@@ -157,7 +158,7 @@ namespace WordRepeater
             this.groupBox3.Controls.Add(this.checkBox2);
             this.groupBox3.Location = new System.Drawing.Point(24, 370);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(363, 105);
+            this.groupBox3.Size = new System.Drawing.Size(392, 105);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Other";
@@ -166,7 +167,7 @@ namespace WordRepeater
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(417, 532);
+            this.ClientSize = new System.Drawing.Size(450, 532);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);

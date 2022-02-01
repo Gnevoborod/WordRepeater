@@ -40,11 +40,11 @@ namespace WordRepeater
             this.SettingsButton = new System.Windows.Forms.ToolStripButton();
             this.AddNewLanguageButton = new System.Windows.Forms.ToolStripButton();
             this.NewWordButton = new System.Windows.Forms.ToolStripButton();
+            this.AutoLoadBtn = new System.Windows.Forms.ToolStripButton();
             this.QuitButton = new System.Windows.Forms.ToolStripButton();
             this.LanguagesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.demoLabel = new System.Windows.Forms.Label();
-            this.AutoLoadBtn = new System.Windows.Forms.ToolStripButton();
             this.taskBarMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.LanguagesTab.SuspendLayout();
@@ -131,6 +131,16 @@ namespace WordRepeater
             this.NewWordButton.Text = "New word";
             this.NewWordButton.Click += new System.EventHandler(this.NewWordButton_Click);
             // 
+            // AutoLoadBtn
+            // 
+            this.AutoLoadBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.AutoLoadBtn.Image = ((System.Drawing.Image)(resources.GetObject("AutoLoadBtn.Image")));
+            this.AutoLoadBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AutoLoadBtn.Name = "AutoLoadBtn";
+            this.AutoLoadBtn.Size = new System.Drawing.Size(29, 24);
+            this.AutoLoadBtn.Text = "Load list of words";
+            this.AutoLoadBtn.Click += new System.EventHandler(this.AutoLoadBtn_Click);
+            // 
             // QuitButton
             // 
             this.QuitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -168,16 +178,6 @@ namespace WordRepeater
             this.demoLabel.Name = "demoLabel";
             this.demoLabel.Size = new System.Drawing.Size(0, 20);
             this.demoLabel.TabIndex = 0;
-            // 
-            // AutoLoadBtn
-            // 
-            this.AutoLoadBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.AutoLoadBtn.Image = ((System.Drawing.Image)(resources.GetObject("AutoLoadBtn.Image")));
-            this.AutoLoadBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AutoLoadBtn.Name = "AutoLoadBtn";
-            this.AutoLoadBtn.Size = new System.Drawing.Size(29, 24);
-            this.AutoLoadBtn.Text = "Load list of words";
-            this.AutoLoadBtn.Click += new System.EventHandler(this.AutoLoadBtn_Click);
             // 
             // MainForm
             // 
