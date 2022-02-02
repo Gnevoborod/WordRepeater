@@ -34,7 +34,7 @@ namespace WordRepeater
 
             for (i = 0; i < 4; i++)
             {
-                index = rnd.Next(0, wtlToRepeat.Count - 1);
+                index = rnd.Next(0, wtlToRepeat.Count);
                 for(int j=0;j<i;j++)
                     if(ArrayOfValues[j]==index)
                     {
@@ -56,7 +56,7 @@ namespace WordRepeater
             this.variant2.Text = wtlToRepeat[ArrayOfValues[1]].sTranslatedWord;
             this.variant3.Text = wtlToRepeat[ArrayOfValues[2]].sTranslatedWord;
             this.variant4.Text = wtlToRepeat[ArrayOfValues[3]].sTranslatedWord;
-            iRightVariant = rnd.Next(1, 4);
+            iRightVariant = rnd.Next(0, 4);
             //просто заполняем каждый радиобатон данными, а затем вычисляем какой из них будет корректным
             this.wordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignWord;
             this.exampleForWordToRepeat.Text= wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignExample0;

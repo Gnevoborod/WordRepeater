@@ -153,11 +153,15 @@ namespace WordRepeater
             // 
             // LanguagesTab
             // 
+            this.LanguagesTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LanguagesTab.Controls.Add(this.tabPage1);
-            this.LanguagesTab.Location = new System.Drawing.Point(1, 30);
+            this.LanguagesTab.Location = new System.Drawing.Point(1, 27);
             this.LanguagesTab.Name = "LanguagesTab";
             this.LanguagesTab.SelectedIndex = 0;
-            this.LanguagesTab.Size = new System.Drawing.Size(1565, 936);
+            this.LanguagesTab.Size = new System.Drawing.Size(1565, 939);
+            this.LanguagesTab.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.LanguagesTab.TabIndex = 1;
             this.LanguagesTab.Visible = false;
             // 
@@ -167,7 +171,7 @@ namespace WordRepeater
             this.tabPage1.Controls.Add(this.demoLabel);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(1557, 903);
+            this.tabPage1.Size = new System.Drawing.Size(1557, 906);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Projectivity";
             this.tabPage1.UseVisualStyleBackColor = true;

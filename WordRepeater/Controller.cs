@@ -208,7 +208,7 @@ namespace WordRepeater
                 RegistryKey saveKey = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run\");
                 if (arg)
                 {
-                    saveKey.SetValue("WordRepeater", Program.PATH);
+                    saveKey.SetValue("WordRepeater", Program.PATH+ "\\WordRepeater.exe");
                 }
                 else
                 {

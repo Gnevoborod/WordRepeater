@@ -21,9 +21,7 @@ namespace WordRepeater
             //вызывая функцию  notifyIcon1_MouseDoubleClick
             this.notifyIcon1.MouseDoubleClick += new MouseEventHandler(notifyIcon1_MouseDoubleClick);
 
-            // добавляем событие на изменение окна
             this.Resize += new System.EventHandler(this.Form1_Resize);
-           // HideWindowForm();
             LanguagesTab.TabPages.Clear();//удаляем служебную вкладку после старта приложения
             NewWordButton.Enabled = false;
             if (null != Controller.Languages)
@@ -37,7 +35,7 @@ namespace WordRepeater
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            HideWindowForm();
+            
         }
 
 
