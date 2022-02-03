@@ -13,6 +13,12 @@ namespace WordRepeater
 {
     public partial class MainForm : Form
     {
+        int iLittleDelimeter = 5;
+        int offset;//ListBox.DefaultItemHeight*6;
+        int offsetForSearch= ListBox.DefaultItemHeight * 3;
+        ListBox lbListBox = null;
+        TextBox tbSearch = null;
+        Button bFilterABC = null;
         public MainForm()
         {
             InitializeComponent();
@@ -24,6 +30,13 @@ namespace WordRepeater
             this.Resize += new System.EventHandler(this.Form1_Resize);
             LanguagesTab.TabPages.Clear();//удаляем служебную вкладку после старта приложения
             NewWordButton.Enabled = false;
+            offset = this.Height - LanguagesTab.Height - offsetForSearch + toolStrip1.Height;
+            tbSearch = new TextBox();
+            tbSearch.Size = new System.Drawing.Size(tbSearch.Width * 2, tbSearch.Height);
+            tbSearch.PlaceholderText = "Search";
+            tbSearch.Location = new Point(tbSearch.Location.X, tbSearch.Location.Y + iLittleDelimeter);
+            tbSearch.TextChanged += new System.EventHandler(SearchWord);
+            
             if (null != Controller.Languages)
             {
                 foreach (Language l in Controller.Languages)
@@ -31,11 +44,19 @@ namespace WordRepeater
                     this.AddTabWithLanguages(l);
                 }
             }
+            LanguagesTab.SelectedIndexChanged += new System.EventHandler(CleanSearch);
+
+
         }
 
+        private void CleanSearch(object sender, EventArgs e)
+        {
+            tbSearch.Text = "";
+        }
         private void Form1_Resize(object sender, EventArgs e)
         {
-            
+            if(null!=lbListBox)
+                lbListBox.Size = new System.Drawing.Size(LanguagesTab.Width / 2, LanguagesTab.Height - offset);
         }
 
 
@@ -60,6 +81,7 @@ namespace WordRepeater
             this.LanguagesTab.Selected += new TabControlEventHandler(this.LanguagesTab_Selected);
         }
 
+
         public void AddTabWithLanguages(Language lLanguage)
         {
             LanguagesTab.TabPages.Add(lLanguage.sName);
@@ -82,18 +104,44 @@ namespace WordRepeater
         {
             return System.Int32.Parse(LanguagesTab.TabPages[LanguagesTab.SelectedIndex].Name.Substring(7));
         }
-        public void FillTabs()
+        private void SearchWord(object sender, EventArgs e)
         {
-           LanguagesTab.SelectedTab.Controls.Add(demoLabel);
-            demoLabel.Text = "";
-            var wtlToShow = from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() select wtl;
-            foreach(WordToLearn wtl in wtlToShow)
-            {
-                string finality = wtl.sForeignWord + " - " + wtl.sTranslatedWord + "\n" + wtl.sForeignExample0 + " - " + wtl.sTranslatedExample0 + "\n\n\n";
-                demoLabel.Text += finality;
-            }
+            if (null == tbSearch)
+                return;
+            lbListBox.Dispose();
 
+            if (tbSearch.Text.Length > 0)
+            {   
+                    FillTabs(tbSearch.Text);
+
+                return;   
+            }
+            FillTabs();
+            tbSearch.Clear();
         }
+
+        public void FillTabs(string? sFindForeignWord=null)
+        {
+            LanguagesTab.SelectedTab.Controls.Add(tbSearch);
+            lbListBox = new ListBox();
+            lbListBox.Location = new Point(lbListBox.Location.X, lbListBox.Location.Y + offsetForSearch);
+            lbListBox.Size= new System.Drawing.Size(LanguagesTab.Width/2, LanguagesTab.Height-offset);
+           
+            List<WordToLearn> wtlToShow;
+            if (null==sFindForeignWord || sFindForeignWord.Equals(""))
+                 wtlToShow = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();
+            else
+                wtlToShow = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() && wtl.sForeignWord.StartsWith(sFindForeignWord) orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();
+            
+            foreach (WordToLearn wtl in wtlToShow)
+            {
+                lbListBox.Items.Add(wtl.sForeignWord);
+
+            }
+            LanguagesTab.SelectedTab.Controls.Add(lbListBox);
+            
+        }
+
 
         private void AddNewLanguageButton_Click(object sender, EventArgs e)
         {

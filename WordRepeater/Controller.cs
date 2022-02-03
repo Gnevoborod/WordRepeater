@@ -69,7 +69,7 @@ namespace WordRepeater
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                fs = File.Create(Program.PATH + "\\UserData\\languages");
+                fs = File.Create(Program.PATH + "UserData\\languages");
                 fs.Position = 0;
                 formatter.Serialize(fs, Languages);
                 fs.Flush();
@@ -90,7 +90,7 @@ namespace WordRepeater
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                fs = File.Create(Program.PATH + "\\UserData\\dictionary");
+                fs = File.Create(Program.PATH + "UserData\\dictionary");
                 fs.Position = 0;
                 formatter.Serialize(fs, wtlWordsToLearn);
                 fs.Flush();
@@ -112,7 +112,7 @@ namespace WordRepeater
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                fs = File.Create(Program.PATH + "\\UserData\\settings");
+                fs = File.Create(Program.PATH + "UserData\\settings");
                 fs.Position = 0;
                 formatter.Serialize(fs, sSettings);
                 fs.Flush();
@@ -135,10 +135,10 @@ namespace WordRepeater
             Stream fs = null;
             try
             {
-                if (!File.Exists(Program.PATH + "\\UserData\\dictionary"))
+                if (!File.Exists(Program.PATH + "UserData\\dictionary"))
                     return;
                 BinaryFormatter formatter = new BinaryFormatter();
-                fs = File.Open(Program.PATH + "\\UserData\\dictionary", FileMode.Open);
+                fs = File.Open(Program.PATH + "UserData\\dictionary", FileMode.Open);
                 fs.Position = 0;
                 wtlWordsToLearn = (List<WordToLearn>)formatter.Deserialize(fs);
                 fs.Close();
@@ -158,10 +158,10 @@ namespace WordRepeater
             Stream fs = null;
             try
             {
-                if (!File.Exists(Program.PATH + "\\UserData\\languages"))
+                if (!File.Exists(Program.PATH + "UserData\\languages"))
                     return;
                 BinaryFormatter formatter = new BinaryFormatter();
-                fs = File.Open(Program.PATH + "\\UserData\\languages", FileMode.Open);
+                fs = File.Open(Program.PATH + "UserData\\languages", FileMode.Open);
                 fs.Position = 0;
                 Languages = (List<Language>)formatter.Deserialize(fs);
                 fs.Close();
@@ -182,10 +182,10 @@ namespace WordRepeater
             Stream fs = null;
             try
             {
-                if (!File.Exists(Program.PATH + "\\UserData\\settings"))
+                if (!File.Exists(Program.PATH + "UserData\\settings"))
                     return;
                 BinaryFormatter formatter = new BinaryFormatter();
-                fs = File.Open(Program.PATH + "\\UserData\\settings", FileMode.Open);
+                fs = File.Open(Program.PATH + "UserData\\settings", FileMode.Open);
                 fs.Position = 0;
                 sSettings = (Settings)formatter.Deserialize(fs);
                 fs.Close();
@@ -208,7 +208,7 @@ namespace WordRepeater
                 RegistryKey saveKey = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run\");
                 if (arg)
                 {
-                    saveKey.SetValue("WordRepeater", Program.PATH+ "\\WordRepeater.exe");
+                    saveKey.SetValue("WordRepeater", Program.PRG_PATH);
                 }
                 else
                 {

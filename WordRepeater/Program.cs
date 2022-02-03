@@ -15,7 +15,8 @@ namespace WordRepeater
         public static bool ToClose = false;
         public const int ModelVersion = 0;//¬ерси€ моделей данных. ѕри несовпадении требуетс€ конвертаци€ модели локальных данных
         public static MainForm mfMainForm;
-        public static string PATH = Environment.CurrentDirectory;
+        public static string PATH = Application.StartupPath;//Environment.CurrentDirectory;
+        public static string PRG_PATH = Application.ExecutablePath;
         public static Repeater rRepeater = new Repeater();
         //конец настроечных переменных
         /// <summary>
@@ -24,8 +25,8 @@ namespace WordRepeater
         [STAThread]
         static void Main()
         {
-            if (!Directory.Exists(Program.PATH + "\\UserData\\"))
-                Directory.CreateDirectory(Program.PATH + "\\UserData\\");
+            if (!Directory.Exists(Program.PATH + "UserData\\"))
+                Directory.CreateDirectory(Program.PATH + "UserData\\");
             Controller.Init();
             Controller.LoadSettings();
             Controller.LoadDictionary();
