@@ -16,9 +16,13 @@ namespace WordRepeater
         int iLittleDelimeter = 5;
         int offset;//ListBox.DefaultItemHeight*6;
         int offsetForSearch= ListBox.DefaultItemHeight * 3;
+        int iDelimeter = 13;
         ListBox lbListBox = null;
         TextBox tbSearch = null;
         Button bFilterABC = null;
+        Button bEditButton = null;
+        List<WordToLearn> lWordToManipulate = null;
+        RichTextBox rtbInfoAboutWord = null;
         public MainForm()
         {
             InitializeComponent();
@@ -30,14 +34,24 @@ namespace WordRepeater
             this.Resize += new System.EventHandler(this.Form1_Resize);
             LanguagesTab.TabPages.Clear();//удаляем служебную вкладку после старта приложения
             NewWordButton.Enabled = false;
-            offset = this.Height - LanguagesTab.Height - offsetForSearch + toolStrip1.Height;
+            offset = this.Height - LanguagesTab.Height - offsetForSearch + toolStrip1.Height+ 1;
             tbSearch = new TextBox();
             tbSearch.Size = new System.Drawing.Size(tbSearch.Width * 2, tbSearch.Height);
             tbSearch.PlaceholderText = "Search";
             tbSearch.Location = new Point(tbSearch.Location.X, tbSearch.Location.Y + iLittleDelimeter);
             tbSearch.TextChanged += new System.EventHandler(SearchWord);
-            
-            if (null != Controller.Languages)
+            //info about word
+            rtbInfoAboutWord = new RichTextBox();
+            rtbInfoAboutWord.Location = new Point(LanguagesTab.Width / 2, rtbInfoAboutWord.Location.Y + offsetForSearch); 
+            rtbInfoAboutWord.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, ((LanguagesTab.Height - offset) / 2) - iDelimeter);
+            //edit button
+
+            bEditButton = new Button();
+            bEditButton.Text = "Edit";
+            bEditButton.Location= new Point(LanguagesTab.Width / 2, (rtbInfoAboutWord.Location.Y+ rtbInfoAboutWord.Size.Height + iDelimeter));
+            this.bEditButton.Click += new System.EventHandler(EditWord);
+
+                if (null != Controller.Languages)
             {
                 foreach (Language l in Controller.Languages)
                 {
@@ -46,9 +60,14 @@ namespace WordRepeater
             }
             LanguagesTab.SelectedIndexChanged += new System.EventHandler(CleanSearch);
 
-
+            
         }
 
+        private void EditWord(object sender, EventArgs e)
+        {
+            EditWordForm ewf = new EditWordForm(lWordToManipulate[lbListBox.SelectedIndex], this);
+            ewf.Show();
+        }
         private void CleanSearch(object sender, EventArgs e)
         {
             tbSearch.Text = "";
@@ -56,7 +75,9 @@ namespace WordRepeater
         private void Form1_Resize(object sender, EventArgs e)
         {
             if(null!=lbListBox)
-                lbListBox.Size = new System.Drawing.Size(LanguagesTab.Width / 2, LanguagesTab.Height - offset);
+                lbListBox.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, LanguagesTab.Height - (offset+1));
+            rtbInfoAboutWord.Location = new Point((lbListBox.Width +iDelimeter), rtbInfoAboutWord.Location.Y);
+            rtbInfoAboutWord.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, rtbInfoAboutWord.Size.Height);
         }
 
 
@@ -91,7 +112,7 @@ namespace WordRepeater
                 LanguagesTab.Visible = true;
             if (false == NewWordButton.Enabled)
                 NewWordButton.Enabled = true;
-            LanguagesTab.TabPages[iCurrentIndex].AutoScroll=true;
+            //LanguagesTab.TabPages[iCurrentIndex].AutoScroll=true;
             FillTabs();
         }
 
@@ -108,7 +129,7 @@ namespace WordRepeater
         {
             if (null == tbSearch)
                 return;
-            lbListBox.Dispose();
+            
 
             if (tbSearch.Text.Length > 0)
             {   
@@ -122,27 +143,44 @@ namespace WordRepeater
 
         public void FillTabs(string? sFindForeignWord=null)
         {
+            if(null!=lbListBox)
+                lbListBox.Dispose();
             LanguagesTab.SelectedTab.Controls.Add(tbSearch);
             lbListBox = new ListBox();
+            lbListBox.SelectedIndexChanged += new System.EventHandler(ReloadInfoAboutWord);
             lbListBox.Location = new Point(lbListBox.Location.X, lbListBox.Location.Y + offsetForSearch);
-            lbListBox.Size= new System.Drawing.Size(LanguagesTab.Width/2, LanguagesTab.Height-offset);
+            lbListBox.Size= new System.Drawing.Size((LanguagesTab.Width/2)-iDelimeter, LanguagesTab.Height-offset);
            
-            List<WordToLearn> wtlToShow;
             if (null==sFindForeignWord || sFindForeignWord.Equals(""))
-                 wtlToShow = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();
+                lWordToManipulate = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();
             else
-                wtlToShow = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() && wtl.sForeignWord.StartsWith(sFindForeignWord) orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();
+                lWordToManipulate = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() && wtl.sForeignWord.StartsWith(sFindForeignWord) orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();
             
-            foreach (WordToLearn wtl in wtlToShow)
+            foreach (WordToLearn wtl in lWordToManipulate)
             {
                 lbListBox.Items.Add(wtl.sForeignWord);
 
             }
             LanguagesTab.SelectedTab.Controls.Add(lbListBox);
-            
+            LanguagesTab.SelectedTab.Controls.Add(bEditButton);
+            if (0> lbListBox.SelectedIndex)
+            {
+                bEditButton.Enabled = false;
+            }
+            LanguagesTab.SelectedTab.Controls.Add(rtbInfoAboutWord);
         }
 
-
+        private void ReloadInfoAboutWord(object sender, EventArgs e)
+        {
+            if (-1 < lbListBox.SelectedIndex)
+            {
+                bEditButton.Enabled = true;
+                WordToLearn temp = lWordToManipulate[lbListBox.SelectedIndex];
+                rtbInfoAboutWord.Text = "Example 1:\n" + temp.sForeignExample0 + " - " + temp.sTranslatedExample0 + "\n\nExample 2:\n"
+                    + temp.sForeignExample1 + " - " + temp.sTranslatedExample1 + "\n\nExample 3:\n"
+                    + temp.sForeignExample2 + " - " + temp.sTranslatedExample2;
+            }
+        }
         private void AddNewLanguageButton_Click(object sender, EventArgs e)
         {
             if (Program.MaxLanguagesCount== LanguagesTab.TabCount) {

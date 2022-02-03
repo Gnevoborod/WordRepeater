@@ -45,6 +45,7 @@ namespace WordRepeater
             this.LanguagesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.demoLabel = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.taskBarMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.LanguagesTab.SuspendLayout();
@@ -168,6 +169,7 @@ namespace WordRepeater
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.richTextBox1);
             this.tabPage1.Controls.Add(this.demoLabel);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
@@ -183,6 +185,14 @@ namespace WordRepeater
             this.demoLabel.Name = "demoLabel";
             this.demoLabel.Size = new System.Drawing.Size(0, 20);
             this.demoLabel.TabIndex = 0;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(608, 188);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(125, 120);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "";
             // 
             // MainForm
             // 
@@ -224,6 +234,7 @@ namespace WordRepeater
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton QuitButton;
         private System.Windows.Forms.ToolStripButton AutoLoadBtn;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 
