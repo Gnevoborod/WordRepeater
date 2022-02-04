@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 using WordRepeater.Model;
 
@@ -65,8 +62,10 @@ namespace WordRepeater
 
         private void EditWord(object sender, EventArgs e)
         {
-            EditWordForm ewf = new EditWordForm(lWordToManipulate[lbListBox.SelectedIndex], this);
-            ewf.Show();
+            WordToLearn wtlTemp = lWordToManipulate[lbListBox.SelectedIndex];
+            EditWordForm ewf = new EditWordForm(ref wtlTemp, this);
+            ewf.ShowDialog();
+
         }
         private void CleanSearch(object sender, EventArgs e)
         {
@@ -154,13 +153,15 @@ namespace WordRepeater
             if (null==sFindForeignWord || sFindForeignWord.Equals(""))
                 lWordToManipulate = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();
             else
-                lWordToManipulate = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() && wtl.sForeignWord.StartsWith(sFindForeignWord) orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();
+                lWordToManipulate = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() && (wtl.sForeignWord.StartsWith(sFindForeignWord)|| wtl.sTranslatedWord.StartsWith(sFindForeignWord)) orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();
             
             foreach (WordToLearn wtl in lWordToManipulate)
             {
-                lbListBox.Items.Add(wtl.sForeignWord);
-
+                
+                lbListBox.Items.Add(wtl.sForeignWord+ "        " + wtl.sTranslatedWord);
+                
             }
+            
             LanguagesTab.SelectedTab.Controls.Add(lbListBox);
             LanguagesTab.SelectedTab.Controls.Add(bEditButton);
             if (0> lbListBox.SelectedIndex)
@@ -168,6 +169,7 @@ namespace WordRepeater
                 bEditButton.Enabled = false;
             }
             LanguagesTab.SelectedTab.Controls.Add(rtbInfoAboutWord);
+            
         }
 
         private void ReloadInfoAboutWord(object sender, EventArgs e)

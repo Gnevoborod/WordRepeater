@@ -8,7 +8,7 @@ namespace WordRepeater
     {
         WordToLearn wordToLearn;
         MainForm mfMainForm;
-        public EditWordForm(WordToLearn wtl, MainForm mf)
+        public EditWordForm(ref WordToLearn wtl, MainForm mf)
         {
             wordToLearn = wtl;
             mfMainForm = mf;
@@ -28,6 +28,16 @@ namespace WordRepeater
         private void EditWordButton_Click(object sender, EventArgs e)
         {
             //сделать метод редактирования слова в словаре и прикрутить его сюда
+            string sForeignWord= WordTextBox.Text;
+            string sTranslatedWord= TranslationTextBox.Text;
+            string sForeignExample0= ExampleTextBox0.Text;
+            string sForeignExample1 = ExampleTextBox1.Text;
+            string sForeignExample2 = ExampleTextBox2.Text;
+            string sTranslatedExample0 = TranslationTextBox0.Text;
+            string sTranslatedExample1 = TranslationTextBox1.Text;
+            string sTranslatedExample2 = TranslationTextBox2.Text;
+            wordToLearn.EditFields(sForeignWord, sTranslatedWord, sForeignExample0, sTranslatedExample0, sForeignExample1, sTranslatedExample1, sForeignExample2, sTranslatedExample2);
+            Controller.SaveDictionary();
             this.Close();
             mfMainForm.FillTabs();
         }

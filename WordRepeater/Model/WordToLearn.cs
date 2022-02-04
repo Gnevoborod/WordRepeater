@@ -17,7 +17,7 @@ namespace WordRepeater.Model
         public string sForeignExample2 { get; private set; }
         public string sTranslatedExample2 { get; private set; }
         public List<int>? lSameWords { get; set; }//массив таких же слов, но с другими значениями
-        public bool bIsActive=true;//флаг активности записи. если запись неактивна - слово не отображается для заучивания 
+        public bool bIsActive { get; private set; } = true;//флаг активности записи. если запись неактивна - слово не отображается для заучивания 
 
 
         public WordToLearn(int iLCode, string sFWord, string sTWord, string sFExample0, string sTExample0, string sFExample1, string sTExample1, string sFExample2, string sTExample2)
@@ -33,9 +33,8 @@ namespace WordRepeater.Model
             sTranslatedExample2 = sTExample2;
         }
         //редактируем запись
-        public void EditFields(int iLCode, string sFWord, string sTWord, string sFExample0, string sTExample0, string sFExample1, string sTExample1, string sFExample2, string sTExample2, bool bIActive)
+        public void EditFields(string sFWord, string sTWord, string sFExample0, string sTExample0, string sFExample1, string sTExample1, string sFExample2, string sTExample2)
         {
-            iLanguageCode = iLCode;
             sForeignWord = sFWord;
             sTranslatedWord = sTWord;
             sForeignExample0 = sFExample0;
@@ -44,7 +43,10 @@ namespace WordRepeater.Model
             sTranslatedExample1 = sTExample1;
             sForeignExample2 = sFExample2;
             sTranslatedExample2 = sTExample2;
-            bIsActive = bIActive;
+        }
+        public void SwitchActivity(bool bActivity)
+        {
+            bIsActive = bActivity;
         }
     }
 }

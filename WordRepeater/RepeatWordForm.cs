@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.Linq;
 using WordRepeater.Model;
@@ -130,14 +127,14 @@ namespace WordRepeater
         {
             if (Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].bIsActive)
             {
-                Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].bIsActive = false;
+                Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].SwitchActivity(false);
 
                 RepeatingContextMenu.Items[0].Text = "Start repeating this word again";
             }
             else
             {
                 RepeatingContextMenu.Items[0].Text = "Stop repeating this word";
-                Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].bIsActive = true;
+                Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].SwitchActivity(true);
             }
         }
     }
