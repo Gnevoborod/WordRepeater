@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using System.Linq;
 using WordRepeater.Model;
 namespace WordRepeater
@@ -11,6 +12,7 @@ namespace WordRepeater
         Repeater rRepeater;
         int iRightVariant;
         int[] ArrayOfValues=new int[4];
+        List<WordToLearn> wtlToRepeat = null;
         public RepeatWordForm(Repeater r)
         {
             rRepeater = r;
@@ -27,8 +29,8 @@ namespace WordRepeater
             int index=0;
             int i;
             bool canWrite = true;
-            var wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive select wtl).ToList<WordToLearn>();
-
+            wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive select wtl).ToList<WordToLearn>();
+            
             for (i = 0; i < 4; i++)
             {
                 index = rnd.Next(0, wtlToRepeat.Count);
@@ -57,7 +59,10 @@ namespace WordRepeater
             //просто заполняем каждый радиобатон данными, а затем вычисляем какой из них будет корректным
             this.wordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignWord;
             this.exampleForWordToRepeat.Text= wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignExample0;
-            
+            if (null == wtlToRepeat[ArrayOfValues[iRightVariant]].iRightAnswers)
+                wtlToRepeat[ArrayOfValues[iRightVariant]].iRightAnswers = 0;
+            if (null == wtlToRepeat[ArrayOfValues[iRightVariant]].iWrongAnswers)
+                wtlToRepeat[ArrayOfValues[iRightVariant]].iWrongAnswers = 0;
 
         }
 
@@ -86,29 +91,61 @@ namespace WordRepeater
         }
         private void variant1_CheckedChanged(object sender, EventArgs e)
         {
+            int index = 0;
+            index = Controller.wtlWordsToLearn.IndexOf(wtlToRepeat[ArrayOfValues[iRightVariant]]);
             if (0 != iRightVariant)
+            { 
                 variant1.BackColor = Color.LightPink;
+                Controller.wtlWordsToLearn[index].iWrongAnswers++;
+            }
+            else
+                Controller.wtlWordsToLearn[index].iRightAnswers++;
+            Controller.SaveDictionary();
             RightVary();
         }
 
         private void variant2_CheckedChanged(object sender, EventArgs e)
         {
+            int index = 0;
+            index = Controller.wtlWordsToLearn.IndexOf(wtlToRepeat[ArrayOfValues[iRightVariant]]);
             if (1 != iRightVariant)
+            {
                 variant2.BackColor = Color.LightPink;
+                Controller.wtlWordsToLearn[index].iWrongAnswers++;
+            }
+            else
+                Controller.wtlWordsToLearn[index].iRightAnswers++;
+            Controller.SaveDictionary();
             RightVary();
         }
 
         private void variant3_CheckedChanged(object sender, EventArgs e)
         {
-            if (2 != iRightVariant)
+            int index = 0;
+            index = Controller.wtlWordsToLearn.IndexOf(wtlToRepeat[ArrayOfValues[iRightVariant]]);
+            if (2 != iRightVariant) 
+            { 
                 variant3.BackColor = Color.LightPink;
+                Controller.wtlWordsToLearn[index].iWrongAnswers++;
+            }
+            else
+                Controller.wtlWordsToLearn[index].iRightAnswers++;
+            Controller.SaveDictionary();
             RightVary();
         }
 
         private void variant4_CheckedChanged(object sender, EventArgs e)
         {
+            int index = 0;
+            index = Controller.wtlWordsToLearn.IndexOf(wtlToRepeat[ArrayOfValues[iRightVariant]]);
             if (3 != iRightVariant)
+            {
                 variant4.BackColor = Color.LightPink;
+                Controller.wtlWordsToLearn[index].iWrongAnswers++;
+            }
+            else
+                Controller.wtlWordsToLearn[index].iRightAnswers++;
+            Controller.SaveDictionary();
             RightVary();
         }
 
@@ -125,16 +162,17 @@ namespace WordRepeater
 
         private void stopRepeatingThisWordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].bIsActive)
+            
+            if (wtlToRepeat[ArrayOfValues[iRightVariant]].bIsActive)
             {
-                Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].SwitchActivity(false);
+                wtlToRepeat[ArrayOfValues[iRightVariant]].SwitchActivity();
 
                 RepeatingContextMenu.Items[0].Text = "Start repeating this word again";
             }
             else
             {
                 RepeatingContextMenu.Items[0].Text = "Stop repeating this word";
-                Controller.wtlWordsToLearn[ArrayOfValues[iRightVariant]].SwitchActivity(true);
+                wtlToRepeat[ArrayOfValues[iRightVariant]].SwitchActivity();
             }
         }
     }

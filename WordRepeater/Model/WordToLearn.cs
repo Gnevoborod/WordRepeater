@@ -18,8 +18,8 @@ namespace WordRepeater.Model
         public string sTranslatedExample2 { get; private set; }
         public List<int>? lSameWords { get; set; }//массив таких же слов, но с другими значениями
         public bool bIsActive { get; private set; } = true;//флаг активности записи. если запись неактивна - слово не отображается для заучивания 
-
-
+        public int? iRightAnswers = 0;
+        public int? iWrongAnswers = 0;
         public WordToLearn(int iLCode, string sFWord, string sTWord, string sFExample0, string sTExample0, string sFExample1, string sTExample1, string sFExample2, string sTExample2)
         {
             iLanguageCode = iLCode;
@@ -44,9 +44,12 @@ namespace WordRepeater.Model
             sForeignExample2 = sFExample2;
             sTranslatedExample2 = sTExample2;
         }
-        public void SwitchActivity(bool bActivity)
+        public void SwitchActivity()
         {
-            bIsActive = bActivity;
+            this.bIsActive = !this.bIsActive;
+
+            Controller.SaveDictionary();
         }
+        
     }
 }

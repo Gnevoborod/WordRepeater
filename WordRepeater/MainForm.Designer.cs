@@ -45,7 +45,7 @@ namespace WordRepeater
             this.LanguagesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.demoLabel = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.DownloadBtn = new System.Windows.Forms.ToolStripButton();
             this.taskBarMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.LanguagesTab.SuspendLayout();
@@ -95,6 +95,7 @@ namespace WordRepeater
             this.AddNewLanguageButton,
             this.NewWordButton,
             this.AutoLoadBtn,
+            this.DownloadBtn,
             this.QuitButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -169,7 +170,6 @@ namespace WordRepeater
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
-            this.tabPage1.Controls.Add(this.richTextBox1);
             this.tabPage1.Controls.Add(this.demoLabel);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
@@ -186,13 +186,15 @@ namespace WordRepeater
             this.demoLabel.Size = new System.Drawing.Size(0, 20);
             this.demoLabel.TabIndex = 0;
             // 
-            // richTextBox1
+            // DownloadBtn
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(608, 188);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(125, 120);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
+            this.DownloadBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.DownloadBtn.Image = ((System.Drawing.Image)(resources.GetObject("DownloadBtn.Image")));
+            this.DownloadBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DownloadBtn.Name = "DownloadBtn";
+            this.DownloadBtn.Size = new System.Drawing.Size(29, 24);
+            this.DownloadBtn.Text = "Save list of words";
+            this.DownloadBtn.Click += new System.EventHandler(this.DownloadBtn_Click);
             // 
             // MainForm
             // 
@@ -234,7 +236,7 @@ namespace WordRepeater
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton QuitButton;
         private System.Windows.Forms.ToolStripButton AutoLoadBtn;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.ToolStripButton DownloadBtn;
     }
 }
 

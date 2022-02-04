@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.IO;
 using WordRepeater.Model;
 
 namespace WordRepeater
@@ -20,6 +21,9 @@ namespace WordRepeater
         Button bEditButton = null;
         List<WordToLearn> lWordToManipulate = null;
         RichTextBox rtbInfoAboutWord = null;
+        CheckBox cbActivity = null;
+        GroupBox gbStatistics = null;
+        Label lWrongText, lWrong, lRightText, lRight, lTotalText, lTotal;
         public MainForm()
         {
             InitializeComponent();
@@ -46,9 +50,57 @@ namespace WordRepeater
             bEditButton = new Button();
             bEditButton.Text = "Edit";
             bEditButton.Location= new Point(LanguagesTab.Width / 2, (rtbInfoAboutWord.Location.Y+ rtbInfoAboutWord.Size.Height + iDelimeter));
+            bEditButton.Size = new System.Drawing.Size(bEditButton.Size.Width, (int)(2.2f * iDelimeter));
             this.bEditButton.Click += new System.EventHandler(EditWord);
+            //checkbox
+            cbActivity = new CheckBox();
+            cbActivity.Location= new Point(LanguagesTab.Width / 2, (bEditButton.Location.Y + bEditButton.Size.Height+ iDelimeter));
+            cbActivity.Text = "Active repeating";
+            cbActivity.Click += new System.EventHandler(ChangeCheckedBox);
 
-                if (null != Controller.Languages)
+            //groupbox statistics
+            gbStatistics = new GroupBox();
+            gbStatistics.Text = "Statistics";
+            gbStatistics.Location= new Point(LanguagesTab.Width / 2, (cbActivity.Location.Y + cbActivity.Size.Height + (5+iDelimeter)));
+            gbStatistics.Size= new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(rtbInfoAboutWord.Size.Height*0.8f));
+
+            lRight = new Label();
+            //lRight.AutoSize = true;
+             lRightText = new Label();
+            lRightText.AutoSize = true;
+            lWrong = new Label();
+            //lWrong.AutoSize = true;
+            lWrongText = new Label();
+            lWrongText.AutoSize = true;
+            lTotalText = new Label();
+            lTotal = new Label();
+            //lTotalText.AutoSize = true;
+            lRight.BackColor = Color.LightGreen;
+            lWrong.BackColor = Color.LightPink;
+            lTotalText.Text = "Total: ";
+            lWrongText.Text = "Wrong answers: ";
+            lRightText.Text = "Right answers: ";
+
+            lRight.Size = new System.Drawing.Size(0, lRight.Size.Height);
+            lWrong.Size = new System.Drawing.Size(0, lWrong.Size.Height);
+            lTotal.Size = new System.Drawing.Size(0, lTotal.Size.Height);
+            lRightText.Location= new Point(iDelimeter, 3*iDelimeter);
+            lRight.Location= new Point(lRightText.Location.X + lRightText.Size.Width+iDelimeter, lRightText.Location.Y);
+            lTotal.BackColor = Color.Ivory;
+            lWrongText.Location = new Point(lRightText.Location.X, lRightText.Location.Y+ lRightText.Size.Height +iDelimeter);
+            lWrong.Location = new Point(lWrongText.Location.X + lWrongText.Size.Width + iDelimeter, lWrongText.Location.Y);
+
+            lTotalText.Location = new Point(lWrongText.Location.X, lWrongText.Location.Y + lWrongText.Size.Height + iDelimeter);
+            lTotal.Location = new Point(lTotalText.Location.X + lTotalText.Size.Width + iDelimeter, lTotalText.Location.Y);
+
+            gbStatistics.FlatStyle = FlatStyle.Standard;
+            gbStatistics.Controls.Add(lRight);
+            gbStatistics.Controls.Add(lRightText);
+            gbStatistics.Controls.Add(lWrong);
+            gbStatistics.Controls.Add(lWrongText);
+            gbStatistics.Controls.Add(lTotalText);
+            gbStatistics.Controls.Add(lTotal);
+            if (null != Controller.Languages)
             {
                 foreach (Language l in Controller.Languages)
                 {
@@ -58,6 +110,11 @@ namespace WordRepeater
             LanguagesTab.SelectedIndexChanged += new System.EventHandler(CleanSearch);
 
             
+        }
+
+        private void ChangeCheckedBox(object sender, EventArgs e)
+        {
+            lWordToManipulate[lbListBox.SelectedIndex].SwitchActivity();
         }
 
         private void EditWord(object sender, EventArgs e)
@@ -124,6 +181,10 @@ namespace WordRepeater
         {
             return System.Int32.Parse(LanguagesTab.TabPages[LanguagesTab.SelectedIndex].Name.Substring(7));
         }
+        private string SelectName()
+        {
+            return Controller.Languages[SelectCode()].sName;
+        }
         private void SearchWord(object sender, EventArgs e)
         {
             if (null == tbSearch)
@@ -164,6 +225,9 @@ namespace WordRepeater
             
             LanguagesTab.SelectedTab.Controls.Add(lbListBox);
             LanguagesTab.SelectedTab.Controls.Add(bEditButton);
+            LanguagesTab.SelectedTab.Controls.Add(cbActivity);
+            LanguagesTab.SelectedTab.Controls.Add(gbStatistics);
+
             if (0> lbListBox.SelectedIndex)
             {
                 bEditButton.Enabled = false;
@@ -181,6 +245,37 @@ namespace WordRepeater
                 rtbInfoAboutWord.Text = "Example 1:\n" + temp.sForeignExample0 + " - " + temp.sTranslatedExample0 + "\n\nExample 2:\n"
                     + temp.sForeignExample1 + " - " + temp.sTranslatedExample1 + "\n\nExample 3:\n"
                     + temp.sForeignExample2 + " - " + temp.sTranslatedExample2;
+                cbActivity.Checked = temp.bIsActive;
+                
+                int r, w, t;
+
+
+                lRight.Size = new System.Drawing.Size(0, lRight.Size.Height);
+                lRight.Text = "";
+                lWrong.Text = "";
+                lWrong.Size = new System.Drawing.Size(0, lWrong.Size.Height);
+                lTotal.Size = new System.Drawing.Size(0, lTotal.Size.Height);
+                lTotal.Text = "";
+                lTotalText.Text = "Total: ";
+                if (null != temp.iRightAnswers && null != temp.iWrongAnswers)
+                {
+                    t = (int)temp.iRightAnswers + (int)temp.iWrongAnswers;
+                    if (t > 0)
+                    {
+                        r = (int)temp.iRightAnswers * 100 / t;
+                        w = (int)temp.iWrongAnswers * 100 / t;
+
+                        lRight.Size = new System.Drawing.Size(r, lRight.Size.Height);
+                        lRight.Text = temp.iRightAnswers.ToString();
+
+                        lWrong.Size = new System.Drawing.Size(w, lWrong.Size.Height);
+                        lWrong.Text = temp.iWrongAnswers.ToString();
+
+                        lTotal.Size= new System.Drawing.Size(r+w, lTotal.Size.Height);
+                        lTotal.Text = t.ToString();
+                    }
+                    
+                }
             }
         }
         private void AddNewLanguageButton_Click(object sender, EventArgs e)
@@ -197,6 +292,31 @@ namespace WordRepeater
         {
             SettingsForm sfSettingsForm = new SettingsForm();
             sfSettingsForm.Show(); 
+        }
+
+        private void DownloadBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<string> linesToSave = new List<string>();
+                var wtlToSave = from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() select wtl;
+                foreach (WordToLearn wtl in wtlToSave)
+                {
+                    linesToSave.Add(wtl.sForeignWord + ";" + wtl.sTranslatedWord + ";"
+                        + wtl.sForeignExample0 + ";" + wtl.sTranslatedExample0 + ";"
+                        + wtl.sForeignExample1 + ";" + wtl.sTranslatedExample1 + ";"
+                        + wtl.sForeignExample2 + ";" + wtl.sTranslatedExample2 + ";");
+                }
+                string fileName = Program.PATH+ "ExportFiles\\" + SelectName() + ".csv";
+                Directory.CreateDirectory(Program.PATH + "ExportFiles\\");
+                
+                File.WriteAllLines(fileName, linesToSave);
+                MessageBox.Show("Created file in " + fileName, "Successfully exported");
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         private void NewWordButton_Click(object sender, EventArgs e)
