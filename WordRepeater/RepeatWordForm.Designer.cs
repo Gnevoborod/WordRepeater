@@ -59,7 +59,7 @@ namespace WordRepeater
             // 
             this.wordToRepeat.AutoSize = true;
             this.wordToRepeat.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.wordToRepeat.Location = new System.Drawing.Point(134, 9);
+            this.wordToRepeat.Location = new System.Drawing.Point(179, 9);
             this.wordToRepeat.Name = "wordToRepeat";
             this.wordToRepeat.Size = new System.Drawing.Size(44, 28);
             this.wordToRepeat.TabIndex = 2;
@@ -88,7 +88,7 @@ namespace WordRepeater
             // variant3
             // 
             this.variant3.AutoSize = true;
-            this.variant3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.variant3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.variant3.Location = new System.Drawing.Point(46, 170);
             this.variant3.Name = "variant3";
             this.variant3.Size = new System.Drawing.Size(17, 16);

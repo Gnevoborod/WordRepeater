@@ -41,11 +41,11 @@ namespace WordRepeater
             this.AddNewLanguageButton = new System.Windows.Forms.ToolStripButton();
             this.NewWordButton = new System.Windows.Forms.ToolStripButton();
             this.AutoLoadBtn = new System.Windows.Forms.ToolStripButton();
+            this.DownloadBtn = new System.Windows.Forms.ToolStripButton();
             this.QuitButton = new System.Windows.Forms.ToolStripButton();
             this.LanguagesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.demoLabel = new System.Windows.Forms.Label();
-            this.DownloadBtn = new System.Windows.Forms.ToolStripButton();
             this.taskBarMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.LanguagesTab.SuspendLayout();
@@ -143,6 +143,16 @@ namespace WordRepeater
             this.AutoLoadBtn.Text = "Load list of words";
             this.AutoLoadBtn.Click += new System.EventHandler(this.AutoLoadBtn_Click);
             // 
+            // DownloadBtn
+            // 
+            this.DownloadBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.DownloadBtn.Image = ((System.Drawing.Image)(resources.GetObject("DownloadBtn.Image")));
+            this.DownloadBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DownloadBtn.Name = "DownloadBtn";
+            this.DownloadBtn.Size = new System.Drawing.Size(29, 24);
+            this.DownloadBtn.Text = "Save list of words";
+            this.DownloadBtn.Click += new System.EventHandler(this.DownloadBtn_Click);
+            // 
             // QuitButton
             // 
             this.QuitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -159,7 +169,7 @@ namespace WordRepeater
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LanguagesTab.Controls.Add(this.tabPage1);
-            this.LanguagesTab.Location = new System.Drawing.Point(1, 27);
+            this.LanguagesTab.Location = new System.Drawing.Point(1, 29);
             this.LanguagesTab.Name = "LanguagesTab";
             this.LanguagesTab.SelectedIndex = 0;
             this.LanguagesTab.Size = new System.Drawing.Size(1565, 936);
@@ -185,16 +195,6 @@ namespace WordRepeater
             this.demoLabel.Name = "demoLabel";
             this.demoLabel.Size = new System.Drawing.Size(0, 20);
             this.demoLabel.TabIndex = 0;
-            // 
-            // DownloadBtn
-            // 
-            this.DownloadBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.DownloadBtn.Image = ((System.Drawing.Image)(resources.GetObject("DownloadBtn.Image")));
-            this.DownloadBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DownloadBtn.Name = "DownloadBtn";
-            this.DownloadBtn.Size = new System.Drawing.Size(29, 24);
-            this.DownloadBtn.Text = "Save list of words";
-            this.DownloadBtn.Click += new System.EventHandler(this.DownloadBtn_Click);
             // 
             // MainForm
             // 
