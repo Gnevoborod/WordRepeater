@@ -10,6 +10,7 @@ namespace WordRepeater
         public void Repeat()
         {
             int counter;
+            
             while (null!=Controller.wtlWordsToLearn)
             {
                 for (counter = 0; counter < Controller.sSettings.iRepeatSeconds;counter++)
@@ -22,6 +23,8 @@ namespace WordRepeater
                 }
                 if (4 > Controller.wtlWordsToLearn.Count)
                     continue;
+                if (Program.ToClose)
+                    return;
                 rwfRepeatWordForm = new RepeatWordForm(this);
                 rwfRepeatWordForm.ShowDialog();
                 

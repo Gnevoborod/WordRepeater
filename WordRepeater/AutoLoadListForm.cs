@@ -108,8 +108,10 @@ namespace WordRepeater
 
                     WordToLearn wtlTemp = new WordToLearn(Controller.Languages[AutoLoadComboBox.SelectedIndex].iCode, sForeignWord, sTranslatedWord, sForeignExample0, sTranslatedExample0, sForeignExample1, sTranslatedExample1, sForeignExample2, sTranslatedExample2);
                     Controller.AddNewWordToDictionary(wtlTemp);
+
+                    
                 }
-    
+                MessageBox.Show("Words was successfully exported", "Successfull");
             }
             catch(Exception ex)
             {

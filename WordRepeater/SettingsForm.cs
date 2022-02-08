@@ -11,9 +11,11 @@ namespace WordRepeater
 {
     public partial class SettingsForm : Form
     {
-        public SettingsForm()
+        MainForm mf;
+        public SettingsForm(MainForm mainForm)
         {
             InitializeComponent();
+            mf = mainForm;
             if(null!=Controller.Languages)
             {
                 foreach(Language elem in Controller.Languages)
@@ -49,6 +51,24 @@ namespace WordRepeater
         {
             Controller.sSettings.bTrainingIsActive = checkBox1.Checked;
             Controller.SaveSettings();
+        }
+
+
+        private void DeleteLanguageButton_Click(object sender, EventArgs e)
+        {
+            if (ComboBoxLanguages.SelectedIndex < 0)
+                return;
+            DialogResult result=MessageBox.Show("Are you sure you want to delete the language " + Controller.Languages[ComboBoxLanguages.SelectedIndex].sName + "? All words for that language will be also deleted.", "Confirmation", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No)
+                return;
+            int iCodeToDelete = Controller.Languages[ComboBoxLanguages.SelectedIndex].iCode;
+            Controller.wtlWordsToLearn.RemoveAll(wtlEvery => wtlEvery.iLanguageCode == iCodeToDelete);
+            Controller.Languages.RemoveAt(ComboBoxLanguages.SelectedIndex);
+            Controller.SaveDictionary();
+            Controller.SaveLanguages();
+            mf.ReloadTabs();
+            MessageBox.Show("Language was deleted successfully", "Succcessfull");
+            //Controller.Languages.Remove()
         }
     }
 }

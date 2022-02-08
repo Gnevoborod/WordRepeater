@@ -80,10 +80,9 @@ namespace WordRepeater
             // 
             // PathLabel
             // 
-            this.PathLabel.AutoSize = true;
-            this.PathLabel.Location = new System.Drawing.Point(12, 103);
+            this.PathLabel.Location = new System.Drawing.Point(12, 88);
             this.PathLabel.Name = "PathLabel";
-            this.PathLabel.Size = new System.Drawing.Size(0, 20);
+            this.PathLabel.Size = new System.Drawing.Size(458, 66);
             this.PathLabel.TabIndex = 4;
             // 
             // AutoLoadListForm

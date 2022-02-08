@@ -104,6 +104,7 @@ namespace WordRepeater
             this.DeleteLanguageButton.Size = new System.Drawing.Size(45, 45);
             this.DeleteLanguageButton.TabIndex = 5;
             this.DeleteLanguageButton.UseVisualStyleBackColor = true;
+            this.DeleteLanguageButton.Click += new System.EventHandler(this.DeleteLanguageButton_Click);
             // 
             // label2
             // 

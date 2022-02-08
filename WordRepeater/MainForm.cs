@@ -215,9 +215,32 @@ namespace WordRepeater
             //LanguagesTab.TabPages[iCurrentIndex].AutoScroll=true;
             FillTabs();
         }
+        public void ReloadTabs()
+        {
+            this.LanguagesTab.TabPages.Clear();
+           if (null != Controller.Languages)
+            {
+                foreach (Language l in Controller.Languages)
+                {
+                    this.AddTabWithLanguages(l);
+                }
+            }
+          
+            if (null == LanguagesTab.SelectedTab)
+            {
+                if (0 < LanguagesTab.TabCount)
+                    LanguagesTab.SelectedTab = LanguagesTab.TabPages[0];
+                else
+                    return;
+            }
+            this.FillTabs();
+        }
 
         private void LanguagesTab_Selected(object sender, EventArgs e)
         {
+
+            if (null == LanguagesTab.SelectedTab)
+                return;
             FillTabs();
         }
 
@@ -337,8 +360,9 @@ namespace WordRepeater
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            SettingsForm sfSettingsForm = new SettingsForm();
-            sfSettingsForm.Show(); 
+            SettingsForm sfSettingsForm = new SettingsForm(this);
+            sfSettingsForm.ShowDialog();
+
         }
 
         private void DownloadBtn_Click(object sender, EventArgs e)
@@ -397,7 +421,6 @@ namespace WordRepeater
         {
             AutoLoadListForm allfAutoLoadListForm = new AutoLoadListForm(this);
             allfAutoLoadListForm.ShowDialog();
-            MessageBox.Show("Words was successfully exported","Successfull");
         }
     }
 }
