@@ -27,9 +27,20 @@ namespace WordRepeater
         {
             Random rnd = new Random();
             int index=0;
-            int i;
+            int i, minCount, maxCount, average;
             bool canWrite = true;
-            wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive select wtl).ToList<WordToLearn>();
+            
+            var all=(from mc in Controller.wtlWordsToLearn where mc.bIsActive orderby mc.iTotalAnswers descending select mc.iTotalAnswers);
+            if (null != all && all.Count()>0 && all.ElementAt(0)!=null)
+            {
+                minCount = (int)all.Min();
+                maxCount = (int)all.Max();
+                average = (minCount + maxCount) / 2;
+                int avv = (int)all.Average();
+                wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive && (wtl.iTotalAnswers <= average || wtl.iTotalAnswers==null) select wtl).ToList<WordToLearn>();
+            }
+            else
+                wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive select wtl).ToList<WordToLearn>();
             
             for (i = 0; i < 4; i++)
             {
@@ -66,7 +77,7 @@ namespace WordRepeater
 
         }
 
-        private void RightVary()
+        private void RightVary(int index)
         {
             switch(iRightVariant)
             {
@@ -87,6 +98,8 @@ namespace WordRepeater
             variant2.Enabled = false;
             variant3.Enabled = false;
             variant4.Enabled = false;
+            Controller.wtlWordsToLearn[index].iTotalAnswers = Controller.wtlWordsToLearn[index].iRightAnswers + Controller.wtlWordsToLearn[index].iWrongAnswers;
+            Controller.SaveDictionary();
             ContinueTraineeBtn.Enabled = true;
         }
         private void variant1_CheckedChanged(object sender, EventArgs e)
@@ -100,8 +113,8 @@ namespace WordRepeater
             }
             else
                 Controller.wtlWordsToLearn[index].iRightAnswers++;
-            Controller.SaveDictionary();
-            RightVary();
+            
+            RightVary(index);
         }
 
         private void variant2_CheckedChanged(object sender, EventArgs e)
@@ -115,8 +128,8 @@ namespace WordRepeater
             }
             else
                 Controller.wtlWordsToLearn[index].iRightAnswers++;
-            Controller.SaveDictionary();
-            RightVary();
+
+            RightVary(index);
         }
 
         private void variant3_CheckedChanged(object sender, EventArgs e)
@@ -130,8 +143,8 @@ namespace WordRepeater
             }
             else
                 Controller.wtlWordsToLearn[index].iRightAnswers++;
-            Controller.SaveDictionary();
-            RightVary();
+
+            RightVary(index);
         }
 
         private void variant4_CheckedChanged(object sender, EventArgs e)
@@ -145,8 +158,8 @@ namespace WordRepeater
             }
             else
                 Controller.wtlWordsToLearn[index].iRightAnswers++;
-            Controller.SaveDictionary();
-            RightVary();
+
+            RightVary(index);
         }
 
         private void ContinueTraineeBtn_Click(object sender, EventArgs e)

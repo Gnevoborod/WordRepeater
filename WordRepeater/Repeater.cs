@@ -9,15 +9,18 @@ namespace WordRepeater
        
         public void Repeat()
         {
-
+            int counter;
             while (null!=Controller.wtlWordsToLearn)
             {
-                Thread.Sleep(Controller.sSettings.iRepeatSeconds * 1000);
-                if (Program.ToClose)
-                    return;
+                for (counter = 0; counter < Controller.sSettings.iRepeatSeconds;counter++)
+                {
+                    Thread.Sleep(1000);
+                    if (Program.ToClose)
+                        return;
+                    if (!Controller.sSettings.bTrainingIsActive)
+                        continue;
+                }
                 if (4 > Controller.wtlWordsToLearn.Count)
-                    continue;
-                if (!Controller.sSettings.bTrainingIsActive)
                     continue;
                 rwfRepeatWordForm = new RepeatWordForm(this);
                 rwfRepeatWordForm.ShowDialog();

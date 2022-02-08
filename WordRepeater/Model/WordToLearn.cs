@@ -20,6 +20,7 @@ namespace WordRepeater.Model
         public bool bIsActive { get; private set; } = true;//флаг активности записи. если запись неактивна - слово не отображается для заучивания 
         public int? iRightAnswers = 0;
         public int? iWrongAnswers = 0;
+        public int? iTotalAnswers = 0;
         public WordToLearn(int iLCode, string sFWord, string sTWord, string sFExample0, string sTExample0, string sFExample1, string sTExample1, string sFExample2, string sTExample2)
         {
             iLanguageCode = iLCode;
