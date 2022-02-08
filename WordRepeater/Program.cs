@@ -33,6 +33,8 @@ namespace WordRepeater
             Controller.LoadLanguages();
             if (null == Controller.sSettings.bStartOnLoad)
                 Controller.AutorunRegistry(true);
+            if (null == Controller.sSettings.bRareAlgo)
+                Controller.sSettings.bRareAlgo = true;
             Thread tRepeat = new Thread(rRepeater.Repeat);
             tRepeat.Start();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);

@@ -47,13 +47,18 @@ namespace WordRepeater
             int index=0;
             int i;
             bool canWrite = true;
-            int delimeter = 10;
-            do
+            if ((bool)Controller.sSettings.bRareAlgo)
             {
-                PrepareListOfWords(delimeter);
-                --delimeter;
+                int delimeter = 10;
+                do
+                {
+                    PrepareListOfWords(delimeter);
+                    --delimeter;
+                }
+                while (wtlToRepeat.Count < 4);
             }
-            while (wtlToRepeat.Count < 4) ;
+            else
+                wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive select wtl).ToList<WordToLearn>();
 
             for (i = 0; i < 4; i++)
             {

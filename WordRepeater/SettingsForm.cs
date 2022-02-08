@@ -27,6 +27,7 @@ namespace WordRepeater
             SecondsInput.Value = Controller.sSettings.iRepeatSeconds;
             checkBox1.Checked = Controller.sSettings.bTrainingIsActive;
             checkBox2.Checked = (bool)Controller.sSettings.bStartOnLoad;
+            cbAlgorythm.Checked = (bool)Controller.sSettings.bRareAlgo;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -69,6 +70,12 @@ namespace WordRepeater
             mf.ReloadTabs();
             MessageBox.Show("Language was deleted successfully", "Succcessfull");
             //Controller.Languages.Remove()
+        }
+
+        private void cbAlgorythm_CheckedChanged(object sender, EventArgs e)
+        {
+            Controller.sSettings.bRareAlgo = cbAlgorythm.Checked;
+            Controller.SaveSettings();
         }
     }
 }
