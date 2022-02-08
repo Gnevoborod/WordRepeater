@@ -142,6 +142,12 @@ namespace WordRepeater
                 fs.Position = 0;
                 wtlWordsToLearn = (List<WordToLearn>)formatter.Deserialize(fs);
                 fs.Close();
+
+                var wtlFix = (from wtl in wtlWordsToLearn where wtl.iTotalAnswers == null select wtl).ToList<WordToLearn>();
+                if (wtlFix.Count() > 0)
+                {
+                    wtlFix.ForEach(w => w.iTotalAnswers = 0) ;
+                }
             }
             catch(Exception e)
             {
