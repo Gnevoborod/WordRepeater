@@ -42,6 +42,7 @@ namespace WordRepeater
             this.NewWordButton = new System.Windows.Forms.ToolStripButton();
             this.AutoLoadBtn = new System.Windows.Forms.ToolStripButton();
             this.DownloadBtn = new System.Windows.Forms.ToolStripButton();
+            this.Statistics = new System.Windows.Forms.ToolStripButton();
             this.QuitButton = new System.Windows.Forms.ToolStripButton();
             this.LanguagesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -96,6 +97,7 @@ namespace WordRepeater
             this.NewWordButton,
             this.AutoLoadBtn,
             this.DownloadBtn,
+            this.Statistics,
             this.QuitButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -152,6 +154,16 @@ namespace WordRepeater
             this.DownloadBtn.Size = new System.Drawing.Size(29, 24);
             this.DownloadBtn.Text = "Save list of words";
             this.DownloadBtn.Click += new System.EventHandler(this.DownloadBtn_Click);
+            // 
+            // Statistics
+            // 
+            this.Statistics.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Statistics.Image = ((System.Drawing.Image)(resources.GetObject("Statistics.Image")));
+            this.Statistics.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Statistics.Name = "Statistics";
+            this.Statistics.Size = new System.Drawing.Size(29, 24);
+            this.Statistics.Text = "Statistics";
+            this.Statistics.Click += new System.EventHandler(this.Statistics_Click);
             // 
             // QuitButton
             // 
@@ -237,6 +249,7 @@ namespace WordRepeater
         private System.Windows.Forms.ToolStripButton QuitButton;
         private System.Windows.Forms.ToolStripButton AutoLoadBtn;
         private System.Windows.Forms.ToolStripButton DownloadBtn;
+        private System.Windows.Forms.ToolStripButton Statistics;
     }
 }
 

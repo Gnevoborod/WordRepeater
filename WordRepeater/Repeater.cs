@@ -25,6 +25,8 @@ namespace WordRepeater
                     continue;
                 if (Program.ToClose)
                     return;
+                if (!Controller.sSettings.bTrainingIsActive)
+                    continue;
                 rwfRepeatWordForm = new RepeatWordForm(this);
                 rwfRepeatWordForm.ShowDialog();
                 

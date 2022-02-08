@@ -23,25 +23,38 @@ namespace WordRepeater
             
         }
 
+        private void PrepareListOfWords(int delimeter)
+        {
+            int minCount, maxCount, average;
+            var all = (from mc in Controller.wtlWordsToLearn where mc.bIsActive orderby mc.iTotalAnswers descending select mc.iTotalAnswers);
+            if (null != all && all.Count() > 0 && all.ElementAt(0) != null)
+            {
+                minCount = (int)all.Min();
+                maxCount = (int)all.Max();
+
+                    average = (minCount + maxCount) / delimeter;
+                    wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive && (wtl.iTotalAnswers <= average || wtl.iTotalAnswers == null) select wtl).ToList<WordToLearn>();
+
+            }
+            else
+                wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive select wtl).ToList<WordToLearn>();
+
+        }
+
         private void PrepareNewWord()
         {
             Random rnd = new Random();
             int index=0;
-            int i, minCount, maxCount, average;
+            int i;
             bool canWrite = true;
-            
-            var all=(from mc in Controller.wtlWordsToLearn where mc.bIsActive orderby mc.iTotalAnswers descending select mc.iTotalAnswers);
-            if (null != all && all.Count()>0 && all.ElementAt(0)!=null)
+            int delimeter = 10;
+            do
             {
-                minCount = (int)all.Min();
-                maxCount = (int)all.Max();
-                average = (minCount + maxCount) / 2;
-                int avv = (int)all.Average();
-                wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive && (wtl.iTotalAnswers <= average || wtl.iTotalAnswers==null) select wtl).ToList<WordToLearn>();
+                PrepareListOfWords(delimeter);
+                --delimeter;
             }
-            else
-                wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive select wtl).ToList<WordToLearn>();
-            
+            while (wtlToRepeat.Count < 4) ;
+
             for (i = 0; i < 4; i++)
             {
                 index = rnd.Next(0, wtlToRepeat.Count);

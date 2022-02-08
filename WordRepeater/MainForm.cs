@@ -44,6 +44,8 @@ namespace WordRepeater
             tbSearch.TextChanged += new System.EventHandler(SearchWord);
             //info about word
             rtbInfoAboutWord = new RichTextBox();
+            rtbInfoAboutWord.ReadOnly = true;
+            rtbInfoAboutWord.BackColor = Color.White;
             rtbInfoAboutWord.Location = new Point(LanguagesTab.Width / 2, rtbInfoAboutWord.Location.Y + offsetForSearch); 
             rtbInfoAboutWord.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, ((LanguagesTab.Height - offset) / 2) - iDelimeter);
             //edit button
@@ -388,6 +390,12 @@ namespace WordRepeater
             {
 
             }
+        }
+
+        private void Statistics_Click(object sender, EventArgs e)
+        {
+            StatisticsForm sfStatisticsForm = new StatisticsForm();
+            sfStatisticsForm.ShowDialog();
         }
 
         private void NewWordButton_Click(object sender, EventArgs e)
