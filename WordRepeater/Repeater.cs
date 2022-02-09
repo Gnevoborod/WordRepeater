@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using System;
 
 namespace WordRepeater
 {
@@ -9,38 +10,36 @@ namespace WordRepeater
        
         public void Repeat()
         {
-            int counter;
-            
-            while (null!=Controller.wtlWordsToLearn)
+            try
             {
-                for (counter = 0; counter < Controller.sSettings.iRepeatSeconds;counter++)
+                int counter;
+
+                while (null != Controller.wtlWordsToLearn)
                 {
-                    Thread.Sleep(1000);
+                    for (counter = 0; counter < Controller.sSettings.iRepeatSeconds; counter++)
+                    {
+                        Thread.Sleep(1000);
+                        if (Program.ToClose)
+                            return;
+                        if (!Controller.sSettings.bTrainingIsActive)
+                            continue;
+                    }
+                    if (4 > Controller.wtlWordsToLearn.Count)
+                        continue;
                     if (Program.ToClose)
                         return;
                     if (!Controller.sSettings.bTrainingIsActive)
                         continue;
+                    rwfRepeatWordForm = new RepeatWordForm(this);
+                    rwfRepeatWordForm.ShowDialog();
+
                 }
-                if (4 > Controller.wtlWordsToLearn.Count)
-                    continue;
-                if (Program.ToClose)
-                    return;
-                if (!Controller.sSettings.bTrainingIsActive)
-                    continue;
-                rwfRepeatWordForm = new RepeatWordForm(this);
-                rwfRepeatWordForm.ShowDialog();
-                
+            }
+            catch(Exception ex)
+            {
+
             }
         }
 
-        public bool Check(int iVariant)
-        {
-            return true;
-        }
-
-        public void Stop()
-        {
-           
-        }
     }
 }

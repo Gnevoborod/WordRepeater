@@ -27,30 +27,44 @@ namespace WordRepeater
         }
         public static Language AddNewLanguage(string language)
         {
-            Language lLanguage = new Language(language);
-            if (null != Languages)
-                Languages.Add(lLanguage);
-            else
+            try
             {
-                Languages = new List<Language>();
-                Languages.Add(lLanguage);
+                Language lLanguage = new Language(language);
+                if (null != Languages)
+                    Languages.Add(lLanguage);
+                else
+                {
+                    Languages = new List<Language>();
+                    Languages.Add(lLanguage);
+                }
+                SaveLanguages();
+                return lLanguage;
             }
-            SaveLanguages();
-            return lLanguage;
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
 
         public static bool HasLanguage(string sLanguage)
         {
-            if (null == Languages)
-                return false;
-            foreach (Language l in Languages)
+            try
             {
-                if (l.sName.Equals(sLanguage))
+                if (null == Languages)
+                    return false;
+                foreach (Language l in Languages)
                 {
-                    return true;
+                    if (l.sName.Equals(sLanguage))
+                    {
+                        return true;
+                    }
                 }
-            }
                 return false;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
 
         public static Language GetCurrentLanguage(int index)

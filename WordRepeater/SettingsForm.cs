@@ -14,20 +14,27 @@ namespace WordRepeater
         MainForm mf;
         public SettingsForm(MainForm mainForm)
         {
-            InitializeComponent();
-            mf = mainForm;
-            if(null!=Controller.Languages)
+            try
             {
-                foreach(Language elem in Controller.Languages)
+                InitializeComponent();
+                mf = mainForm;
+                if (null != Controller.Languages)
                 {
-                    if(elem.bIsActive)
-                        ComboBoxLanguages.Items.Add(elem.sName);
+                    foreach (Language elem in Controller.Languages)
+                    {
+                        if (elem.bIsActive)
+                            ComboBoxLanguages.Items.Add(elem.sName);
+                    }
                 }
+                SecondsInput.Value = Controller.sSettings.iRepeatSeconds;
+                checkBox1.Checked = Controller.sSettings.bTrainingIsActive;
+                checkBox2.Checked = (bool)Controller.sSettings.bStartOnLoad;
+                cbAlgorythm.Checked = (bool)Controller.sSettings.bRareAlgo;
             }
-            SecondsInput.Value = Controller.sSettings.iRepeatSeconds;
-            checkBox1.Checked = Controller.sSettings.bTrainingIsActive;
-            checkBox2.Checked = (bool)Controller.sSettings.bStartOnLoad;
-            cbAlgorythm.Checked = (bool)Controller.sSettings.bRareAlgo;
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -57,18 +64,25 @@ namespace WordRepeater
 
         private void DeleteLanguageButton_Click(object sender, EventArgs e)
         {
-            if (ComboBoxLanguages.SelectedIndex < 0)
-                return;
-            DialogResult result=MessageBox.Show("Are you sure you want to delete the language " + Controller.Languages[ComboBoxLanguages.SelectedIndex].sName + "? All words for that language will be also deleted.", "Confirmation", MessageBoxButtons.YesNo);
-            if (result == DialogResult.No)
-                return;
-            int iCodeToDelete = Controller.Languages[ComboBoxLanguages.SelectedIndex].iCode;
-            Controller.wtlWordsToLearn.RemoveAll(wtlEvery => wtlEvery.iLanguageCode == iCodeToDelete);
-            Controller.Languages.RemoveAt(ComboBoxLanguages.SelectedIndex);
-            Controller.SaveDictionary();
-            Controller.SaveLanguages();
-            mf.ReloadTabs();
-            MessageBox.Show("Language was deleted successfully", "Succcessfull");
+            try
+            {
+                if (ComboBoxLanguages.SelectedIndex < 0)
+                    return;
+                DialogResult result = MessageBox.Show("Are you sure you want to delete the language " + Controller.Languages[ComboBoxLanguages.SelectedIndex].sName + "? All words for that language will be also deleted.", "Confirmation", MessageBoxButtons.YesNo);
+                if (result == DialogResult.No)
+                    return;
+                int iCodeToDelete = Controller.Languages[ComboBoxLanguages.SelectedIndex].iCode;
+                Controller.wtlWordsToLearn.RemoveAll(wtlEvery => wtlEvery.iLanguageCode == iCodeToDelete);
+                Controller.Languages.RemoveAt(ComboBoxLanguages.SelectedIndex);
+                Controller.SaveDictionary();
+                Controller.SaveLanguages();
+                mf.ReloadTabs();
+                MessageBox.Show("Language was deleted successfully", "Succcessfull");
+            }
+            catch (Exception ex)
+            {
+
+            }
             //Controller.Languages.Remove()
         }
 
