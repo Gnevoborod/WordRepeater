@@ -27,20 +27,22 @@ namespace WordRepeater
                 int startX, startY;
                 startX = sTotal.Location.X;
                 startY = sTotal.Location.Y;
-                int offX, offY;
+                int offX, offY, offYPart;
                 offX = 24;
                 offY = 36;
+                offYPart = 30;
                 foreach (Language l in Controller.Languages)
                 {
                     startY += offY;
                     GroupBox gb = new GroupBox();
                     gb.Text = l.sName;
                     gb.Location= new Point(startX, startY);
-                    gb.Size= new System.Drawing.Size((int)(this.Size.Width*0.9f), sTotal.Size.Height*5);
+                    
                     Label lTotalWords = new Label();
                     Label lTotalRepeats = new Label();
                     Label lTW = new Label();
                     Label lTR = new Label();
+                    gb.Size = new System.Drawing.Size((int)(this.Size.Width * 0.9f), (offYPart*2)+(lTotalWords.Size.Height*2));//sTotal.Size.Height * 7);
                     int iTW, iTR;
                     var vitw = from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == l.iCode select wtl;
                     iTW = vitw.Count<WordToLearn>();
@@ -49,9 +51,9 @@ namespace WordRepeater
                     lTotalRepeats.Text = "Total trainees:";
                     lTW.Text = iTW.ToString();
                     lTR.Text = iTR.ToString();
-                    lTotalWords.Location= new Point(15, offY);
+                    lTotalWords.Location= new Point(15, offYPart);//offX because we need 24 step not 36. it is offsetX on the Y side
                     lTW.Location = new Point(lTotalWords.Location.X+offX+ lTotalWords.Size.Width, lTotalWords.Location.Y);
-                    lTotalRepeats.Location = new Point(lTotalWords.Location.X, lTotalWords.Location.Y+offY);
+                    lTotalRepeats.Location = new Point(lTotalWords.Location.X, lTotalWords.Location.Y+ offYPart);
                     lTR.Location = new Point(lTotalRepeats.Location.X+offX+ lTotalRepeats.Size.Width, lTotalRepeats.Location.Y);
                     gb.Controls.Add(lTotalWords);
                     gb.Controls.Add(lTotalRepeats);

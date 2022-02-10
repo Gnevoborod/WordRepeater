@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace WordRepeater.Model
 {
     [Serializable]
     public class Language
     {
-        public string sName { get; private set; }
+        public string sName { get; set; }
         public int iCode { get; private set; }
         public bool bIsActive { get; private set; } = true;
 
@@ -17,7 +17,7 @@ namespace WordRepeater.Model
             if (null == Controller.Languages)
                 iCode = 0;
             else
-                iCode = Controller.Languages.Count;
+                iCode = Controller.Languages.Max<Language>(l => l.iCode)+1;
         }
     }
 }

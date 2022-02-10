@@ -334,12 +334,12 @@ namespace WordRepeater
                 lbListBox.SelectedIndexChanged += new System.EventHandler(ReloadInfoAboutWord);
                 lbListBox.Location = new Point(lbListBox.Location.X, lbListBox.Location.Y + offsetForSearch);
                 lbListBox.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, LanguagesTab.Height - offset);
-
+                
                 if (null == sFindForeignWord || sFindForeignWord.Equals(""))
                     lWordToManipulate = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();
                 else
                     lWordToManipulate = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() && (wtl.sForeignWord.StartsWith(sFindForeignWord) || wtl.sTranslatedWord.StartsWith(sFindForeignWord)) orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();
-
+               // lbListBox.DrawItem += new DrawItemEventHandler(ColorizeListBox);
                 foreach (WordToLearn wtl in lWordToManipulate)
                 {
                     lbListBox.Items.Add(wtl.sForeignWord + "        " + wtl.sTranslatedWord);
@@ -509,6 +509,28 @@ namespace WordRepeater
         {
             AutoLoadListForm allfAutoLoadListForm = new AutoLoadListForm(this);
             allfAutoLoadListForm.ShowDialog();
+        }
+
+
+        private void ColorizeListBox(object sender, DrawItemEventArgs e)
+        {
+
+            lbListBox.DrawMode = DrawMode.OwnerDrawFixed; 
+            e.DrawBackground();      
+            Brush brush = Brushes.Black;
+            bool ctr = e.Index % 2 == 0 ? true : false;
+            switch (ctr)  
+            {
+                case true:
+                    brush = Brushes.LightSlateGray;
+                    break;
+                case false:
+                    brush = Brushes.White;
+                    break;
+            } 
+            e.Graphics.DrawString(lbListBox.Items[e.Index].ToString(),
+                     e.Font, brush, e.Bounds, StringFormat.GenericDefault);  
+            e.DrawFocusRectangle();  
         }
     }
 }

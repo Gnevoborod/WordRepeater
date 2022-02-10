@@ -103,6 +103,8 @@ namespace WordRepeater
             this.Controls.Add(this.sTotalLanguages);
             this.Controls.Add(this.sTotalWords);
             this.Controls.Add(this.sTotal);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "StatisticsForm";
             this.Text = "Statistics";
             this.Load += new System.EventHandler(this.StatisticsForm_Load);
