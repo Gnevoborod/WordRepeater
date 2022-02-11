@@ -74,7 +74,7 @@ namespace WordRepeater
                 gbStatistics = new GroupBox();
                 gbStatistics.Text = "Statistics";
                 gbStatistics.Location = new Point(LanguagesTab.Width / 2, (cbActivity.Location.Y + cbActivity.Size.Height + (5 + iDelimeter)));
-                gbStatistics.Size = new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(rtbInfoAboutWord.Size.Height * 0.815f));
+                gbStatistics.Size = new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(LanguagesTab.Size.Height / 2) - (int)((gbStatistics.Location.Y - (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height))*1.5f));// (int)(rtbInfoAboutWord.Size.Height * 0.815f));
 
                 lRight = new Label();
                 //lRight.AutoSize = true;
@@ -105,6 +105,7 @@ namespace WordRepeater
                 lTotalText.Location = new Point(lWrongText.Location.X, lWrongText.Location.Y + lWrongText.Size.Height + iDelimeter);
                 lTotal.Location = new Point(lWrongText.Location.X + lWrongText.Size.Width + iDelimeter, lTotalText.Location.Y);
 
+                gbStatistics.AutoSize = true;
                 gbStatistics.FlatStyle = FlatStyle.Standard;
                 gbStatistics.Controls.Add(lRight);
                 gbStatistics.Controls.Add(lRightText);
@@ -176,7 +177,7 @@ namespace WordRepeater
             try
             {
                 if (null != lbListBox)
-                    lbListBox.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, LanguagesTab.Height - (offset + 1));
+                    lbListBox.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, LanguagesTab.Height - (offset + 2));
                 rtbInfoAboutWord.Location = new Point((lbListBox.Width + iDelimeter), rtbInfoAboutWord.Location.Y);
                 rtbInfoAboutWord.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, rtbInfoAboutWord.Size.Height);
                 bEditButton.Location = new Point(LanguagesTab.Width / 2, (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + iDelimeter));
@@ -189,7 +190,15 @@ namespace WordRepeater
                     mno = 0.9f;
                 else
                     mno = 0.815f;
-                gbStatistics.Size = new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(rtbInfoAboutWord.Size.Height * mno));
+                gbStatistics.Size=new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(this.Size.Height / 3));
+                /*TODO
+                 * 
+                 * переделать Location для элементов, отталкиваться от основного окна.
+                 * и тогда можно будет попробовать сохранять размеры и расположение элементов более удачным способом
+                 * а сейчас расстояния скачут. эт не ок
+                 * 
+                 * */
+                //gbStatistics.Size = new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(LanguagesTab.Size.Height / 2) - (int)((gbStatistics.Location.Y - (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height)) +50));
                 bDeleteButton.Location = new Point(LanguagesTab.Width / 2 + bEditButton.Size.Width + (2 * iDelimeter), (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + iDelimeter));
 
 
@@ -242,7 +251,7 @@ namespace WordRepeater
                     LanguagesTab.Visible = true;
                 if (false == NewWordButton.Enabled)
                     NewWordButton.Enabled = true;
-                //LanguagesTab.TabPages[iCurrentIndex].AutoScroll=true;
+                LanguagesTab.TabPages[iCurrentIndex].AutoScroll=true;
                 FillTabs();
             }
             catch(Exception ex)
@@ -333,8 +342,8 @@ namespace WordRepeater
                 lbListBox = new ListBox();
                 lbListBox.SelectedIndexChanged += new System.EventHandler(ReloadInfoAboutWord);
                 lbListBox.Location = new Point(lbListBox.Location.X, lbListBox.Location.Y + offsetForSearch);
-                lbListBox.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, LanguagesTab.Height - offset);
-                
+                lbListBox.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, LanguagesTab.Height - (offset + 2));
+
                 if (null == sFindForeignWord || sFindForeignWord.Equals(""))
                     lWordToManipulate = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();
                 else

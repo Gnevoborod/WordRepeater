@@ -17,6 +17,8 @@ namespace WordRepeater
             try
             {
                 InitializeComponent();
+                if(null!=Controller.eEnvironment.pSettingsForm)
+                    this.Location = (Point)Controller.eEnvironment.pSettingsForm;
                 mf = mainForm;
                 if (null != Controller.Languages)
                 {
@@ -92,6 +94,13 @@ namespace WordRepeater
         {
             Controller.sSettings.bRareAlgo = cbAlgorythm.Checked;
             Controller.SaveSettings();
+        }
+
+
+        private void OnClose(object sender, FormClosingEventArgs e)
+        {
+            Controller.eEnvironment.pSettingsForm = this.Location;
+            Controller.SaveEnvironment();
         }
     }
 }

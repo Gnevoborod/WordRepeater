@@ -39,9 +39,9 @@ namespace WordRepeater
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbAlgorythm = new System.Windows.Forms.CheckBox();
             this.SecondsInput = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cbAlgorythm = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SecondsInput)).BeginInit();
@@ -142,6 +142,17 @@ namespace WordRepeater
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Repeating";
             // 
+            // cbAlgorythm
+            // 
+            this.cbAlgorythm.AutoSize = true;
+            this.cbAlgorythm.Location = new System.Drawing.Point(18, 172);
+            this.cbAlgorythm.Name = "cbAlgorythm";
+            this.cbAlgorythm.Size = new System.Drawing.Size(238, 24);
+            this.cbAlgorythm.TabIndex = 8;
+            this.cbAlgorythm.Text = "Rare repeating words to repeat";
+            this.cbAlgorythm.UseVisualStyleBackColor = true;
+            this.cbAlgorythm.CheckedChanged += new System.EventHandler(this.cbAlgorythm_CheckedChanged);
+            // 
             // SecondsInput
             // 
             this.SecondsInput.Location = new System.Drawing.Point(18, 76);
@@ -166,17 +177,6 @@ namespace WordRepeater
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Other";
             // 
-            // cbAlgorythm
-            // 
-            this.cbAlgorythm.AutoSize = true;
-            this.cbAlgorythm.Location = new System.Drawing.Point(18, 172);
-            this.cbAlgorythm.Name = "cbAlgorythm";
-            this.cbAlgorythm.Size = new System.Drawing.Size(238, 24);
-            this.cbAlgorythm.TabIndex = 8;
-            this.cbAlgorythm.Text = "Rare repeating words to repeat";
-            this.cbAlgorythm.UseVisualStyleBackColor = true;
-            this.cbAlgorythm.CheckedChanged += new System.EventHandler(this.cbAlgorythm_CheckedChanged);
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -186,8 +186,9 @@ namespace WordRepeater
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "SettingsForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Settings";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

@@ -161,6 +161,7 @@ namespace WordRepeater
             this.Name = "RepeatWordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Repeat the word";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
             this.RepeatingContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -245,7 +245,9 @@ namespace WordRepeater
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "EditWordForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Add new word";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

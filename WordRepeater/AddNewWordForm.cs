@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using WordRepeater.Model;
 
@@ -13,6 +14,8 @@ namespace WordRepeater
             iLanguageCode = iLCode;
             mfMainForm = mf;
             InitializeComponent();
+            if (null != Controller.eEnvironment.pAddNewWordForm)
+                this.Location = (Point)Controller.eEnvironment.pAddNewWordForm;
         }
 
         private void AddWordButton_Click(object sender, EventArgs e)
@@ -30,6 +33,13 @@ namespace WordRepeater
             this.Close();
             mfMainForm.FillTabs();
            
+        }
+
+        private void OnClose(object sender, FormClosingEventArgs e)
+        {
+
+            Controller.eEnvironment.pAddNewWordForm = this.Location;
+            Controller.SaveEnvironment();
         }
     }
 }

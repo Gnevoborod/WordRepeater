@@ -18,6 +18,8 @@ namespace WordRepeater
             rRepeater = r;
             
             InitializeComponent();
+            if (null != Controller.eEnvironment.pRepeatWordForm)
+                this.Location = (Point)Controller.eEnvironment.pRepeatWordForm;
             PrepareNewWord();
             wordToRepeat.Focus();
             
@@ -259,6 +261,12 @@ namespace WordRepeater
             {
 
             }
+        }
+
+        private void OnClose(object sender, FormClosingEventArgs e)
+        {
+            Controller.eEnvironment.pRepeatWordForm = this.Location;
+            Controller.SaveEnvironment();
         }
     }
 }

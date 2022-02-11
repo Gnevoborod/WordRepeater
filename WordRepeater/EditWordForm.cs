@@ -1,6 +1,7 @@
 ﻿using System;
 using WordRepeater.Model;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace WordRepeater
 {
@@ -13,6 +14,8 @@ namespace WordRepeater
             wordToLearn = wtl;
             mfMainForm = mf;
             InitializeComponent();
+            if (null != Controller.eEnvironment.pEditWordForm)
+                this.Location = (Point)Controller.eEnvironment.pEditWordForm;
             WordTextBox.Text = wordToLearn.sForeignWord;
             TranslationTextBox.Text = wordToLearn.sTranslatedWord;
             ExampleTextBox0.Text = wordToLearn.sForeignExample0;
@@ -40,6 +43,12 @@ namespace WordRepeater
             Controller.SaveDictionary();
             this.Close();
             mfMainForm.FillTabs();
+        }
+
+        private void OnClose(object sender, FormClosingEventArgs e)
+        {
+            Controller.eEnvironment.pEditWordForm = this.Location;
+            Controller.SaveEnvironment();
         }
     }
 }

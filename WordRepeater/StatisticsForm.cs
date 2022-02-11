@@ -11,6 +11,8 @@ namespace WordRepeater
         public StatisticsForm()
         {
             InitializeComponent();
+            if (null != Controller.eEnvironment.pStatisticsForm)
+                this.Location = (Point)Controller.eEnvironment.pStatisticsForm;
 
         }
 
@@ -70,6 +72,12 @@ namespace WordRepeater
                 MessageBox.Show("The Statistics funcionality is not available now. Please try a little bit later, or reload the app", "Unavailable");
 
             }
+        }
+
+        private void OnClose(object sender, FormClosingEventArgs e)
+        {
+            Controller.eEnvironment.pStatisticsForm = this.Location;
+            Controller.SaveEnvironment();
         }
     }
 }
