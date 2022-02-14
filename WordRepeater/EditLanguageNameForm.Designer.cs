@@ -69,7 +69,9 @@ namespace WordRepeater
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
             this.Name = "EditLanguageNameForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Edit language name";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -43,6 +43,7 @@ namespace WordRepeater
             this.AutoLoadBtn = new System.Windows.Forms.ToolStripButton();
             this.DownloadBtn = new System.Windows.Forms.ToolStripButton();
             this.Statistics = new System.Windows.Forms.ToolStripButton();
+            this.AboutButton = new System.Windows.Forms.ToolStripButton();
             this.QuitButton = new System.Windows.Forms.ToolStripButton();
             this.LanguagesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -98,6 +99,7 @@ namespace WordRepeater
             this.AutoLoadBtn,
             this.DownloadBtn,
             this.Statistics,
+            this.AboutButton,
             this.QuitButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -164,6 +166,16 @@ namespace WordRepeater
             this.Statistics.Size = new System.Drawing.Size(29, 24);
             this.Statistics.Text = "Statistics";
             this.Statistics.Click += new System.EventHandler(this.Statistics_Click);
+            // 
+            // AboutButton
+            // 
+            this.AboutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.AboutButton.Image = ((System.Drawing.Image)(resources.GetObject("AboutButton.Image")));
+            this.AboutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AboutButton.Name = "AboutButton";
+            this.AboutButton.Size = new System.Drawing.Size(29, 24);
+            this.AboutButton.Text = "About";
+            this.AboutButton.Click += new System.EventHandler(this.AboutButton_Click);
             // 
             // QuitButton
             // 
@@ -251,6 +263,7 @@ namespace WordRepeater
         private System.Windows.Forms.ToolStripButton AutoLoadBtn;
         private System.Windows.Forms.ToolStripButton DownloadBtn;
         private System.Windows.Forms.ToolStripButton Statistics;
+        private System.Windows.Forms.ToolStripButton AboutButton;
     }
 }
 

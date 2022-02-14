@@ -19,6 +19,8 @@ namespace WordRepeater
             language = l;
             _mf = mf;
             InitializeComponent();
+            if (null != Controller.eEnvironment.pEditLanguageNameForm)
+                this.Location = (Point)Controller.eEnvironment.pEditLanguageNameForm;
             tbEditLanguage.Text = l.sName;
         }
 
@@ -28,6 +30,12 @@ namespace WordRepeater
             Controller.SaveLanguages();
             this.Close();
             _mf.ReloadTabs();
+        }
+
+        private void OnClose(object sender, FormClosingEventArgs e)
+        {
+            Controller.eEnvironment.pEditLanguageNameForm = this.Location;
+            Controller.SaveEnvironment();
         }
     }
 }

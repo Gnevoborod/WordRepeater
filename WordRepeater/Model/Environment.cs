@@ -19,5 +19,6 @@ namespace WordRepeater.Model
         public Point? pEditWordForm;
         public Point? pCreateNewLanguageForm;
         public Point? pEditLanguageNameForm;
+        public Point? pAboutForm;
     }
 }

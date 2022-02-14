@@ -1,7 +1,7 @@
 ﻿
 namespace WordRepeater
 {
-    partial class CreateNewLanguageForm
+    partial class AboutForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,48 +29,39 @@ namespace WordRepeater
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.NewLanguageTextBox = new System.Windows.Forms.TextBox();
+            this.lblAbout = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // lblAbout
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(118, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Language name:";
-            // 
-            // NewLanguageTextBox
-            // 
-            this.NewLanguageTextBox.Location = new System.Drawing.Point(136, 29);
-            this.NewLanguageTextBox.Name = "NewLanguageTextBox";
-            this.NewLanguageTextBox.Size = new System.Drawing.Size(227, 27);
-            this.NewLanguageTextBox.TabIndex = 1;
+            this.lblAbout.AutoSize = true;
+            this.lblAbout.Location = new System.Drawing.Point(46, 30);
+            this.lblAbout.Name = "lblAbout";
+            this.lblAbout.Size = new System.Drawing.Size(0, 20);
+            this.lblAbout.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(136, 88);
+            this.button1.Location = new System.Drawing.Point(359, 395);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(94, 29);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Create";
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Ok";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // CreateNewLanguageForm
+            // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(421, 129);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.NewLanguageTextBox);
-            this.Controls.Add(this.label1);
-            this.Name = "CreateNewLanguageForm";
+            this.Controls.Add(this.lblAbout);
+            this.Location = new System.Drawing.Point(50, 50);
+            this.Name = "AboutForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "New language";
+            this.Text = "About";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -79,8 +70,7 @@ namespace WordRepeater
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox NewLanguageTextBox;
+        private System.Windows.Forms.Label lblAbout;
         private System.Windows.Forms.Button button1;
     }
 }

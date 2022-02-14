@@ -96,7 +96,9 @@ namespace WordRepeater
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AutoLoadComboBox);
             this.Name = "AutoLoadListForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Load list of words";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
             this.ResumeLayout(false);
             this.PerformLayout();
 

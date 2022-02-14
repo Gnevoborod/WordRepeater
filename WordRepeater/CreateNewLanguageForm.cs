@@ -16,6 +16,8 @@ namespace WordRepeater
         {
             oMother = sender;
             InitializeComponent();
+            if (null != Controller.eEnvironment.pCreateNewLanguageForm)
+                this.Location = (Point)Controller.eEnvironment.pCreateNewLanguageForm;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -34,6 +36,12 @@ namespace WordRepeater
             Language lLanguage = Controller.AddNewLanguage(sNewLanguage);
             this.Close();
             oMother.AddTabWithLanguages(lLanguage);
+        }
+
+        private void OnClose(object sender, FormClosingEventArgs e)
+        {
+            Controller.eEnvironment.pCreateNewLanguageForm = this.Location;
+            Controller.SaveEnvironment();
         }
     }
 }

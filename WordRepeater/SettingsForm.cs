@@ -78,9 +78,11 @@ namespace WordRepeater
                 int iCodeToDelete = Controller.Languages[ComboBoxLanguages.SelectedIndex].iCode;
                 Controller.wtlWordsToLearn.RemoveAll(wtlEvery => wtlEvery.iLanguageCode == iCodeToDelete);
                 Controller.Languages.RemoveAt(ComboBoxLanguages.SelectedIndex);
+                ComboBoxLanguages.Items.RemoveAt(ComboBoxLanguages.SelectedIndex);
                 Controller.SaveDictionary();
                 Controller.SaveLanguages();
                 mf.ReloadTabs();
+                ComboBoxLanguages.Refresh();
                 MessageBox.Show("Language was deleted successfully", "Succcessfull");
             }
             catch (Exception ex)

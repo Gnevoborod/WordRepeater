@@ -31,6 +31,8 @@ namespace WordRepeater
             try
             {
                 InitializeComponent();
+                if (null != Controller.eEnvironment.pMainForm)
+                    this.Location = (Point)Controller.eEnvironment.pMainForm;
                 notifyIcon1.Visible = false;
                 // добавляем Эвент или событие по 2му клику мышки, 
                 //вызывая функцию  notifyIcon1_MouseDoubleClick
@@ -210,6 +212,8 @@ namespace WordRepeater
                 lRight.Location = new Point(lWrongText.Location.X + lWrongText.Size.Width + iDelimeter, lRightText.Location.Y);
                 lTotalText.Location = new Point(lWrongText.Location.X, lWrongText.Location.Y + lWrongText.Size.Height + iDelimeter);
                 lTotal.Location = new Point(lWrongText.Location.X + lWrongText.Size.Width + iDelimeter, lTotalText.Location.Y);
+                Controller.eEnvironment.pMainForm = this.Location;
+                Controller.SaveEnvironment();
             }
             catch(Exception ex)
             {
@@ -486,6 +490,12 @@ namespace WordRepeater
             anwfAddNewWordForm.Show();
         }
 
+        private void AboutButton_Click(object sender, EventArgs e)
+        {
+            AboutForm af = new AboutForm();
+            af.ShowDialog();
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             HideWindowForm();
@@ -496,6 +506,8 @@ namespace WordRepeater
 
         private void CloseApplication(object sender, EventArgs e)
         {
+            Controller.eEnvironment.pMainForm = this.Location;
+            Controller.SaveEnvironment();
             Program.ToClose = true;
             this.Dispose(true);
         }

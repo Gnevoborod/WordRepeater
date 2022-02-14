@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using WordRepeater.Model;
@@ -13,6 +14,8 @@ namespace WordRepeater
         public AutoLoadListForm(MainForm mf)
         {
             InitializeComponent();
+            if (null != Controller.eEnvironment.pAutoLoadListForm)
+                this.Location = (Point)Controller.eEnvironment.pAutoLoadListForm;
             mfMainForm = mf;
             if (null != Controller.Languages)
             {
@@ -120,9 +123,18 @@ namespace WordRepeater
             finally
             {
 
+                Controller.eEnvironment.pAutoLoadListForm = this.Location;
+                Controller.SaveEnvironment();
+                mfMainForm.FillTabs();
+                this.Dispose();
             }
-            mfMainForm.FillTabs();
-            this.Dispose();
+            
+        }
+
+        private void OnClose(object sender, FormClosingEventArgs e)
+        {
+            Controller.eEnvironment.pAutoLoadListForm = this.Location;
+            Controller.SaveEnvironment();
         }
     }
 }
