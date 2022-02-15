@@ -48,6 +48,7 @@ namespace WordRepeater
             this.LanguagesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.demoLabel = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.taskBarMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.LanguagesTab.SuspendLayout();
@@ -193,21 +194,21 @@ namespace WordRepeater
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LanguagesTab.Controls.Add(this.tabPage1);
-            this.LanguagesTab.Location = new System.Drawing.Point(1, 32);
+            this.LanguagesTab.Location = new System.Drawing.Point(1, 35);
             this.LanguagesTab.Name = "LanguagesTab";
             this.LanguagesTab.SelectedIndex = 0;
-            this.LanguagesTab.Size = new System.Drawing.Size(1565, 933);
-            this.LanguagesTab.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
+            this.LanguagesTab.Size = new System.Drawing.Size(1565, 943);
             this.LanguagesTab.TabIndex = 1;
             this.LanguagesTab.Visible = false;
             // 
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.listBox1);
             this.tabPage1.Controls.Add(this.demoLabel);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(1557, 900);
+            this.tabPage1.Size = new System.Drawing.Size(1557, 910);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Projectivity";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -220,12 +221,22 @@ namespace WordRepeater
             this.demoLabel.Size = new System.Drawing.Size(0, 20);
             this.demoLabel.TabIndex = 0;
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 20;
+            this.listBox1.Location = new System.Drawing.Point(641, 165);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(150, 104);
+            this.listBox1.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1566, 966);
+            this.ClientSize = new System.Drawing.Size(1566, 978);
+            this.ContextMenuStrip = this.taskBarMenu;
             this.Controls.Add(this.LanguagesTab);
             this.Controls.Add(this.toolStrip1);
             this.Location = new System.Drawing.Point(20, 20);
@@ -264,6 +275,7 @@ namespace WordRepeater
         private System.Windows.Forms.ToolStripButton DownloadBtn;
         private System.Windows.Forms.ToolStripButton Statistics;
         private System.Windows.Forms.ToolStripButton AboutButton;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 

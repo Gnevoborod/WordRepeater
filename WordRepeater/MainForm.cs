@@ -33,6 +33,8 @@ namespace WordRepeater
                 InitializeComponent();
                 if (null != Controller.eEnvironment.pMainForm)
                     this.Location = (Point)Controller.eEnvironment.pMainForm;
+                if (null != Controller.eEnvironment.sMainForm)
+                    this.Size = (Size)Controller.eEnvironment.sMainForm;
                 notifyIcon1.Visible = false;
                 // добавляем Эвент или событие по 2му клику мышки, 
                 //вызывая функцию  notifyIcon1_MouseDoubleClick
@@ -52,31 +54,34 @@ namespace WordRepeater
                 rtbInfoAboutWord.ReadOnly = true;
                 rtbInfoAboutWord.BackColor = Color.White;
                 rtbInfoAboutWord.Location = new Point(LanguagesTab.Width / 2, rtbInfoAboutWord.Location.Y + offsetForSearch);
-                rtbInfoAboutWord.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, ((LanguagesTab.Height - offset) / 2) - iDelimeter);
+                rtbInfoAboutWord.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - 2*iDelimeter, ((LanguagesTab.Height - offset) / 2) - iDelimeter);
                 //edit button
 
                 bEditButton = new Button();
                 bEditButton.Text = "Edit";
-                bEditButton.Location = new Point(LanguagesTab.Width / 2, (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + iDelimeter));
+                bEditButton.Location = new Point(tbSearch.Location.X + tbSearch.Size.Width + iDelimeter, tbSearch.Location.Y);
+                //bEditButton.Location = new Point(LanguagesTab.Width / 2, (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + iDelimeter));
                 bEditButton.Size = new System.Drawing.Size(bEditButton.Size.Width, (int)(2.2f * iDelimeter));
                 this.bEditButton.Click += new System.EventHandler(EditWord);
                 //deletebutton
                 bDeleteButton = new Button();
                 bDeleteButton.Text = "Delete";
-                bDeleteButton.Location = new Point(LanguagesTab.Width / 2 + bEditButton.Size.Width + (2 * iDelimeter), (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + iDelimeter));
+                bDeleteButton.Location = new Point(bEditButton.Location.X + bEditButton.Size.Width + iDelimeter, tbSearch.Location.Y);
+                //bDeleteButton.Location = new Point(LanguagesTab.Width / 2 + bEditButton.Size.Width + (2 * iDelimeter), (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + iDelimeter));
                 bDeleteButton.Size = new System.Drawing.Size(bDeleteButton.Size.Width, (int)(2.2f * iDelimeter));
                 this.bDeleteButton.Click += new System.EventHandler(DeleteWord);
                 //checkbox
                 cbActivity = new CheckBox();
-                cbActivity.Location = new Point(LanguagesTab.Width / 2, (bEditButton.Location.Y + bEditButton.Size.Height + iDelimeter));
+                cbActivity.Location = new Point(bDeleteButton.Location.X + bDeleteButton.Size.Width + iDelimeter, tbSearch.Location.Y);
+                //cbActivity.Location = new Point(LanguagesTab.Width / 2, (bEditButton.Location.Y + bEditButton.Size.Height + iDelimeter));
                 cbActivity.Text = "Active repeating";
                 cbActivity.Click += new System.EventHandler(ChangeCheckedBox);
 
                 //groupbox statistics
                 gbStatistics = new GroupBox();
                 gbStatistics.Text = "Statistics";
-                gbStatistics.Location = new Point(LanguagesTab.Width / 2, (cbActivity.Location.Y + cbActivity.Size.Height + (5 + iDelimeter)));
-                gbStatistics.Size = new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(LanguagesTab.Size.Height / 2) - (int)((gbStatistics.Location.Y - (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height))*1.5f));// (int)(rtbInfoAboutWord.Size.Height * 0.815f));
+                gbStatistics.Location = new Point(LanguagesTab.Width / 2, (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + (5 + iDelimeter)));
+                gbStatistics.Size = new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(LanguagesTab.Size.Height / 2) - (int)(rtbInfoAboutWord.Size.Height * 0.8f));// (int)(rtbInfoAboutWord.Size.Height * 0.815f));
 
                 lRight = new Label();
                 //lRight.AutoSize = true;
@@ -107,6 +112,8 @@ namespace WordRepeater
                 lTotalText.Location = new Point(lWrongText.Location.X, lWrongText.Location.Y + lWrongText.Size.Height + iDelimeter);
                 lTotal.Location = new Point(lWrongText.Location.X + lWrongText.Size.Width + iDelimeter, lTotalText.Location.Y);
 
+
+              
                 gbStatistics.AutoSize = true;
                 gbStatistics.FlatStyle = FlatStyle.Standard;
                 gbStatistics.Controls.Add(lRight);
@@ -115,6 +122,8 @@ namespace WordRepeater
                 gbStatistics.Controls.Add(lWrongText);
                 gbStatistics.Controls.Add(lTotalText);
                 gbStatistics.Controls.Add(lTotal);
+
+                
                 if (null != Controller.Languages)
                 {
                     foreach (Language l in Controller.Languages)
@@ -178,42 +187,47 @@ namespace WordRepeater
         {
             try
             {
-                if (null != lbListBox)
-                    lbListBox.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, LanguagesTab.Height - (offset + 2));
-                rtbInfoAboutWord.Location = new Point((lbListBox.Width + iDelimeter), rtbInfoAboutWord.Location.Y);
-                rtbInfoAboutWord.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, rtbInfoAboutWord.Size.Height);
-                bEditButton.Location = new Point(LanguagesTab.Width / 2, (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + iDelimeter));
-                bEditButton.Size = new System.Drawing.Size(bEditButton.Size.Width, (int)(2.2f * iDelimeter));
-                cbActivity.Location = new Point(LanguagesTab.Width / 2, (bEditButton.Location.Y + bEditButton.Size.Height + iDelimeter));
-                gbStatistics.Location = new Point(LanguagesTab.Width / 2, (cbActivity.Location.Y + cbActivity.Size.Height + (5 + iDelimeter)));
+                
+                if (LanguagesTab.Size.Height > 300)
+                {
+                    if (null != lbListBox)
+                        lbListBox.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, LanguagesTab.Height - (offset + 2));
+                    rtbInfoAboutWord.Location = new Point((lbListBox.Width + iDelimeter), rtbInfoAboutWord.Location.Y);
+                    rtbInfoAboutWord.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, ((LanguagesTab.Height - offset) / 2) - iDelimeter);
+                   // bEditButton.Location = new Point(LanguagesTab.Width / 2, (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + iDelimeter));
+                    //bEditButton.Size = new System.Drawing.Size(bEditButton.Size.Width, (int)(2.2f * iDelimeter));
+                    //cbActivity.Location = new Point(LanguagesTab.Width / 2, (bEditButton.Location.Y + bEditButton.Size.Height + iDelimeter));
+                    gbStatistics.Location = new Point(LanguagesTab.Width / 2, (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + (5 + iDelimeter)));
 
-                float mno = 0;
-                if (this.WindowState == FormWindowState.Maximized)
-                    mno = 0.9f;
-                else
-                    mno = 0.815f;
-                gbStatistics.Size=new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(this.Size.Height / 3));
-                /*TODO
-                 * 
-                 * переделать Location для элементов, отталкиваться от основного окна.
-                 * и тогда можно будет попробовать сохранять размеры и расположение элементов более удачным способом
-                 * а сейчас расстояния скачут. эт не ок
-                 * 
-                 * */
-                //gbStatistics.Size = new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(LanguagesTab.Size.Height / 2) - (int)((gbStatistics.Location.Y - (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height)) +50));
-                bDeleteButton.Location = new Point(LanguagesTab.Width / 2 + bEditButton.Size.Width + (2 * iDelimeter), (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + iDelimeter));
+                    float mno = 0;
+                    if (this.WindowState == FormWindowState.Maximized)
+                        mno = 0.9f;
+                    else
+                        mno = 0.815f;
+                    gbStatistics.Size = new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(LanguagesTab.Size.Height / 2) - (int)(rtbInfoAboutWord.Size.Height * 0.8f));  //(rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height)) * 1.5f));
+                    /*TODO
+                     * 
+                     * переделать Location для элементов, отталкиваться от основного окна.
+                     * и тогда можно будет попробовать сохранять размеры и расположение элементов более удачным способом
+                     * а сейчас расстояния скачут. эт не ок
+                     * 
+                     * */
+                    //gbStatistics.Size = new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(LanguagesTab.Size.Height / 2) - (int)((gbStatistics.Location.Y - (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height)) +50));
+                    //bDeleteButton.Location = new Point(LanguagesTab.Width / 2 + bEditButton.Size.Width + (2 * iDelimeter), (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + iDelimeter));
 
 
-                lRightText.Location = new Point(iDelimeter, 3 * iDelimeter);
+                    lRightText.Location = new Point(iDelimeter, 3 * iDelimeter);
 
 
-                lWrongText.Location = new Point(lRightText.Location.X, lRightText.Location.Y + lRightText.Size.Height + iDelimeter);
-                lWrong.Location = new Point(lWrongText.Location.X + lWrongText.Size.Width + iDelimeter, lWrongText.Location.Y);
-                lRight.Location = new Point(lWrongText.Location.X + lWrongText.Size.Width + iDelimeter, lRightText.Location.Y);
-                lTotalText.Location = new Point(lWrongText.Location.X, lWrongText.Location.Y + lWrongText.Size.Height + iDelimeter);
-                lTotal.Location = new Point(lWrongText.Location.X + lWrongText.Size.Width + iDelimeter, lTotalText.Location.Y);
-                Controller.eEnvironment.pMainForm = this.Location;
-                Controller.SaveEnvironment();
+                    lWrongText.Location = new Point(lRightText.Location.X, lRightText.Location.Y + lRightText.Size.Height + iDelimeter);
+                    lWrong.Location = new Point(lWrongText.Location.X + lWrongText.Size.Width + iDelimeter, lWrongText.Location.Y);
+                    lRight.Location = new Point(lWrongText.Location.X + lWrongText.Size.Width + iDelimeter, lRightText.Location.Y);
+                    lTotalText.Location = new Point(lWrongText.Location.X, lWrongText.Location.Y + lWrongText.Size.Height + iDelimeter);
+                    lTotal.Location = new Point(lWrongText.Location.X + lWrongText.Size.Width + iDelimeter, lTotalText.Location.Y);
+                    Controller.eEnvironment.pMainForm = this.Location;
+                    Controller.eEnvironment.sMainForm = this.Size;
+                    Controller.SaveEnvironment();
+                }
             }
             catch(Exception ex)
             {
@@ -347,6 +361,7 @@ namespace WordRepeater
                 lbListBox.SelectedIndexChanged += new System.EventHandler(ReloadInfoAboutWord);
                 lbListBox.Location = new Point(lbListBox.Location.X, lbListBox.Location.Y + offsetForSearch);
                 lbListBox.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, LanguagesTab.Height - (offset + 2));
+                lbListBox.IntegralHeight = false;
 
                 if (null == sFindForeignWord || sFindForeignWord.Equals(""))
                     lWordToManipulate = (from wtl in Controller.wtlWordsToLearn where wtl.iLanguageCode == SelectCode() orderby wtl.sForeignWord select wtl).ToList<WordToLearn>();

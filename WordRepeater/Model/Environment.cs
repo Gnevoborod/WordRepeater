@@ -11,6 +11,7 @@ namespace WordRepeater.Model
     public class Environment
     {
         public Point? pMainForm;//координаты основного окна
+        public Size? sMainForm;//размер основного окна
         public Point? pRepeatWordForm;//координаты окна повторяемого слова
         public Point? pSettingsForm;//координаты окна сохранения настроек
         public Point? pAddNewWordForm;
