@@ -58,6 +58,7 @@ namespace WordRepeater
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblAbout);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Location = new System.Drawing.Point(50, 50);
             this.Name = "AboutForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

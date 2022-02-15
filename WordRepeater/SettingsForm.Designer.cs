@@ -92,7 +92,7 @@ namespace WordRepeater
             this.EditLanguageButton.Image = ((System.Drawing.Image)(resources.GetObject("EditLanguageButton.Image")));
             this.EditLanguageButton.Location = new System.Drawing.Point(282, 62);
             this.EditLanguageButton.Name = "EditLanguageButton";
-            this.EditLanguageButton.Size = new System.Drawing.Size(45, 45);
+            this.EditLanguageButton.Size = new System.Drawing.Size(42, 42);
             this.EditLanguageButton.TabIndex = 4;
             this.EditLanguageButton.UseVisualStyleBackColor = true;
             this.EditLanguageButton.Click += new System.EventHandler(this.button1_Click);
@@ -102,7 +102,7 @@ namespace WordRepeater
             this.DeleteLanguageButton.Image = ((System.Drawing.Image)(resources.GetObject("DeleteLanguageButton.Image")));
             this.DeleteLanguageButton.Location = new System.Drawing.Point(333, 62);
             this.DeleteLanguageButton.Name = "DeleteLanguageButton";
-            this.DeleteLanguageButton.Size = new System.Drawing.Size(45, 45);
+            this.DeleteLanguageButton.Size = new System.Drawing.Size(42, 42);
             this.DeleteLanguageButton.TabIndex = 5;
             this.DeleteLanguageButton.UseVisualStyleBackColor = true;
             this.DeleteLanguageButton.Click += new System.EventHandler(this.DeleteLanguageButton_Click);
@@ -185,6 +185,9 @@ namespace WordRepeater
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Settings";

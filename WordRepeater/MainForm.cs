@@ -72,7 +72,7 @@ namespace WordRepeater
                 this.bDeleteButton.Click += new System.EventHandler(DeleteWord);
                 //checkbox
                 cbActivity = new CheckBox();
-                cbActivity.Location = new Point(bDeleteButton.Location.X + bDeleteButton.Size.Width + iDelimeter, tbSearch.Location.Y);
+                cbActivity.Location = new Point(bDeleteButton.Location.X + bDeleteButton.Size.Width + iDelimeter, tbSearch.Location.Y+ tbSearch.Size.Height/7);
                 //cbActivity.Location = new Point(LanguagesTab.Width / 2, (bEditButton.Location.Y + bEditButton.Size.Height + iDelimeter));
                 cbActivity.Text = "Active repeating";
                 cbActivity.Click += new System.EventHandler(ChangeCheckedBox);

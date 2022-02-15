@@ -46,63 +46,59 @@ namespace WordRepeater
             // 
             // variant1
             // 
-            this.variant1.AutoSize = true;
             this.variant1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.variant1.Location = new System.Drawing.Point(46, 105);
+            this.variant1.Location = new System.Drawing.Point(46, 101);
             this.variant1.Name = "variant1";
-            this.variant1.Size = new System.Drawing.Size(17, 16);
+            this.variant1.Size = new System.Drawing.Size(536, 26);
             this.variant1.TabIndex = 1;
             this.variant1.UseVisualStyleBackColor = true;
             this.variant1.CheckedChanged += new System.EventHandler(this.variant1_CheckedChanged);
             // 
             // wordToRepeat
             // 
-            this.wordToRepeat.AutoSize = true;
             this.wordToRepeat.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.wordToRepeat.Location = new System.Drawing.Point(179, 9);
+            this.wordToRepeat.Location = new System.Drawing.Point(12, 9);
             this.wordToRepeat.Name = "wordToRepeat";
-            this.wordToRepeat.Size = new System.Drawing.Size(44, 28);
+            this.wordToRepeat.Size = new System.Drawing.Size(570, 28);
             this.wordToRepeat.TabIndex = 2;
             this.wordToRepeat.Text = "ffff";
+            this.wordToRepeat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // exampleForWordToRepeat
             // 
             this.exampleForWordToRepeat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.exampleForWordToRepeat.Location = new System.Drawing.Point(12, 37);
             this.exampleForWordToRepeat.Name = "exampleForWordToRepeat";
-            this.exampleForWordToRepeat.Size = new System.Drawing.Size(431, 52);
+            this.exampleForWordToRepeat.Size = new System.Drawing.Size(570, 52);
             this.exampleForWordToRepeat.TabIndex = 3;
             this.exampleForWordToRepeat.Text = "exampleexampleexampleexampleexampleexampleexample;";
             // 
             // variant2
             // 
-            this.variant2.AutoSize = true;
             this.variant2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.variant2.Location = new System.Drawing.Point(46, 137);
             this.variant2.Name = "variant2";
-            this.variant2.Size = new System.Drawing.Size(17, 16);
+            this.variant2.Size = new System.Drawing.Size(536, 27);
             this.variant2.TabIndex = 4;
             this.variant2.UseVisualStyleBackColor = true;
             this.variant2.CheckedChanged += new System.EventHandler(this.variant2_CheckedChanged);
             // 
             // variant3
             // 
-            this.variant3.AutoSize = true;
             this.variant3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.variant3.Location = new System.Drawing.Point(46, 170);
             this.variant3.Name = "variant3";
-            this.variant3.Size = new System.Drawing.Size(17, 16);
+            this.variant3.Size = new System.Drawing.Size(536, 27);
             this.variant3.TabIndex = 5;
             this.variant3.UseVisualStyleBackColor = true;
             this.variant3.CheckedChanged += new System.EventHandler(this.variant3_CheckedChanged);
             // 
             // variant4
             // 
-            this.variant4.AutoSize = true;
             this.variant4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.variant4.Location = new System.Drawing.Point(46, 203);
             this.variant4.Name = "variant4";
-            this.variant4.Size = new System.Drawing.Size(17, 16);
+            this.variant4.Size = new System.Drawing.Size(536, 24);
             this.variant4.TabIndex = 6;
             this.variant4.UseVisualStyleBackColor = true;
             this.variant4.CheckedChanged += new System.EventHandler(this.variant4_CheckedChanged);
@@ -110,7 +106,7 @@ namespace WordRepeater
             // ContinueTraineeBtn
             // 
             this.ContinueTraineeBtn.Enabled = false;
-            this.ContinueTraineeBtn.Location = new System.Drawing.Point(179, 256);
+            this.ContinueTraineeBtn.Location = new System.Drawing.Point(247, 256);
             this.ContinueTraineeBtn.Name = "ContinueTraineeBtn";
             this.ContinueTraineeBtn.Size = new System.Drawing.Size(94, 29);
             this.ContinueTraineeBtn.TabIndex = 7;
@@ -121,7 +117,7 @@ namespace WordRepeater
             // RepeatingMenuButton
             // 
             this.RepeatingMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("RepeatingMenuButton.Image")));
-            this.RepeatingMenuButton.Location = new System.Drawing.Point(394, 242);
+            this.RepeatingMenuButton.Location = new System.Drawing.Point(533, 242);
             this.RepeatingMenuButton.Name = "RepeatingMenuButton";
             this.RepeatingMenuButton.Size = new System.Drawing.Size(49, 43);
             this.RepeatingMenuButton.TabIndex = 8;
@@ -147,7 +143,7 @@ namespace WordRepeater
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(455, 301);
+            this.ClientSize = new System.Drawing.Size(594, 301);
             this.ContextMenuStrip = this.RepeatingContextMenu;
             this.Controls.Add(this.RepeatingMenuButton);
             this.Controls.Add(this.ContinueTraineeBtn);
@@ -164,7 +160,6 @@ namespace WordRepeater
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
             this.RepeatingContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

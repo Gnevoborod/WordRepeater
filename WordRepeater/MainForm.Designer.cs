@@ -48,7 +48,6 @@ namespace WordRepeater
             this.LanguagesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.demoLabel = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.taskBarMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.LanguagesTab.SuspendLayout();
@@ -204,7 +203,6 @@ namespace WordRepeater
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
-            this.tabPage1.Controls.Add(this.listBox1);
             this.tabPage1.Controls.Add(this.demoLabel);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
@@ -220,15 +218,6 @@ namespace WordRepeater
             this.demoLabel.Name = "demoLabel";
             this.demoLabel.Size = new System.Drawing.Size(0, 20);
             this.demoLabel.TabIndex = 0;
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(641, 165);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(150, 104);
-            this.listBox1.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -275,7 +264,6 @@ namespace WordRepeater
         private System.Windows.Forms.ToolStripButton DownloadBtn;
         private System.Windows.Forms.ToolStripButton Statistics;
         private System.Windows.Forms.ToolStripButton AboutButton;
-        private System.Windows.Forms.ListBox listBox1;
     }
 }
 

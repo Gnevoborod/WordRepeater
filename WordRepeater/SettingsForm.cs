@@ -41,9 +41,12 @@ namespace WordRepeater
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Language l = Controller.Languages[ComboBoxLanguages.SelectedIndex];
-            EditLanguageNameForm elnfEdit = new EditLanguageNameForm(ref l, mf);
-            elnfEdit.ShowDialog();
+            if (ComboBoxLanguages.SelectedIndex > -1)
+            {
+                Language l = Controller.Languages[ComboBoxLanguages.SelectedIndex];
+                EditLanguageNameForm elnfEdit = new EditLanguageNameForm(ref l, mf);
+                elnfEdit.ShowDialog();
+            }
         }
 
         

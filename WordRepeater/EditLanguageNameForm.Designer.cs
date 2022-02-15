@@ -68,6 +68,7 @@ namespace WordRepeater
             this.Controls.Add(this.tbEditLanguage);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "EditLanguageNameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Edit language name";
