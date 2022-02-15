@@ -188,8 +188,7 @@ namespace WordRepeater
             try
             {
                 
-                if (LanguagesTab.Size.Height > 300)
-                {
+                
                     if (null != lbListBox)
                         lbListBox.Size = new System.Drawing.Size((LanguagesTab.Width / 2) - iDelimeter, LanguagesTab.Height - (offset + 2));
                     rtbInfoAboutWord.Location = new Point((lbListBox.Width + iDelimeter), rtbInfoAboutWord.Location.Y);
@@ -227,7 +226,7 @@ namespace WordRepeater
                     Controller.eEnvironment.pMainForm = this.Location;
                     Controller.eEnvironment.sMainForm = this.Size;
                     Controller.SaveEnvironment();
-                }
+                
             }
             catch(Exception ex)
             {
