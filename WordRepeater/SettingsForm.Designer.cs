@@ -40,6 +40,7 @@ namespace WordRepeater
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbLanguageToRepeat = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbForeignWordToTrain = new System.Windows.Forms.CheckBox();
             this.cbAlgorythm = new System.Windows.Forms.CheckBox();
             this.SecondsInput = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -148,16 +149,28 @@ namespace WordRepeater
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cbForeignWordToTrain);
             this.groupBox2.Controls.Add(this.cbAlgorythm);
             this.groupBox2.Controls.Add(this.SecondsInput);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Location = new System.Drawing.Point(24, 214);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(392, 220);
+            this.groupBox2.Size = new System.Drawing.Size(392, 270);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Repeating";
+            // 
+            // cbForeignWordToTrain
+            // 
+            this.cbForeignWordToTrain.AutoSize = true;
+            this.cbForeignWordToTrain.Location = new System.Drawing.Point(18, 218);
+            this.cbForeignWordToTrain.Name = "cbForeignWordToTrain";
+            this.cbForeignWordToTrain.Size = new System.Drawing.Size(220, 24);
+            this.cbForeignWordToTrain.TabIndex = 9;
+            this.cbForeignWordToTrain.Text = "Repeating words are foreign";
+            this.cbForeignWordToTrain.UseVisualStyleBackColor = true;
+            this.cbForeignWordToTrain.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // cbAlgorythm
             // 
@@ -187,7 +200,7 @@ namespace WordRepeater
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.checkBox2);
-            this.groupBox3.Location = new System.Drawing.Point(24, 456);
+            this.groupBox3.Location = new System.Drawing.Point(24, 490);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(392, 105);
             this.groupBox3.TabIndex = 9;
@@ -198,7 +211,7 @@ namespace WordRepeater
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 591);
+            this.ClientSize = new System.Drawing.Size(450, 611);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -235,5 +248,6 @@ namespace WordRepeater
         private System.Windows.Forms.NumericUpDown SecondsInput;
         private System.Windows.Forms.CheckBox cbAlgorythm;
         private System.Windows.Forms.CheckBox cbLanguageToRepeat;
+        private System.Windows.Forms.CheckBox cbForeignWordToTrain;
     }
 }

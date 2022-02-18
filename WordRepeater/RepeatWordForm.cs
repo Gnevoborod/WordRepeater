@@ -92,14 +92,15 @@ namespace WordRepeater
                         continue;
                     }
                 }
-                this.variant1.Text = wtlToRepeat[ArrayOfValues[0]].sTranslatedWord;
-                this.variant2.Text = wtlToRepeat[ArrayOfValues[1]].sTranslatedWord;
-                this.variant3.Text = wtlToRepeat[ArrayOfValues[2]].sTranslatedWord;
-                this.variant4.Text = wtlToRepeat[ArrayOfValues[3]].sTranslatedWord;
+                bool bForeignWordToTrain = (bool)Controller.sSettings.bForeignWordToTrain;
+                this.variant1.Text = bForeignWordToTrain?wtlToRepeat[ArrayOfValues[0]].sTranslatedWord: wtlToRepeat[ArrayOfValues[0]].sForeignWord;
+                this.variant2.Text = bForeignWordToTrain ? wtlToRepeat[ArrayOfValues[1]].sTranslatedWord : wtlToRepeat[ArrayOfValues[1]].sForeignWord;
+                this.variant3.Text = bForeignWordToTrain ? wtlToRepeat[ArrayOfValues[2]].sTranslatedWord : wtlToRepeat[ArrayOfValues[2]].sForeignWord;
+                this.variant4.Text = bForeignWordToTrain ? wtlToRepeat[ArrayOfValues[3]].sTranslatedWord : wtlToRepeat[ArrayOfValues[3]].sForeignWord;
                 iRightVariant = rnd.Next(0, 4);
                 //просто заполняем каждый радиобатон данными, а затем вычисляем какой из них будет корректным
-                this.wordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignWord;
-                this.exampleForWordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignExample0;
+                this.wordToRepeat.Text = bForeignWordToTrain ? wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignWord: wtlToRepeat[ArrayOfValues[iRightVariant]].sTranslatedWord;
+                this.exampleForWordToRepeat.Text = bForeignWordToTrain ? wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignExample0: wtlToRepeat[ArrayOfValues[iRightVariant]].sTranslatedExample0;
                 if (null == wtlToRepeat[ArrayOfValues[iRightVariant]].iRightAnswers)
                     wtlToRepeat[ArrayOfValues[iRightVariant]].iRightAnswers = 0;
                 if (null == wtlToRepeat[ArrayOfValues[iRightVariant]].iWrongAnswers)

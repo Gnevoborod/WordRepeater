@@ -32,6 +32,12 @@ namespace WordRepeater
                 checkBox1.Checked = Controller.sSettings.bTrainingIsActive;
                 checkBox2.Checked = (bool)Controller.sSettings.bStartOnLoad;
                 cbAlgorythm.Checked = (bool)Controller.sSettings.bRareAlgo;
+                if (null == Controller.sSettings.bForeignWordToTrain)
+                {
+                    Controller.sSettings.bForeignWordToTrain = true;
+                    Controller.SaveSettings();
+                }
+                cbForeignWordToTrain.Checked = (bool)Controller.sSettings.bForeignWordToTrain;
             }
             catch (Exception ex)
             {
@@ -135,5 +141,13 @@ namespace WordRepeater
                 cbLanguageToRepeat.Checked =(bool) Controller.Languages[ComboBoxLanguages.SelectedIndex].bIsActiveTraining;
             }
             }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (null == Controller.sSettings.bForeignWordToTrain)
+                Controller.sSettings.bForeignWordToTrain = true;
+            Controller.sSettings.bForeignWordToTrain = cbForeignWordToTrain.Checked;
+            Controller.SaveSettings();
+        }
     }
 }
