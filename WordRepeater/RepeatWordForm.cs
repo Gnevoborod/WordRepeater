@@ -30,18 +30,19 @@ namespace WordRepeater
             try
             {
                 int minCount, maxCount, average;
-                var all = (from mc in Controller.wtlWordsToLearn where mc.bIsActive orderby mc.iTotalAnswers descending select mc.iTotalAnswers);
+                List<int> languages = (from l in Controller.Languages where l.bIsActiveTraining == null || (bool)l.bIsActiveTraining select l.iCode).ToList<int>();
+                var all = (from mc in Controller.wtlWordsToLearn where mc.bIsActive && languages.Contains(mc.iLanguageCode) orderby mc.iTotalAnswers descending select mc.iTotalAnswers);
                 if (null != all && all.Count() > 0 && all.ElementAt(0) != null)
                 {
                     minCount = (int)all.Min();
                     maxCount = (int)all.Max();
 
                     average = (minCount + maxCount) / delimeter;
-                    wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive && (wtl.iTotalAnswers <= average || wtl.iTotalAnswers == null) select wtl).ToList<WordToLearn>();
+                    wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive && languages.Contains(wtl.iLanguageCode) && (wtl.iTotalAnswers <= average || wtl.iTotalAnswers == null) select wtl).ToList<WordToLearn>();
 
                 }
                 else
-                    wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive select wtl).ToList<WordToLearn>();
+                    wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive && languages.Contains(wtl.iLanguageCode) select wtl).ToList<WordToLearn>();
 
             }
             catch(Exception ex)

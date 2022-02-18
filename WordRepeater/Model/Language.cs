@@ -9,7 +9,8 @@ namespace WordRepeater.Model
     {
         public string sName { get; set; }
         public int iCode { get; private set; }
-        public bool bIsActive { get; private set; } = true;
+        public bool bIsActive { get; set; } = true;
+        public bool? bIsActiveTraining { get; set; } = true;
 
         public Language(string _sName)
         {

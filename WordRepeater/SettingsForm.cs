@@ -107,5 +107,33 @@ namespace WordRepeater
             Controller.eEnvironment.pSettingsForm = this.Location;
             Controller.SaveEnvironment();
         }
+
+        private void cbLanguageToRepeat_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ComboBoxLanguages.SelectedIndex < 0 || ComboBoxLanguages.Text == "")
+                return;
+            Language l = Controller.Languages[ComboBoxLanguages.SelectedIndex];
+            l.bIsActiveTraining = cbLanguageToRepeat.Checked;
+            Controller.SaveLanguages();
+        }
+
+        private void OnValueChange(object sender, EventArgs e)
+        {
+            if (ComboBoxLanguages.SelectedIndex < 0 || ComboBoxLanguages.Text == "")
+            {
+                cbLanguageToRepeat.Enabled = false;
+                cbLanguageToRepeat.Checked = false;
+            }
+            else
+            {
+                if (null == Controller.Languages[ComboBoxLanguages.SelectedIndex].bIsActiveTraining)
+                {
+                    Controller.Languages[ComboBoxLanguages.SelectedIndex].bIsActiveTraining = true;
+                    Controller.SaveLanguages();
+                }
+                cbLanguageToRepeat.Enabled = true;
+                cbLanguageToRepeat.Checked =(bool) Controller.Languages[ComboBoxLanguages.SelectedIndex].bIsActiveTraining;
+            }
+            }
     }
 }
