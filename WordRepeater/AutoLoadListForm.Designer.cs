@@ -40,9 +40,9 @@ namespace WordRepeater
             // AutoLoadComboBox
             // 
             this.AutoLoadComboBox.FormattingEnabled = true;
-            this.AutoLoadComboBox.Location = new System.Drawing.Point(190, 9);
+            this.AutoLoadComboBox.Location = new System.Drawing.Point(207, 6);
             this.AutoLoadComboBox.Name = "AutoLoadComboBox";
-            this.AutoLoadComboBox.Size = new System.Drawing.Size(227, 28);
+            this.AutoLoadComboBox.Size = new System.Drawing.Size(325, 28);
             this.AutoLoadComboBox.TabIndex = 0;
             // 
             // label1
@@ -56,7 +56,7 @@ namespace WordRepeater
             // 
             // AutoLoadBtn
             // 
-            this.AutoLoadBtn.Location = new System.Drawing.Point(190, 173);
+            this.AutoLoadBtn.Location = new System.Drawing.Point(236, 198);
             this.AutoLoadBtn.Name = "AutoLoadBtn";
             this.AutoLoadBtn.Size = new System.Drawing.Size(94, 29);
             this.AutoLoadBtn.TabIndex = 2;
@@ -82,21 +82,25 @@ namespace WordRepeater
             // 
             this.PathLabel.Location = new System.Drawing.Point(12, 88);
             this.PathLabel.Name = "PathLabel";
-            this.PathLabel.Size = new System.Drawing.Size(458, 66);
+            this.PathLabel.Size = new System.Drawing.Size(553, 93);
             this.PathLabel.TabIndex = 4;
             // 
             // AutoLoadListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 214);
+            this.ClientSize = new System.Drawing.Size(577, 239);
             this.Controls.Add(this.PathLabel);
             this.Controls.Add(this.ChooseFileButton);
             this.Controls.Add(this.AutoLoadBtn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AutoLoadComboBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AutoLoadListForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Load list of words";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
+            this.Load += new System.EventHandler(this.AutoLoadListForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

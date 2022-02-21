@@ -11,7 +11,7 @@ namespace WordRepeater
     static class Program
     {
         //Настроечные переменные программы
-        public const int MaxLanguagesCount = 3;
+        public const int MaxLanguagesCount = 15;
         public static bool ToClose = false;
         public const int ModelVersion = 0;//Версия моделей данных. При несовпадении требуется конвертация модели локальных данных
         public static MainForm mfMainForm;
@@ -31,6 +31,7 @@ namespace WordRepeater
             Controller.LoadSettings();
             Controller.LoadDictionary();
             Controller.LoadLanguages();
+            Controller.LoadEnvironment();
             if (null == Controller.sSettings.bStartOnLoad)
                 Controller.AutorunRegistry(true);
             if (null == Controller.sSettings.bRareAlgo)

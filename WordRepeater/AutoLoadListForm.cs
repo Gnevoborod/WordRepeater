@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using WordRepeater.Model;
+
 
 namespace WordRepeater
 {
@@ -13,6 +15,8 @@ namespace WordRepeater
         public AutoLoadListForm(MainForm mf)
         {
             InitializeComponent();
+            if (null != Controller.eEnvironment.pAutoLoadListForm)
+                this.Location = (Point)Controller.eEnvironment.pAutoLoadListForm;
             mfMainForm = mf;
             if (null != Controller.Languages)
             {
@@ -33,6 +37,52 @@ namespace WordRepeater
 
         private void AutoLoadBtn_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (AutoLoadComboBox.SelectedIndex < 0)
+                    return;
+                if (!File.Exists(FILE_PATH))
+                    return;
+                int nextDelimeter = 0;
+                int nextStart = 0;
+                IEnumerable<string> lines = File.ReadLines(FILE_PATH);
+                foreach (string currentString in lines)
+                {
+                    var newLine = currentString.Split(';');
+                    string sForeignWord = newLine[0];
+                    string sTranslatedWord = newLine[1];
+                    string sForeignExample0, sTranslatedExample0, sForeignExample1, sTranslatedExample1, sForeignExample2, sTranslatedExample2;
+                    sForeignExample0 = newLine[2];
+                    sTranslatedExample0 = newLine[3];
+                    sForeignExample1 = newLine[4];
+                    sTranslatedExample1 = newLine[5];
+                    sForeignExample2 = newLine[6];
+                    sTranslatedExample2 = newLine[7];
+                    WordToLearn wtlTemp = new WordToLearn(Controller.Languages[AutoLoadComboBox.SelectedIndex].iCode, sForeignWord, sTranslatedWord, sForeignExample0, sTranslatedExample0, sForeignExample1, sTranslatedExample1, sForeignExample2, sTranslatedExample2);
+                    Controller.wtlWordsToLearn.Add(wtlTemp);
+
+                }
+                Controller.SaveDictionary();
+                MessageBox.Show("Words was successfully exported", "Successfull");
+
+            }
+            catch(Exception ex)
+            {
+                
+                MessageBox.Show("Bad structure of file. Can not proceed.");
+            }
+            finally
+            {
+
+                Controller.eEnvironment.pAutoLoadListForm = this.Location;
+                Controller.SaveEnvironment();
+                mfMainForm.FillTabs();
+                this.Dispose();
+            }
+
+        }
+            private void AutoLoadBtn_Click_(object sender, EventArgs e)
+        {
             if (AutoLoadComboBox.SelectedIndex < 0)
                 return;
             if (!File.Exists(FILE_PATH))
@@ -45,66 +95,66 @@ namespace WordRepeater
                 foreach (string currentString in lines)
                 {
                     string workingString = currentString;
-                    nextDelimeter = workingString.IndexOf(';');
-                    string sForeignWord = workingString.Substring(0, nextDelimeter);
+                    nextDelimeter = Utils.Strchr(ref workingString, ';');//workingString.IndexOf(';');
+                    string sForeignWord = Utils.Substr(ref workingString, 0, nextDelimeter);//workingString.Substring(0, nextDelimeter);
                     nextStart = nextDelimeter + 1;
-                    workingString = workingString.Substring(nextStart);
-                    nextDelimeter = workingString.IndexOf(';');
-                    string sTranslatedWord = workingString.Substring(0, nextDelimeter);
+                    workingString = Utils.Substr(ref workingString, nextStart);// workingString.Substring(nextStart);
+                    nextDelimeter = Utils.Strchr(ref workingString, ';');//workingString.IndexOf(';');
+                    string sTranslatedWord = Utils.Substr(ref workingString, 0, nextDelimeter);//workingString.Substring(0, nextDelimeter);
                     nextStart = nextDelimeter + 1;
-                    workingString = workingString.Substring(nextStart);
-                    nextDelimeter = workingString.IndexOf(';');
+                    workingString = Utils.Substr(ref workingString, nextStart);//workingString.Substring(nextStart);
+                    nextDelimeter = Utils.Strchr(ref workingString, ';');//workingString.IndexOf(';');
                     string sForeignExample0;
                     if ((nextDelimeter - nextStart) < 2)
                         sForeignExample0 = "";
                     else
-                        sForeignExample0 = workingString.Substring(0, nextDelimeter);
+                        sForeignExample0 = Utils.Substr(ref workingString, 0, nextDelimeter);//workingString.Substring(0, nextDelimeter);
 
                     nextStart = nextDelimeter + 1;
-                    workingString = workingString.Substring(nextStart);
-                    nextDelimeter = workingString.IndexOf(';');
+                    workingString = Utils.Substr(ref workingString, nextStart);//workingString.Substring(nextStart);
+                    nextDelimeter = Utils.Strchr(ref workingString, ';');//workingString.IndexOf(';');
                     string sTranslatedExample0;
                     if (nextDelimeter < 1)
                         sTranslatedExample0 = "";
                     else
-                        sTranslatedExample0 = workingString.Substring(0, nextDelimeter);
+                        sTranslatedExample0 = Utils.Substr(ref workingString, 0, nextDelimeter);//workingString.Substring(0, nextDelimeter);
 
                     nextStart = nextDelimeter + 1;
-                    workingString = workingString.Substring(nextStart);
-                    nextDelimeter = workingString.IndexOf(';');
+                    workingString = Utils.Substr(ref workingString, nextStart);//workingString.Substring(nextStart);
+                    nextDelimeter = Utils.Strchr(ref workingString, ';');//workingString.IndexOf(';');
                     string sForeignExample1;
                     if (nextDelimeter < 1)
                         sForeignExample1 = "";
                     else
-                        sForeignExample1 = workingString.Substring(0, nextDelimeter);
+                        sForeignExample1 = Utils.Substr(ref workingString, 0, nextDelimeter);//workingString.Substring(0, nextDelimeter);
 
                     nextStart = nextDelimeter + 1;
-                    workingString = workingString.Substring(nextStart);
-                    nextDelimeter = workingString.IndexOf(';');
+                    workingString = Utils.Substr(ref workingString, nextStart);//workingString.Substring(nextStart);
+                    nextDelimeter = Utils.Strchr(ref workingString, ';');//workingString.IndexOf(';');
                     string sTranslatedExample1;
                     if (nextDelimeter < 1)
                         sTranslatedExample1 = "";
                     else
-                        sTranslatedExample1 = workingString.Substring(0, nextDelimeter);
+                        sTranslatedExample1 = Utils.Substr(ref workingString, 0, nextDelimeter);//workingString.Substring(0, nextDelimeter);
 
 
                     nextStart = nextDelimeter + 1;
-                    workingString = workingString.Substring(nextStart);
-                    nextDelimeter = workingString.IndexOf(';');
+                    workingString = Utils.Substr(ref workingString, nextStart);//workingString.Substring(nextStart);
+                    nextDelimeter = Utils.Strchr(ref workingString, ';');//workingString.IndexOf(';');
                     string sForeignExample2;
                     if (nextDelimeter < 1)
                         sForeignExample2 = "";
                     else
-                        sForeignExample2 = workingString.Substring(0, nextDelimeter);
+                        sForeignExample2 = Utils.Substr(ref workingString, 0, nextDelimeter);//workingString.Substring(0, nextDelimeter);
 
                     nextStart = nextDelimeter + 1;
-                    workingString = workingString.Substring(nextStart);
-                    nextDelimeter = workingString.IndexOf(';');
+                    workingString = Utils.Substr(ref workingString, nextStart);//workingString.Substring(nextStart);
+                    nextDelimeter = Utils.Strchr(ref workingString, ';');//workingString.IndexOf(';');
                     string sTranslatedExample2;
                     if (nextDelimeter < 1)
                         sTranslatedExample2 = "";
                     else
-                        sTranslatedExample2 = workingString.Substring(0, nextDelimeter);
+                        sTranslatedExample2 = Utils.Substr(ref workingString, 0, nextDelimeter);//workingString.Substring(0, nextDelimeter);
 
                     WordToLearn wtlTemp = new WordToLearn(Controller.Languages[AutoLoadComboBox.SelectedIndex].iCode, sForeignWord, sTranslatedWord, sForeignExample0, sTranslatedExample0, sForeignExample1, sTranslatedExample1, sForeignExample2, sTranslatedExample2);
                     Controller.AddNewWordToDictionary(wtlTemp);
@@ -120,9 +170,23 @@ namespace WordRepeater
             finally
             {
 
+                Controller.eEnvironment.pAutoLoadListForm = this.Location;
+                Controller.SaveEnvironment();
+                mfMainForm.FillTabs();
+                this.Dispose();
             }
-            mfMainForm.FillTabs();
-            this.Dispose();
+            
+        }
+
+        private void OnClose(object sender, FormClosingEventArgs e)
+        {
+            Controller.eEnvironment.pAutoLoadListForm = this.Location;
+            Controller.SaveEnvironment();
+        }
+
+        private void AutoLoadListForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

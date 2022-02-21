@@ -17,40 +17,56 @@ namespace WordRepeater
         public static List<Language> Languages { get; private set; }//Список языков
         public static Settings sSettings;
         public static UserData udUserData;
+        public static Model.Environment eEnvironment;
         public static List<WordToLearn> wtlWordsToLearn;
         public static bool RepeatWordFormClosed = true;
         public static void Init()
         {
             sSettings = new Settings();
             udUserData = new UserData();
+            eEnvironment = new Model.Environment();
             wtlWordsToLearn = new List<WordToLearn>();
         }
         public static Language AddNewLanguage(string language)
         {
-            Language lLanguage = new Language(language);
-            if (null != Languages)
-                Languages.Add(lLanguage);
-            else
+            try
             {
-                Languages = new List<Language>();
-                Languages.Add(lLanguage);
+                Language lLanguage = new Language(language);
+                if (null != Languages)
+                    Languages.Add(lLanguage);
+                else
+                {
+                    Languages = new List<Language>();
+                    Languages.Add(lLanguage);
+                }
+                SaveLanguages();
+                return lLanguage;
             }
-            SaveLanguages();
-            return lLanguage;
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
 
         public static bool HasLanguage(string sLanguage)
         {
-            if (null == Languages)
-                return false;
-            foreach (Language l in Languages)
+            try
             {
-                if (l.sName.Equals(sLanguage))
+                if (null == Languages)
+                    return false;
+                foreach (Language l in Languages)
                 {
-                    return true;
+                    if (l.sName.Equals(sLanguage))
+                    {
+                        return true;
+                    }
                 }
-            }
                 return false;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
 
         public static Language GetCurrentLanguage(int index)
@@ -63,6 +79,7 @@ namespace WordRepeater
             wtlWordsToLearn.Add(wtlWordToLearn);
             SaveDictionary();
         }
+
         public static void SaveLanguages()//сохраняем список языков
         {
             Stream fs=null;
@@ -106,6 +123,30 @@ namespace WordRepeater
                     fs.Close();
             }
         }
+
+        public static void SaveEnvironment()//сохраняем расположение форм
+        {
+            Stream fs = null;
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                fs = File.Create(Program.PATH + "UserData\\environment");
+                fs.Position = 0;
+                formatter.Serialize(fs, eEnvironment);
+                fs.Flush();
+
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                if (null != fs)
+                    fs.Close();
+            }
+        }
+
         public static void SaveSettings()
         {
             Stream fs = null;
@@ -150,6 +191,30 @@ namespace WordRepeater
                 }
             }
             catch(Exception e)
+            {
+
+            }
+            finally
+            {
+                if (null != fs)
+                    fs.Close();
+            }
+        }
+
+        public static void LoadEnvironment()
+        {
+            Stream fs = null;
+            try
+            {
+                if (!File.Exists(Program.PATH + "UserData\\environment"))
+                    return;
+                BinaryFormatter formatter = new BinaryFormatter();
+                fs = File.Open(Program.PATH + "UserData\\environment", FileMode.Open);
+                fs.Position = 0;
+                eEnvironment = (Model.Environment)formatter.Deserialize(fs);
+                fs.Close();
+            }
+            catch (Exception e)
             {
 
             }

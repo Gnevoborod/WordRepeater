@@ -38,17 +38,17 @@ namespace WordRepeater
             this.ExampleTextBox2 = new System.Windows.Forms.TextBox();
             this.AddWordButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.TranslationTextBox0 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.TranslationTextBox0 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.TranslationTextBox1 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.TranslationTextBox2 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.TranslationTextBox1 = new System.Windows.Forms.TextBox();
-            this.TranslationTextBox2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -130,22 +130,6 @@ namespace WordRepeater
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Example 1";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(32, 44);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 20);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Sentence";
-            // 
-            // TranslationTextBox0
-            // 
-            this.TranslationTextBox0.Location = new System.Drawing.Point(138, 87);
-            this.TranslationTextBox0.Name = "TranslationTextBox0";
-            this.TranslationTextBox0.Size = new System.Drawing.Size(247, 27);
-            this.TranslationTextBox0.TabIndex = 11;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -154,6 +138,22 @@ namespace WordRepeater
             this.label6.Size = new System.Drawing.Size(81, 20);
             this.label6.TabIndex = 12;
             this.label6.Text = "Translation";
+            // 
+            // TranslationTextBox0
+            // 
+            this.TranslationTextBox0.Location = new System.Drawing.Point(138, 87);
+            this.TranslationTextBox0.Name = "TranslationTextBox0";
+            this.TranslationTextBox0.Size = new System.Drawing.Size(247, 27);
+            this.TranslationTextBox0.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(32, 44);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(69, 20);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Sentence";
             // 
             // groupBox2
             // 
@@ -168,14 +168,12 @@ namespace WordRepeater
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Example 2";
             // 
-            // label7
+            // TranslationTextBox1
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(30, 42);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(69, 20);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Sentence";
+            this.TranslationTextBox1.Location = new System.Drawing.Point(136, 84);
+            this.TranslationTextBox1.Name = "TranslationTextBox1";
+            this.TranslationTextBox1.Size = new System.Drawing.Size(247, 27);
+            this.TranslationTextBox1.TabIndex = 13;
             // 
             // label8
             // 
@@ -185,6 +183,15 @@ namespace WordRepeater
             this.label8.Size = new System.Drawing.Size(81, 20);
             this.label8.TabIndex = 13;
             this.label8.Text = "Translation";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(30, 42);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(69, 20);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Sentence";
             // 
             // groupBox3
             // 
@@ -198,6 +205,13 @@ namespace WordRepeater
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Example 2";
+            // 
+            // TranslationTextBox2
+            // 
+            this.TranslationTextBox2.Location = new System.Drawing.Point(136, 85);
+            this.TranslationTextBox2.Name = "TranslationTextBox2";
+            this.TranslationTextBox2.Size = new System.Drawing.Size(247, 27);
+            this.TranslationTextBox2.TabIndex = 14;
             // 
             // label9
             // 
@@ -217,20 +231,6 @@ namespace WordRepeater
             this.label10.TabIndex = 13;
             this.label10.Text = "Sentence";
             // 
-            // TranslationTextBox1
-            // 
-            this.TranslationTextBox1.Location = new System.Drawing.Point(136, 84);
-            this.TranslationTextBox1.Name = "TranslationTextBox1";
-            this.TranslationTextBox1.Size = new System.Drawing.Size(247, 27);
-            this.TranslationTextBox1.TabIndex = 13;
-            // 
-            // TranslationTextBox2
-            // 
-            this.TranslationTextBox2.Location = new System.Drawing.Point(136, 85);
-            this.TranslationTextBox2.Name = "TranslationTextBox2";
-            this.TranslationTextBox2.Size = new System.Drawing.Size(247, 27);
-            this.TranslationTextBox2.TabIndex = 14;
-            // 
             // AddNewWordForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -244,8 +244,11 @@ namespace WordRepeater
             this.Controls.Add(this.WordTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AddNewWordForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Add new word";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

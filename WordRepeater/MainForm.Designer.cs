@@ -43,6 +43,7 @@ namespace WordRepeater
             this.AutoLoadBtn = new System.Windows.Forms.ToolStripButton();
             this.DownloadBtn = new System.Windows.Forms.ToolStripButton();
             this.Statistics = new System.Windows.Forms.ToolStripButton();
+            this.AboutButton = new System.Windows.Forms.ToolStripButton();
             this.QuitButton = new System.Windows.Forms.ToolStripButton();
             this.LanguagesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -98,6 +99,7 @@ namespace WordRepeater
             this.AutoLoadBtn,
             this.DownloadBtn,
             this.Statistics,
+            this.AboutButton,
             this.QuitButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -165,6 +167,16 @@ namespace WordRepeater
             this.Statistics.Text = "Statistics";
             this.Statistics.Click += new System.EventHandler(this.Statistics_Click);
             // 
+            // AboutButton
+            // 
+            this.AboutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.AboutButton.Image = ((System.Drawing.Image)(resources.GetObject("AboutButton.Image")));
+            this.AboutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AboutButton.Name = "AboutButton";
+            this.AboutButton.Size = new System.Drawing.Size(29, 24);
+            this.AboutButton.Text = "About";
+            this.AboutButton.Click += new System.EventHandler(this.AboutButton_Click);
+            // 
             // QuitButton
             // 
             this.QuitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -181,11 +193,10 @@ namespace WordRepeater
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LanguagesTab.Controls.Add(this.tabPage1);
-            this.LanguagesTab.Location = new System.Drawing.Point(1, 32);
+            this.LanguagesTab.Location = new System.Drawing.Point(1, 35);
             this.LanguagesTab.Name = "LanguagesTab";
             this.LanguagesTab.SelectedIndex = 0;
-            this.LanguagesTab.Size = new System.Drawing.Size(1565, 933);
-            this.LanguagesTab.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
+            this.LanguagesTab.Size = new System.Drawing.Size(1565, 943);
             this.LanguagesTab.TabIndex = 1;
             this.LanguagesTab.Visible = false;
             // 
@@ -195,7 +206,7 @@ namespace WordRepeater
             this.tabPage1.Controls.Add(this.demoLabel);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(1557, 900);
+            this.tabPage1.Size = new System.Drawing.Size(1557, 910);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Projectivity";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -212,7 +223,9 @@ namespace WordRepeater
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1566, 966);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(1566, 978);
+            this.ContextMenuStrip = this.taskBarMenu;
             this.Controls.Add(this.LanguagesTab);
             this.Controls.Add(this.toolStrip1);
             this.Location = new System.Drawing.Point(20, 20);
@@ -250,6 +263,7 @@ namespace WordRepeater
         private System.Windows.Forms.ToolStripButton AutoLoadBtn;
         private System.Windows.Forms.ToolStripButton DownloadBtn;
         private System.Windows.Forms.ToolStripButton Statistics;
+        private System.Windows.Forms.ToolStripButton AboutButton;
     }
 }
 
