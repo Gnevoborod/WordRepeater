@@ -100,6 +100,7 @@ namespace WordRepeater
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Load list of words";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
+            this.Load += new System.EventHandler(this.AutoLoadListForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

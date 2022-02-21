@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using WordRepeater.Model;
 namespace WordRepeater
 {
@@ -135,8 +136,9 @@ namespace WordRepeater
                 variant2.Enabled = false;
                 variant3.Enabled = false;
                 variant4.Enabled = false;
-                Controller.wtlWordsToLearn[index].iTotalAnswers = Controller.wtlWordsToLearn[index].iRightAnswers + Controller.wtlWordsToLearn[index].iWrongAnswers;
-                Controller.SaveDictionary();
+                WordToLearn wtl = Controller.wtlWordsToLearn[index];
+                wtl.iTotalAnswers = wtl.iRightAnswers + wtl.iWrongAnswers;
+                //Controller.SaveDictionary();
                 ContinueTraineeBtn.Enabled = true;
             }
             catch(Exception ex)
@@ -268,6 +270,8 @@ namespace WordRepeater
         private void OnClose(object sender, FormClosingEventArgs e)
         {
             Controller.eEnvironment.pRepeatWordForm = this.Location;
+            Thread sv=new Thread(Controller.SaveDictionary);//вынесли в отдельный поток сохранение словаря. иначе при большом объёме данных проверка слов при тайминге=0 ОЧЕНЬ сильно тормозит
+            sv.Start();
             Controller.SaveEnvironment();
         }
     }

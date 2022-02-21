@@ -79,6 +79,7 @@ namespace WordRepeater
             wtlWordsToLearn.Add(wtlWordToLearn);
             SaveDictionary();
         }
+
         public static void SaveLanguages()//сохраняем список языков
         {
             Stream fs=null;

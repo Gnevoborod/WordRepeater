@@ -261,6 +261,8 @@ namespace WordRepeater
         {
             try
             {
+                if (null == lLanguage)
+                    return;
                 LanguagesTab.TabPages.Add(lLanguage.sName);
                 int iCurrentIndex = LanguagesTab.TabPages.Count - 1;
                 LanguagesTab.TabPages[iCurrentIndex].Name = "TabPage" + lLanguage.iCode.ToString();

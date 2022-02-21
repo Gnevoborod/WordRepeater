@@ -15,7 +15,7 @@ namespace WordRepeater.Model
         public Language(string _sName)
         {
             sName = _sName;
-            if (null == Controller.Languages)
+            if ((null == Controller.Languages) || (Controller.Languages.Count<1))
                 iCode = 0;
             else
                 iCode = Controller.Languages.Max<Language>(l => l.iCode)+1;
