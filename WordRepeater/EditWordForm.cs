@@ -14,6 +14,7 @@ namespace WordRepeater
             wordToLearn = wtl;
             mfMainForm = mf;
             InitializeComponent();
+            this.Text = "Add new word for: " + Controller.Languages[wordToLearn.iLanguageCode].sName;
             if (null != Controller.eEnvironment.pEditWordForm)
                 this.Location = (Point)Controller.eEnvironment.pEditWordForm;
             WordTextBox.Text = wordToLearn.sForeignWord;

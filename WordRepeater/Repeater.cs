@@ -6,7 +6,7 @@ namespace WordRepeater
     public class Repeater
     {
         RepeatWordForm rwfRepeatWordForm;
-
+        int iSwitch = 0;
        
         public void Repeat()
         {
@@ -30,7 +30,15 @@ namespace WordRepeater
                         return;
                     if (!Controller.sSettings.bTrainingIsActive)
                         continue;
-                    rwfRepeatWordForm = new RepeatWordForm(this);
+                    if ((bool)Controller.sSettings.bSwitchLanguagesWhileTrainee || null == Controller.sSettings.bSwitchLanguagesWhileTrainee)
+                        if (iSwitch > 0)
+                            iSwitch--;
+                        else
+                            iSwitch++;
+                    else
+                        if (iSwitch > 0)
+                        iSwitch = 0;
+                    rwfRepeatWordForm = new RepeatWordForm(iSwitch);
                     rwfRepeatWordForm.ShowDialog();
 
                 }

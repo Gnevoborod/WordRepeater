@@ -40,6 +40,7 @@ namespace WordRepeater
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbLanguageToRepeat = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbSwitchLanguage = new System.Windows.Forms.CheckBox();
             this.cbForeignWordToTrain = new System.Windows.Forms.CheckBox();
             this.cbAlgorythm = new System.Windows.Forms.CheckBox();
             this.SecondsInput = new System.Windows.Forms.NumericUpDown();
@@ -149,6 +150,7 @@ namespace WordRepeater
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cbSwitchLanguage);
             this.groupBox2.Controls.Add(this.cbForeignWordToTrain);
             this.groupBox2.Controls.Add(this.cbAlgorythm);
             this.groupBox2.Controls.Add(this.SecondsInput);
@@ -156,10 +158,21 @@ namespace WordRepeater
             this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Location = new System.Drawing.Point(24, 214);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(392, 270);
+            this.groupBox2.Size = new System.Drawing.Size(392, 305);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Repeating";
+            // 
+            // cbSwitchLanguage
+            // 
+            this.cbSwitchLanguage.AutoSize = true;
+            this.cbSwitchLanguage.Location = new System.Drawing.Point(18, 260);
+            this.cbSwitchLanguage.Name = "cbSwitchLanguage";
+            this.cbSwitchLanguage.Size = new System.Drawing.Size(335, 24);
+            this.cbSwitchLanguage.TabIndex = 10;
+            this.cbSwitchLanguage.Text = "Switch foreign\\mother language while trainee";
+            this.cbSwitchLanguage.UseVisualStyleBackColor = true;
+            this.cbSwitchLanguage.CheckedChanged += new System.EventHandler(this.cbSwitchLanguage_CheckedChanged);
             // 
             // cbForeignWordToTrain
             // 
@@ -200,7 +213,7 @@ namespace WordRepeater
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.checkBox2);
-            this.groupBox3.Location = new System.Drawing.Point(24, 490);
+            this.groupBox3.Location = new System.Drawing.Point(24, 525);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(392, 105);
             this.groupBox3.TabIndex = 9;
@@ -211,7 +224,7 @@ namespace WordRepeater
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 611);
+            this.ClientSize = new System.Drawing.Size(450, 641);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -249,5 +262,6 @@ namespace WordRepeater
         private System.Windows.Forms.CheckBox cbAlgorythm;
         private System.Windows.Forms.CheckBox cbLanguageToRepeat;
         private System.Windows.Forms.CheckBox cbForeignWordToTrain;
+        private System.Windows.Forms.CheckBox cbSwitchLanguage;
     }
 }

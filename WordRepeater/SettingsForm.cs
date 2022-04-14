@@ -38,6 +38,7 @@ namespace WordRepeater
                     Controller.SaveSettings();
                 }
                 cbForeignWordToTrain.Checked = (bool)Controller.sSettings.bForeignWordToTrain;
+                cbSwitchLanguage.Checked=(bool)Controller.sSettings.bSwitchLanguagesWhileTrainee;
             }
             catch (Exception ex)
             {
@@ -147,6 +148,14 @@ namespace WordRepeater
             if (null == Controller.sSettings.bForeignWordToTrain)
                 Controller.sSettings.bForeignWordToTrain = true;
             Controller.sSettings.bForeignWordToTrain = cbForeignWordToTrain.Checked;
+            Controller.SaveSettings();
+        }
+
+        private void cbSwitchLanguage_CheckedChanged(object sender, EventArgs e)
+        {
+            if (null == Controller.sSettings.bSwitchLanguagesWhileTrainee)
+                Controller.sSettings.bSwitchLanguagesWhileTrainee = true;
+            Controller.sSettings.bSwitchLanguagesWhileTrainee = cbSwitchLanguage.Checked;
             Controller.SaveSettings();
         }
     }

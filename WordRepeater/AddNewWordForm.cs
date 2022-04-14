@@ -14,6 +14,7 @@ namespace WordRepeater
             iLanguageCode = iLCode;
             mfMainForm = mf;
             InitializeComponent();
+            this.Text = "Add new word for: "+ Controller.Languages[iLanguageCode].sName;
             if (null != Controller.eEnvironment.pAddNewWordForm)
                 this.Location = (Point)Controller.eEnvironment.pAddNewWordForm;
         }
