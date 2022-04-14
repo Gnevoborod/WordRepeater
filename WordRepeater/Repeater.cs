@@ -30,7 +30,7 @@ namespace WordRepeater
                         return;
                     if (!Controller.sSettings.bTrainingIsActive)
                         continue;
-                    if ((bool)Controller.sSettings.bSwitchLanguagesWhileTrainee || null == Controller.sSettings.bSwitchLanguagesWhileTrainee)
+                    if (null != Controller.sSettings.bSwitchLanguagesWhileTrainee && (bool)Controller.sSettings.bSwitchLanguagesWhileTrainee)
                         if (iSwitch > 0)
                             iSwitch--;
                         else
