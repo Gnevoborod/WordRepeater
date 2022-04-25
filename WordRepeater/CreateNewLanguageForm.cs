@@ -38,7 +38,7 @@ namespace WordRepeater
             oMother.AddTabWithLanguages(lLanguage);
         }
 
-        private void OnClose(object sender, FormClosingEventArgs e)
+        private void LocationChange(object sender, EventArgs e)
         {
             Controller.eEnvironment.pCreateNewLanguageForm = this.Location;
             Controller.SaveEnvironment();

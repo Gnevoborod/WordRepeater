@@ -234,7 +234,7 @@ namespace WordRepeater
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Settings";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
+            this.LocationChanged += new System.EventHandler(this.LocationChange);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

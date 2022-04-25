@@ -293,9 +293,15 @@ namespace WordRepeater
 
         private void OnClose(object sender, FormClosingEventArgs e)
         {
-            Controller.eEnvironment.pRepeatWordForm = this.Location;
+            
             Thread sv=new Thread(Controller.SaveDictionary);//вынесли в отдельный поток сохранение словаря. иначе при большом объёме данных проверка слов при тайминге=0 ОЧЕНЬ сильно тормозит
             sv.Start();
+            
+        }
+
+        private void LocationChange(object sender, EventArgs e)
+        {
+            Controller.eEnvironment.pRepeatWordForm = this.Location;
             Controller.SaveEnvironment();
         }
     }

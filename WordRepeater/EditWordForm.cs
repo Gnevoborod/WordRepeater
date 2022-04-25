@@ -46,7 +46,7 @@ namespace WordRepeater
             mfMainForm.FillTabs();
         }
 
-        private void OnClose(object sender, FormClosingEventArgs e)
+        private void LocationChange(object sender, EventArgs e)
         {
             Controller.eEnvironment.pEditWordForm = this.Location;
             Controller.SaveEnvironment();

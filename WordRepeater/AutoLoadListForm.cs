@@ -178,7 +178,7 @@ namespace WordRepeater
             
         }
 
-        private void OnClose(object sender, FormClosingEventArgs e)
+        private void LocationChange(object sender, EventArgs e)
         {
             Controller.eEnvironment.pAutoLoadListForm = this.Location;
             Controller.SaveEnvironment();

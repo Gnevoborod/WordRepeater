@@ -32,7 +32,7 @@ namespace WordRepeater
             _mf.ReloadTabs();
         }
 
-        private void OnClose(object sender, FormClosingEventArgs e)
+        private void LocationChange(object sender, EventArgs e)
         {
             Controller.eEnvironment.pEditLanguageNameForm = this.Location;
             Controller.SaveEnvironment();

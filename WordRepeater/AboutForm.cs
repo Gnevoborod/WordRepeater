@@ -24,7 +24,7 @@ namespace WordRepeater
             
         }
 
-        private void OnClose(object sender, FormClosingEventArgs e)
+        private void LocationChange(object sender, EventArgs e)
         {
             Controller.eEnvironment.pAboutForm = this.Location;
             Controller.SaveEnvironment();
@@ -35,5 +35,6 @@ namespace WordRepeater
             this.Close();
             this.Dispose();
         }
+
     }
 }

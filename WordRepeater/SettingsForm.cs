@@ -109,7 +109,7 @@ namespace WordRepeater
         }
 
 
-        private void OnClose(object sender, FormClosingEventArgs e)
+        private void LocationChange(object sender, EventArgs e)
         {
             Controller.eEnvironment.pSettingsForm = this.Location;
             Controller.SaveEnvironment();

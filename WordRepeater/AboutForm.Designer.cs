@@ -63,7 +63,7 @@ namespace WordRepeater
             this.Name = "AboutForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "About";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
+            this.LocationChanged += new System.EventHandler(this.LocationChange);
             this.ResumeLayout(false);
             this.PerformLayout();
 
