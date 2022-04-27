@@ -109,8 +109,8 @@ namespace WordRepeater
             this.Name = "StatisticsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Statistics";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClose);
             this.Load += new System.EventHandler(this.StatisticsForm_Load);
+            this.LocationChanged += new System.EventHandler(this.LocationChange);
             this.ResumeLayout(false);
             this.PerformLayout();
 

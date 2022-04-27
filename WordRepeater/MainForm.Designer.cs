@@ -234,6 +234,7 @@ namespace WordRepeater
             this.Text = "Word repeater";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.LocationChanged += new System.EventHandler(this.LocationChange);
             this.taskBarMenu.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

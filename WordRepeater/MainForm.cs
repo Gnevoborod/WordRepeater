@@ -519,11 +519,14 @@ namespace WordRepeater
             
         }
 
-
-        private void CloseApplication(object sender, EventArgs e)
+        private void LocationChange(object sender, EventArgs e)
         {
             Controller.eEnvironment.pMainForm = this.Location;
             Controller.SaveEnvironment();
+        }
+        private void CloseApplication(object sender, EventArgs e)
+        {
+            
             Program.ToClose = true;
             this.Dispose(true);
         }

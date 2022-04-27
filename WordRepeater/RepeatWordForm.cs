@@ -10,13 +10,13 @@ namespace WordRepeater
 {
     public partial class RepeatWordForm : Form
     {
-        Repeater rRepeater;
+        int iSwitch;
         int iRightVariant;
         int[] ArrayOfValues=new int[4];
         List<WordToLearn> wtlToRepeat = null;
-        public RepeatWordForm(Repeater r)
+        public RepeatWordForm(int iSwitch)
         {
-            rRepeater = r;
+            this.iSwitch = iSwitch;
             
             InitializeComponent();
             if (null != Controller.eEnvironment.pRepeatWordForm)
@@ -93,15 +93,39 @@ namespace WordRepeater
                         continue;
                     }
                 }
-                bool bForeignWordToTrain = (bool)Controller.sSettings.bForeignWordToTrain;
-                this.variant1.Text = bForeignWordToTrain?wtlToRepeat[ArrayOfValues[0]].sTranslatedWord: wtlToRepeat[ArrayOfValues[0]].sForeignWord;
-                this.variant2.Text = bForeignWordToTrain ? wtlToRepeat[ArrayOfValues[1]].sTranslatedWord : wtlToRepeat[ArrayOfValues[1]].sForeignWord;
-                this.variant3.Text = bForeignWordToTrain ? wtlToRepeat[ArrayOfValues[2]].sTranslatedWord : wtlToRepeat[ArrayOfValues[2]].sForeignWord;
-                this.variant4.Text = bForeignWordToTrain ? wtlToRepeat[ArrayOfValues[3]].sTranslatedWord : wtlToRepeat[ArrayOfValues[3]].sForeignWord;
+
+                //bool bForeignWordToTrain = (bool)Controller.sSettings.bForeignWordToTrain;
+                int iForeignWordToTrain = (bool)Controller.sSettings.bForeignWordToTrain ?1:0;
+                int iWay =iForeignWordToTrain+iSwitch;
+                if (1==iWay)
+                {
+                    this.variant1.Text = wtlToRepeat[ArrayOfValues[0]].sTranslatedWord;
+                    this.variant2.Text = wtlToRepeat[ArrayOfValues[1]].sTranslatedWord;
+                    this.variant3.Text = wtlToRepeat[ArrayOfValues[2]].sTranslatedWord;
+                    this.variant4.Text = wtlToRepeat[ArrayOfValues[3]].sTranslatedWord;
+                }
+                if (1 < iWay||iWay<1)
+                {
+                    this.variant1.Text = wtlToRepeat[ArrayOfValues[0]].sForeignWord;
+                    this.variant2.Text = wtlToRepeat[ArrayOfValues[1]].sForeignWord;
+                    this.variant3.Text = wtlToRepeat[ArrayOfValues[2]].sForeignWord;
+                    this.variant4.Text = wtlToRepeat[ArrayOfValues[3]].sForeignWord;
+                }
+                
                 iRightVariant = rnd.Next(0, 4);
                 //просто заполняем каждый радиобатон данными, а затем вычисляем какой из них будет корректным
-                this.wordToRepeat.Text = bForeignWordToTrain ? wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignWord: wtlToRepeat[ArrayOfValues[iRightVariant]].sTranslatedWord;
-                this.exampleForWordToRepeat.Text = bForeignWordToTrain ? wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignExample0: wtlToRepeat[ArrayOfValues[iRightVariant]].sTranslatedExample0;
+                if(1 == iWay)
+                {
+                    this.wordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignWord;
+                    this.exampleForWordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignExample0;
+
+                }
+                if (1 < iWay || iWay < 1)
+                {
+                    this.wordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sTranslatedWord;
+                    this.exampleForWordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sTranslatedExample0;
+
+                }
                 if (null == wtlToRepeat[ArrayOfValues[iRightVariant]].iRightAnswers)
                     wtlToRepeat[ArrayOfValues[iRightVariant]].iRightAnswers = 0;
                 if (null == wtlToRepeat[ArrayOfValues[iRightVariant]].iWrongAnswers)
@@ -269,9 +293,15 @@ namespace WordRepeater
 
         private void OnClose(object sender, FormClosingEventArgs e)
         {
-            Controller.eEnvironment.pRepeatWordForm = this.Location;
+            
             Thread sv=new Thread(Controller.SaveDictionary);//вынесли в отдельный поток сохранение словаря. иначе при большом объёме данных проверка слов при тайминге=0 ОЧЕНЬ сильно тормозит
             sv.Start();
+            
+        }
+
+        private void LocationChange(object sender, EventArgs e)
+        {
+            Controller.eEnvironment.pRepeatWordForm = this.Location;
             Controller.SaveEnvironment();
         }
     }

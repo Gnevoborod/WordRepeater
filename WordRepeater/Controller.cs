@@ -216,7 +216,7 @@ namespace WordRepeater
             }
             catch (Exception e)
             {
-
+                eEnvironment = new Model.Environment();
             }
             finally
             {
