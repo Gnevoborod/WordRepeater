@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.Globalization;
 
 namespace WordRepeater
 {
@@ -27,6 +28,7 @@ namespace WordRepeater
         {
             if (!Directory.Exists(Program.PATH + "UserData\\"))
                 Directory.CreateDirectory(Program.PATH + "UserData\\");
+            CultureInfo ci = CultureInfo.CurrentCulture;
             Controller.Init();
             Controller.LoadSettings();
             Controller.LoadDictionary();
@@ -41,7 +43,10 @@ namespace WordRepeater
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(mfMainForm=new MainForm());
+            int language = 0;
+            if (ci.Name == "ru-RU")
+                language = 1;
+            Application.Run(mfMainForm=new MainForm(language));
         }
     }
 }

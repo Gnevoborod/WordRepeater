@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.IO;
 using WordRepeater.Model;
 using System.Text;
+using WordRepeater.Languages;
 
 namespace WordRepeater
 {
@@ -26,11 +27,25 @@ namespace WordRepeater
         CheckBox cbActivity = null;
         GroupBox gbStatistics = null;
         Label lWrongText, lWrong, lRightText, lRight, lTotalText, lTotal;
-        public MainForm()
+        MainFormLanguage mainFormLanguage;
+        public MainForm(int lang)
         {
+            //lang=0 - ENG, 1-RU
             try
             {
                 InitializeComponent();
+                mainFormLanguage = new MainFormLanguage(lang);
+                this.Text = mainFormLanguage.TITLE;                
+                this.SettingsButton.Text = mainFormLanguage.SETTINGS_BTN;
+                this.AddNewLanguageButton.Text = mainFormLanguage.LANG_BTN;
+                this.NewWordButton.Text = mainFormLanguage.WORD_BTN;
+                this.AutoLoadBtn.Text = mainFormLanguage.UPLOAD_BTN;
+                this.DownloadBtn.Text = mainFormLanguage.DOWNLOAD_BTN;
+                this.Statistics.Text = mainFormLanguage.STATISTICS_BTN;
+                this.AboutButton.Text = mainFormLanguage.ABOUT_BTN;
+                this.QuitButton.Text = mainFormLanguage.QUIT_BTN;
+
+
                 if (null != Controller.eEnvironment.pMainForm)
                     this.Location = (Point)Controller.eEnvironment.pMainForm;
                 if (null != Controller.eEnvironment.sMainForm)
@@ -46,7 +61,7 @@ namespace WordRepeater
                 offset = this.Height - LanguagesTab.Height - offsetForSearch + toolStrip1.Height + 1;
                 tbSearch = new TextBox();
                 tbSearch.Size = new System.Drawing.Size(tbSearch.Width * 2, tbSearch.Height);
-                tbSearch.PlaceholderText = "Search";
+                tbSearch.PlaceholderText = mainFormLanguage.PLACEHOLDER;
                 tbSearch.Location = new Point(tbSearch.Location.X, tbSearch.Location.Y + iLittleDelimeter);
                 tbSearch.TextChanged += new System.EventHandler(SearchWord);
                 //info about word
@@ -58,14 +73,14 @@ namespace WordRepeater
                 //edit button
 
                 bEditButton = new Button();
-                bEditButton.Text = "Edit";
+                bEditButton.Text = mainFormLanguage.ONFORM_EDIT_BTN;
                 bEditButton.Location = new Point(tbSearch.Location.X + tbSearch.Size.Width + iDelimeter, tbSearch.Location.Y);
                 //bEditButton.Location = new Point(LanguagesTab.Width / 2, (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + iDelimeter));
                 bEditButton.Size = new System.Drawing.Size(bEditButton.Size.Width, (int)(2.2f * iDelimeter));
                 this.bEditButton.Click += new System.EventHandler(EditWord);
                 //deletebutton
                 bDeleteButton = new Button();
-                bDeleteButton.Text = "Delete";
+                bDeleteButton.Text = mainFormLanguage.ONFORM_DELETE_BTN;
                 bDeleteButton.Location = new Point(bEditButton.Location.X + bEditButton.Size.Width + iDelimeter, tbSearch.Location.Y);
                 //bDeleteButton.Location = new Point(LanguagesTab.Width / 2 + bEditButton.Size.Width + (2 * iDelimeter), (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + iDelimeter));
                 bDeleteButton.Size = new System.Drawing.Size(bDeleteButton.Size.Width, (int)(2.2f * iDelimeter));
@@ -74,12 +89,13 @@ namespace WordRepeater
                 cbActivity = new CheckBox();
                 cbActivity.Location = new Point(bDeleteButton.Location.X + bDeleteButton.Size.Width + iDelimeter, tbSearch.Location.Y+ tbSearch.Size.Height/7);
                 //cbActivity.Location = new Point(LanguagesTab.Width / 2, (bEditButton.Location.Y + bEditButton.Size.Height + iDelimeter));
-                cbActivity.Text = "Active repeating";
+                cbActivity.AutoSize = true;
+                cbActivity.Text = mainFormLanguage.ACTIVE_REPEATING;
                 cbActivity.Click += new System.EventHandler(ChangeCheckedBox);
 
                 //groupbox statistics
                 gbStatistics = new GroupBox();
-                gbStatistics.Text = "Statistics";
+                gbStatistics.Text = mainFormLanguage.STATISTICS;
                 gbStatistics.Location = new Point(LanguagesTab.Width / 2, (rtbInfoAboutWord.Location.Y + rtbInfoAboutWord.Size.Height + (5 + iDelimeter)));
                 gbStatistics.Size = new System.Drawing.Size(rtbInfoAboutWord.Size.Width, (int)(LanguagesTab.Size.Height / 2) - (int)(rtbInfoAboutWord.Size.Height * 0.8f));// (int)(rtbInfoAboutWord.Size.Height * 0.815f));
 
@@ -96,9 +112,9 @@ namespace WordRepeater
                 //lTotalText.AutoSize = true;
                 lRight.BackColor = Color.LightGreen;
                 lWrong.BackColor = Color.LightPink;
-                lTotalText.Text = "Total: ";
-                lWrongText.Text = "Wrong answers: ";
-                lRightText.Text = "Right answers: ";
+                lTotalText.Text = mainFormLanguage.TOTAL;
+                lWrongText.Text = mainFormLanguage.WRONG;
+                lRightText.Text = mainFormLanguage.RIGHT;
 
                 lRight.Size = new System.Drawing.Size(0, lRight.Size.Height);
                 lWrong.Size = new System.Drawing.Size(0, lWrong.Size.Height);
@@ -535,7 +551,7 @@ namespace WordRepeater
         {
             try
             {
-                var result = MessageBox.Show(this, "Do you want to quit and stop trainee?", "Approving", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show(this, mainFormLanguage.APPROVE_TEXT, mainFormLanguage.APPROVE_TITLE, MessageBoxButtons.YesNo);
                 if (result.Equals(DialogResult.Yes))
                     CloseApplication(this, null);
             }
