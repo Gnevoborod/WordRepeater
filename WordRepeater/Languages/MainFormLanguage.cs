@@ -1,104 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace WordRepeater.Languages
 {
     //по классу на каждую форму.
-    class MainFormLanguage
+    public class MainFormLanguage
     {
-        public readonly string TITLE;
-        public readonly string SETTINGS_BTN;
-        public readonly string LANG_BTN;
-        public readonly string WORD_BTN;
-        public readonly string UPLOAD_BTN;
-        public readonly string DOWNLOAD_BTN;
-        public readonly string STATISTICS_BTN;
-        public readonly string ABOUT_BTN;
-        public readonly string QUIT_BTN;
-
-        public readonly string APPROVE_TITLE;
-        public readonly string APPROVE_TEXT;
-
-        public readonly string PLACEHOLDER;
-        public readonly string ONFORM_DELETE_BTN;
-        public readonly string ONFORM_EDIT_BTN;
-
-        public readonly string ACTIVE_REPEATING;
-        public readonly string STATISTICS;
-
-
-        public readonly string TOTAL;
-        public readonly string WRONG;
-        public readonly string RIGHT;
-        public MainFormLanguage(int i)
+        public bool bIsDefaultedLanguage = false;
+        public string sLanguageToLoad;
+        public Dictionary<string, string> mainFormWords;
+        public MainFormLanguage(bool flag, string langToLoad)
         {
-            TITLE = i==0
-                ?"Repeating words"
-                :"Повторение слов";
-            SETTINGS_BTN = i == 0
-                ? "Settings"
-                : "Настройки";
-            LANG_BTN = i == 0
-                ? "Add new language"
-                : "Добавить новый язык";
-            WORD_BTN = i == 0
-               ? "Add new word"
-               : "Добавить новое слово";
-            UPLOAD_BTN = i == 0
-               ? "Load list of words"
-               : "Загрузить список слов";
-            DOWNLOAD_BTN = i == 0
-               ? "Save all words"
-               : "Сохранить все слова";
-            STATISTICS_BTN = i == 0
-               ? "Statistics"
-               : "Статистика";
-            ABOUT_BTN = i == 0
-               ? "About"
-               : "О программе";
-            QUIT_BTN = i == 0
-               ? "Quit"
-               : "Выход";
+            bIsDefaultedLanguage = !flag;//false становится true. True-если успешно загружен словарь с названиями языков.
+            sLanguageToLoad = langToLoad;//имя языка ru, en etc
 
-            APPROVE_TITLE = i == 0
-              ? "Quit approving"
-              : "Подтверждение выхода";
-            APPROVE_TEXT = i == 0
-              ? "Do you want to stop trainee and quit?"
-              : "Вы действительно хотите остановить тренировку и выйти";
-
-            PLACEHOLDER = i == 0
-              ? "Search"
-              : "Поиск";
-
-            ONFORM_DELETE_BTN = i == 0
-              ? "Delete"
-              : "Удалить";
-
-            ONFORM_EDIT_BTN = i == 0
-              ? "Edit"
-              : "Правка";
-
-            ACTIVE_REPEATING = i == 0
-              ? "Repeat word"
-              : "Повторять слово";
-
-            STATISTICS = i == 0
-              ? "Statistics"
-              : "Статистика";
-            TOTAL = i == 0
-              ? "Total: "
-              : "Всего: ";
-            WRONG = i == 0
-              ? "Wrong answers: "
-              : "Ошибочных ответов: ";
-            RIGHT = i == 0
-              ? "Right answers: "
-              : "Правильных ответов: ";
-
+            mainFormWords = new Dictionary<string, string>();
+        }
+        public bool LoadApplicationLanguages()
+        {
+            string path = Program.PATH + "Localization\\"+sLanguageToLoad+"\\MainForm.txt";
+            FileStream fs;
+            StreamReader streamReader = null;
+            try
+            {   if (!File.Exists(path) || bIsDefaultedLanguage)
+                {
+                    mainFormWords.Add("TITLE", "Repeating words");
+                    mainFormWords.Add("SETTINGS_BTN", "Settings");
+                    mainFormWords.Add("LANG_BTN", "Add new language");
+                    mainFormWords.Add("WORD_BTN", "Add new word");
+                    mainFormWords.Add("UPLOAD_BTN", "Load list of words");
+                    mainFormWords.Add("DOWNLOAD_BTN","Save all words");
+                    mainFormWords.Add("STATISTICS_BTN","Statistics");
+                    mainFormWords.Add("ABOUT_BTN","About");
+                    mainFormWords.Add("QUIT_BTN","Quit");
+                    mainFormWords.Add("APPROVE_TITLE","Quit approving");
+                    mainFormWords.Add("APPROVE_TEXT","Do you want to stop trainee and quit?");
+                    mainFormWords.Add("PLACEHOLDER","Search");
+                    mainFormWords.Add("ONFORM_DELETE_BTN","Delete");
+                    mainFormWords.Add("ONFORM_EDIT_BTN","Edit");
+                    mainFormWords.Add("ACTIVE_REPEATING","Repeat word");
+                    mainFormWords.Add("STATISTICS","Statistics");
+                    mainFormWords.Add("TOTAL","Total: ");
+                    mainFormWords.Add("WRONG","Wrong answers: ");
+                    mainFormWords.Add("RIGHT","Right answers: ");
+                    return true;
+                }
+                
+                fs = new FileStream(path, FileMode.Open);
+                streamReader = new StreamReader(fs);
+                string buffer;
+                while ((buffer = streamReader.ReadLine()) != null)
+                {
+                    string[] subBuffer = buffer.Split("=");
+                    mainFormWords.Add(subBuffer[0].Trim(), subBuffer[1]);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                if (streamReader != null)
+                    streamReader.Close();
+            }
         }
     }
 }
