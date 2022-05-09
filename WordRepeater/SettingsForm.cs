@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+using System.Linq;
 using System.Drawing;
-using System.Text;
+using System.Globalization;
 using System.Windows.Forms;
 using WordRepeater.Model;
+using WordRepeater.Languages;
 
 namespace WordRepeater
 {
@@ -30,15 +31,36 @@ namespace WordRepeater
                 }
                 SecondsInput.Value = Controller.sSettings.iRepeatSeconds;
                 checkBox1.Checked = Controller.sSettings.bTrainingIsActive;
-                checkBox2.Checked = (bool)Controller.sSettings.bStartOnLoad;
-                cbAlgorythm.Checked = (bool)Controller.sSettings.bRareAlgo;
+                checkBox2.Checked = Controller.sSettings.bStartOnLoad ?? true;
+                cbAlgorythm.Checked = Controller.sSettings.bRareAlgo??true;
                 if (null == Controller.sSettings.bForeignWordToTrain)
                 {
                     Controller.sSettings.bForeignWordToTrain = true;
                     Controller.SaveSettings();
                 }
                 cbForeignWordToTrain.Checked = (bool)Controller.sSettings.bForeignWordToTrain;
-                cbSwitchLanguage.Checked=(bool)Controller.sSettings.bSwitchLanguagesWhileTrainee;
+                cbSwitchLanguage.Checked=Controller.sSettings.bSwitchLanguagesWhileTrainee??false;
+                if(null!= mf.languageManager.applicationLanguage)
+                {
+
+                    
+                    foreach (string val in mf.languageManager.applicationLanguage.lsLanguageList.Values)
+                    {
+                        cbApplicationLanguage.Items.Add(val);
+                    }
+                }
+                if(cbApplicationLanguage.Items.Count>0)
+                {
+                    if (String.IsNullOrEmpty(Controller.sSettings.sApplicationLanguage))
+                    {
+                        CultureInfo ci = CultureInfo.CurrentCulture;
+                        Controller.sSettings.sApplicationLanguage = ci.TwoLetterISOLanguageName;
+                        Controller.SaveSettings();
+                    }
+                    cbApplicationLanguage.SelectedItem= mf.languageManager.applicationLanguage.lsLanguageList[Controller.sSettings.sApplicationLanguage];
+                }
+                bLangChange.Enabled = false;
+
             }
             catch (Exception ex)
             {
@@ -157,6 +179,25 @@ namespace WordRepeater
                 Controller.sSettings.bSwitchLanguagesWhileTrainee = true;
             Controller.sSettings.bSwitchLanguagesWhileTrainee = cbSwitchLanguage.Checked;
             Controller.SaveSettings();
+        }
+
+        private void cbApplicationLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbApplicationLanguage.SelectedItem != mf.languageManager.applicationLanguage.lsLanguageList[Controller.sSettings.sApplicationLanguage])
+                bLangChange.Enabled = true;
+            else
+                bLangChange.Enabled = false;
+        }
+
+        private void bLangChange_Click(object sender, EventArgs e)
+        {
+            int position = cbApplicationLanguage.SelectedIndex;
+            Controller.sSettings.sApplicationLanguage = mf.languageManager.applicationLanguage.lsLanguageList.ElementAt(position).Key;
+            //mf.languageManager = new LanguageManager(Controller.sSettings.sApplicationLanguage);
+            Controller.SaveSettings();
+            
+            mf.SetTexts(Controller.sSettings.sApplicationLanguage);
+            bLangChange.Enabled = false;
         }
     }
 }

@@ -39,12 +39,16 @@ namespace WordRepeater
                     maxCount = (int)all.Max();
 
                     average = (minCount + maxCount) / delimeter;
-                    wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive && languages.Contains(wtl.iLanguageCode) && (wtl.iTotalAnswers <= average || wtl.iTotalAnswers == null) select wtl).ToList<WordToLearn>();
-
-                }
+                    wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive && languages.Contains(wtl.iLanguageCode) && (wtl.iTotalAnswers <= average || wtl.iTotalAnswers == null)  select wtl).ToList<WordToLearn>();
+                    //wtl.iWrongAnswers<=((wtl.iWrongAnswers+wtl.iRightAnswers)*0.7 тут тянем все слова у которых неправильных ответов больше 1\3.
+                    //лучше реализовать отдельной фичей
+                }  
                 else
-                    wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive && languages.Contains(wtl.iLanguageCode) select wtl).ToList<WordToLearn>();
+                {
 
+                    wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive && languages.Contains(wtl.iLanguageCode) select wtl).ToList<WordToLearn>();
+                }
+                    
             }
             catch(Exception ex)
             {
@@ -71,8 +75,9 @@ namespace WordRepeater
                     while (wtlToRepeat.Count < 4);
                 }
                 else
-                    wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive select wtl).ToList<WordToLearn>();
-
+                {
+                        wtlToRepeat = (from wtl in Controller.wtlWordsToLearn where wtl.bIsActive select wtl).ToList<WordToLearn>();
+                }
                 for (i = 0; i < 4; i++)
                 {
                     index = rnd.Next(0, wtlToRepeat.Count);
@@ -97,12 +102,17 @@ namespace WordRepeater
                 //bool bForeignWordToTrain = (bool)Controller.sSettings.bForeignWordToTrain;
                 int iForeignWordToTrain = (bool)Controller.sSettings.bForeignWordToTrain ?1:0;
                 int iWay =iForeignWordToTrain+iSwitch;
+                iRightVariant = rnd.Next(0, 4);
+//просто заполняем каждый радиобатон данными, вычислив заранее какой из них будет корректным
                 if (1==iWay)
                 {
                     this.variant1.Text = wtlToRepeat[ArrayOfValues[0]].sTranslatedWord;
                     this.variant2.Text = wtlToRepeat[ArrayOfValues[1]].sTranslatedWord;
                     this.variant3.Text = wtlToRepeat[ArrayOfValues[2]].sTranslatedWord;
                     this.variant4.Text = wtlToRepeat[ArrayOfValues[3]].sTranslatedWord;
+                    this.wordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignWord;
+                    this.exampleForWordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignExample0;
+
                 }
                 if (1 < iWay||iWay<1)
                 {
@@ -110,22 +120,10 @@ namespace WordRepeater
                     this.variant2.Text = wtlToRepeat[ArrayOfValues[1]].sForeignWord;
                     this.variant3.Text = wtlToRepeat[ArrayOfValues[2]].sForeignWord;
                     this.variant4.Text = wtlToRepeat[ArrayOfValues[3]].sForeignWord;
-                }
-                
-                iRightVariant = rnd.Next(0, 4);
-                //просто заполняем каждый радиобатон данными, а затем вычисляем какой из них будет корректным
-                if(1 == iWay)
-                {
-                    this.wordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignWord;
-                    this.exampleForWordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sForeignExample0;
-
-                }
-                if (1 < iWay || iWay < 1)
-                {
                     this.wordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sTranslatedWord;
                     this.exampleForWordToRepeat.Text = wtlToRepeat[ArrayOfValues[iRightVariant]].sTranslatedExample0;
-
                 }
+
                 if (null == wtlToRepeat[ArrayOfValues[iRightVariant]].iRightAnswers)
                     wtlToRepeat[ArrayOfValues[iRightVariant]].iRightAnswers = 0;
                 if (null == wtlToRepeat[ArrayOfValues[iRightVariant]].iWrongAnswers)

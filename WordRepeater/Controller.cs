@@ -129,6 +129,8 @@ namespace WordRepeater
             Stream fs = null;
             try
             {
+                if (eEnvironment.pMainForm.Value.X < 0 || eEnvironment.pMainForm.Value.Y < 0)
+                    eEnvironment.pMainForm = new System.Drawing.Point() { X = 0, Y = 0 };
                 BinaryFormatter formatter = new BinaryFormatter();
                 fs = File.Create(Program.PATH + "UserData\\environment");
                 fs.Position = 0;

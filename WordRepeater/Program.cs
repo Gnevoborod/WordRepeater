@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-using System.Threading.Tasks;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Threading;
+using WordRepeater.Languages;
 
 namespace WordRepeater
 {
@@ -41,7 +42,16 @@ namespace WordRepeater
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(mfMainForm=new MainForm());
+            string sTwoLetterISOLanguageName;
+            if (String.IsNullOrEmpty(Controller.sSettings.sApplicationLanguage))
+            {
+                CultureInfo ci = CultureInfo.CurrentCulture;
+                sTwoLetterISOLanguageName = ci.TwoLetterISOLanguageName;
+            }
+            else
+                sTwoLetterISOLanguageName = Controller.sSettings.sApplicationLanguage;
+            
+            Application.Run(mfMainForm=new MainForm(sTwoLetterISOLanguageName));
         }
     }
 }
