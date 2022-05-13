@@ -106,9 +106,9 @@ namespace WordRepeater
             // ContinueTraineeBtn
             // 
             this.ContinueTraineeBtn.Enabled = false;
-            this.ContinueTraineeBtn.Location = new System.Drawing.Point(247, 256);
+            this.ContinueTraineeBtn.Location = new System.Drawing.Point(233, 256);
             this.ContinueTraineeBtn.Name = "ContinueTraineeBtn";
-            this.ContinueTraineeBtn.Size = new System.Drawing.Size(94, 29);
+            this.ContinueTraineeBtn.Size = new System.Drawing.Size(118, 29);
             this.ContinueTraineeBtn.TabIndex = 7;
             this.ContinueTraineeBtn.Text = "Continue";
             this.ContinueTraineeBtn.UseVisualStyleBackColor = true;

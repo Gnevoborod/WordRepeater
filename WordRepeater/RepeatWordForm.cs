@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using WordRepeater.Model;
+using WordRepeater.Languages;
 namespace WordRepeater
 {
     public partial class RepeatWordForm : Form
@@ -14,11 +15,16 @@ namespace WordRepeater
         int iRightVariant;
         int[] ArrayOfValues=new int[4];
         List<WordToLearn> wtlToRepeat = null;
-        public RepeatWordForm(int iSwitch)
+        RepeaterFormLanguage repeaterFormLanguage;
+        public RepeatWordForm(int iSwitch, RepeaterFormLanguage repeaterFormLanguage)
         {
             this.iSwitch = iSwitch;
-            
+            this.repeaterFormLanguage = repeaterFormLanguage;
+
             InitializeComponent();
+            this.ContinueTraineeBtn.Text = this.repeaterFormLanguage.repeatFormWords["CONTINUE_BUTTON"];
+            this.Text = this.repeaterFormLanguage.repeatFormWords["TITLE"];
+            this.stopRepeatingThisWordToolStripMenuItem.Text = this.repeaterFormLanguage.repeatFormWords["CONTEXT_MENU_STOP"];
             if (null != Controller.eEnvironment.pRepeatWordForm)
                 this.Location = (Point)Controller.eEnvironment.pRepeatWordForm;
             PrepareNewWord();

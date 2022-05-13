@@ -174,7 +174,7 @@ namespace WordRepeater
             // 
             // SecondsInput
             // 
-            this.SecondsInput.Location = new System.Drawing.Point(219, 17);
+            this.SecondsInput.Location = new System.Drawing.Point(271, 17);
             this.SecondsInput.Maximum = new decimal(new int[] {
             1000,
             0,

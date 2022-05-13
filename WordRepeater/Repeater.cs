@@ -1,13 +1,17 @@
 ﻿using System.Threading;
 using System;
-
+using WordRepeater.Languages;
 namespace WordRepeater
 {
     public class Repeater
     {
         RepeatWordForm rwfRepeatWordForm;
+        RepeaterFormLanguage repeaterFormLanguage;
         int iSwitch = 0;
-       
+        public Repeater(string sISO)
+        {
+            SetTexts(sISO);
+        }
         public void Repeat()
         {
             try
@@ -38,7 +42,7 @@ namespace WordRepeater
                     else
                         if (iSwitch > 0)
                         iSwitch = 0;
-                    rwfRepeatWordForm = new RepeatWordForm(iSwitch);
+                    rwfRepeatWordForm = new RepeatWordForm(iSwitch, repeaterFormLanguage);
                     rwfRepeatWordForm.ShowDialog();
 
                 }
@@ -47,6 +51,14 @@ namespace WordRepeater
             {
 
             }
+        }
+
+        public void SetTexts(string sISO)
+        {
+            LanguageManager languageManager = new LanguageManager(sISO);
+            repeaterFormLanguage = languageManager.LoadRepeaterFormText();
+            //Describe the load of the dictionary here
+            //then send it into RepeatWordForm
         }
 
     }

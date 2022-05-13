@@ -17,6 +17,12 @@ namespace WordRepeater
         int offset;//ListBox.DefaultItemHeight*6;
         int offsetForSearch= ListBox.DefaultItemHeight * 3;
         int iDelimeter = 13;
+        string example;
+        string deleteApprove;
+        string confirmDelete;
+        string maxTabPage;
+        string createdFileIn;
+        string successExport;
         ListBox lbListBox = null;
         TextBox tbSearch = null;
         Button bFilterABC = null;
@@ -30,15 +36,16 @@ namespace WordRepeater
         MainFormLanguage mainFormLanguage;
         public LanguageManager languageManager;
         string sTwoLetterISOLanguageName;
-        public MainForm(string sTwoLetterISOLanguageName)
+        public Program.LoadLanguagesDelegate loadLanguagesDelegate;
+        public MainForm(string sTwoLetterISOLanguageName, Program.LoadLanguagesDelegate lDel)
         {
             //lang=0 - ENG, 1-RU
             try
             {
                 this.sTwoLetterISOLanguageName = sTwoLetterISOLanguageName;
                 InitializeComponent();
-                
 
+                loadLanguagesDelegate = lDel;
 
                 if (null != Controller.eEnvironment.pMainForm)
                     this.Location = (Point)Controller.eEnvironment.pMainForm;
@@ -48,7 +55,7 @@ namespace WordRepeater
                 // добавляем Эвент или событие по 2му клику мышки, 
                 //вызывая функцию  notifyIcon1_MouseDoubleClick
                 this.notifyIcon1.MouseDoubleClick += new MouseEventHandler(notifyIcon1_MouseDoubleClick);
-
+                openToolStripMenuItem.Click += new EventHandler(notifyIcon1_MouseDoubleClick);
                 this.Resize += new System.EventHandler(this.Form1_Resize);
                 LanguagesTab.TabPages.Clear();//удаляем служебную вкладку после старта приложения
                 NewWordButton.Enabled = false;
@@ -131,7 +138,6 @@ namespace WordRepeater
                 gbStatistics.Controls.Add(lTotalText);
                 gbStatistics.Controls.Add(lTotal);
 
-                
                 if (null != Controller.Languages)
                 {
                     foreach (Language l in Controller.Languages)
@@ -140,6 +146,7 @@ namespace WordRepeater
                     }
                 }
                 LanguagesTab.SelectedIndexChanged += new System.EventHandler(CleanSearch);
+                loadLanguagesDelegate += SetTexts;
                 SetTexts(sTwoLetterISOLanguageName);
             }
             catch(Exception ex)
@@ -172,7 +179,7 @@ namespace WordRepeater
         {
             try
             {
-                var result = MessageBox.Show("Are you sure tha you want to delete this word (" + lWordToManipulate[lbListBox.SelectedIndex].sForeignWord + ")?", "Confirm", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show(deleteApprove+" (" + lWordToManipulate[lbListBox.SelectedIndex].sForeignWord + ")?", confirmDelete, MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     Controller.wtlWordsToLearn.Remove(lWordToManipulate[lbListBox.SelectedIndex]);
@@ -245,6 +252,17 @@ namespace WordRepeater
 
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            // делаем нашу иконку скрытой
+            notifyIcon1.Visible = false;
+            // возвращаем отображение окна в панели
+            this.ShowInTaskbar = true;
+            //разворачиваем окно
+            WindowState = FormWindowState.Normal;
+            Show();
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, EventArgs e)
         {
             // делаем нашу иконку скрытой
             notifyIcon1.Visible = false;
@@ -413,8 +431,8 @@ namespace WordRepeater
                     bEditButton.Enabled = true;
                     bDeleteButton.Enabled = true;
                     WordToLearn temp = lWordToManipulate[lbListBox.SelectedIndex];
-                    rtbInfoAboutWord.Text = "Example 1:\n" + temp.sForeignExample0 + " - " + temp.sTranslatedExample0 + "\n\nExample 2:\n"
-                        + temp.sForeignExample1 + " - " + temp.sTranslatedExample1 + "\n\nExample 3:\n"
+                    rtbInfoAboutWord.Text = example + " 1:\n" + temp.sForeignExample0 + " - " + temp.sTranslatedExample0 + "\n\n"+example + " 2:\n"
+                        + temp.sForeignExample1 + " - " + temp.sTranslatedExample1 + "\n\n"+example + " 3:\n"
                         + temp.sForeignExample2 + " - " + temp.sTranslatedExample2;
                     cbActivity.Checked = temp.bIsActive;
 
@@ -460,7 +478,7 @@ namespace WordRepeater
             {
                 if (Program.MaxLanguagesCount == LanguagesTab.TabCount)
                 {
-                    MessageBox.Show("Unfortunately maximum tab count was reached. If you want to add another one language please contact us or delete one of you current language.");
+                    MessageBox.Show(maxTabPage);
                     return;//если достигли максимального количества изучаемых языков - выдаём сообщение. Нужно оно или нет - пока непонятно
                 }
                 CreateNewLanguageForm cnlf = new CreateNewLanguageForm(this);
@@ -495,7 +513,7 @@ namespace WordRepeater
                 Directory.CreateDirectory(Program.PATH + "ExportedFiles\\");
                 
                 File.WriteAllLines(fileName, linesToSave);
-                MessageBox.Show("Created file in " + fileName, "Successfully exported");
+                MessageBox.Show(createdFileIn+" " + fileName, successExport);
             }
             catch(Exception ex)
             {
@@ -533,6 +551,9 @@ namespace WordRepeater
             Controller.eEnvironment.pMainForm = this.Location;
             Controller.SaveEnvironment();
         }
+
+
+
         private void CloseApplication(object sender, EventArgs e)
         {
             
@@ -585,7 +606,7 @@ namespace WordRepeater
         public void SetTexts(string sISO)
         {
             this.languageManager = new LanguageManager(sISO); 
-            mainFormLanguage = languageManager.mainFormLanguage;
+            mainFormLanguage = languageManager.LoadMainFormText();
             this.Text = mainFormLanguage.mainFormWords["TITLE"];
             this.SettingsButton.Text = mainFormLanguage.mainFormWords["SETTINGS_BTN"];
             this.AddNewLanguageButton.Text = mainFormLanguage.mainFormWords["LANG_BTN"];
@@ -603,6 +624,12 @@ namespace WordRepeater
             this.lTotalText.Text = mainFormLanguage.mainFormWords["TOTAL"];
             this.lWrongText.Text = mainFormLanguage.mainFormWords["WRONG"];
             this.lRightText.Text = mainFormLanguage.mainFormWords["RIGHT"];
+            example = mainFormLanguage.mainFormWords["EXAMPLE"];
+            deleteApprove = mainFormLanguage.mainFormWords["DELETE_APPROVE"];
+            confirmDelete = mainFormLanguage.mainFormWords["CONFIRM_DELETE"];
+            maxTabPage = mainFormLanguage.mainFormWords["MAXTABPAGE"];
+            successExport = mainFormLanguage.mainFormWords["EXPORT_SUC"];
+            createdFileIn = mainFormLanguage.mainFormWords["CREATED_FILE_IN"];
         }
     }
 }

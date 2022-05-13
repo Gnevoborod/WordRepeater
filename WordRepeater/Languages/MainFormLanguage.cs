@@ -43,6 +43,12 @@ namespace WordRepeater.Languages
                     mainFormWords.Add("TOTAL","Total: ");
                     mainFormWords.Add("WRONG","Wrong answers: ");
                     mainFormWords.Add("RIGHT","Right answers: ");
+                    mainFormWords.Add("EXAMPLE", "Example");
+                    mainFormWords.Add("DELETE_APPROVE", "Are you sure tha you want to delete this word");
+                    mainFormWords.Add("CONFIRM_DELETE", "Confirm");
+                    mainFormWords.Add("MAXTABPAGE", "Unfortunately maximum tab amount was reached. If you want to add another one language please contact us or delete one of you current language.");
+                    mainFormWords.Add("EXPORT_SUC", "Successfully exported");
+                    mainFormWords.Add("CREATED_FILE_IN", "Created file in");
                     return true;
                 }
                 

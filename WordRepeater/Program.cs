@@ -9,16 +9,17 @@ using WordRepeater.Languages;
 
 namespace WordRepeater
 {
-    static class Program
+    public static class Program
     {
         //Настроечные переменные программы
+        public delegate void LoadLanguagesDelegate(string iso);
         public const int MaxLanguagesCount = 15;
         public static bool ToClose = false;
         public const int ModelVersion = 0;//Версия моделей данных. При несовпадении требуется конвертация модели локальных данных
         public static MainForm mfMainForm;
         public static string PATH = Application.StartupPath;//Environment.CurrentDirectory;
         public static string PRG_PATH = Application.ExecutablePath;
-        public static Repeater rRepeater = new Repeater();
+        public static Repeater rRepeater;
         //конец настроечных переменных
         /// <summary>
         ///  The main entry point for the application.
@@ -37,11 +38,6 @@ namespace WordRepeater
                 Controller.AutorunRegistry(true);
             if (null == Controller.sSettings.bRareAlgo)
                 Controller.sSettings.bRareAlgo = true;
-            Thread tRepeat = new Thread(rRepeater.Repeat);
-            tRepeat.Start();
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             string sTwoLetterISOLanguageName;
             if (String.IsNullOrEmpty(Controller.sSettings.sApplicationLanguage))
             {
@@ -50,8 +46,15 @@ namespace WordRepeater
             }
             else
                 sTwoLetterISOLanguageName = Controller.sSettings.sApplicationLanguage;
+            rRepeater = new Repeater(sTwoLetterISOLanguageName);
+            Thread tRepeat = new Thread(rRepeater.Repeat);
+            tRepeat.Start();
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             
-            Application.Run(mfMainForm=new MainForm(sTwoLetterISOLanguageName));
+            LoadLanguagesDelegate loadLanguagesDelegate = new LoadLanguagesDelegate(rRepeater.SetTexts);
+            Application.Run(mfMainForm=new MainForm(sTwoLetterISOLanguageName, loadLanguagesDelegate));
         }
     }
 }
